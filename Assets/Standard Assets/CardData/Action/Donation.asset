@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: Donation
+  m_EditorClassIdentifier: 
+  card: 4
+  playerCardType: 0
+  cardFront: {fileID: 1078155045, guid: f6793397a19f45d40987db2fc57a888e, type: 3}
+  textOffset: -0.1
+  cardName: "\u6350\u732E"
+  cardDescription: "\u5C06\u4F60\u7684\u624B\u724C\u7ED9\u4E88\u53E6\u4E00\u4E2A\u73A9\u5BB6\u3002"
+  action: {fileID: 11400000, guid: de318f7064aa6d44aa307dc6e8947dfe, type: 2}

@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1326018337846581527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c009ca3ef8464d96b596e5a4bc683d, type: 3}
+  m_Name: Add Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 232, y: 344}
+  ports:
+    keys: []
+    values: []
+  resource: 3
+  num: 1
+--- !u!114 &-630337075347037479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c009ca3ef8464d96b596e5a4bc683d, type: 3}
+  m_Name: Add Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 0, y: 150}
+  ports:
+    keys: []
+    values: []
+  resource: 0
+  num: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1d6827143b95f459a5771c8a1e84f4, type: 3}
+  m_Name: MagicBomb
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -630337075347037479}
+  - {fileID: 1869235759170059392}
+  - {fileID: 8982039401638303351}
+  - {fileID: -1326018337846581527}
+  - {fileID: 3352923700463361992}
+  subject: 0
+  choiceRules: 1
+--- !u!114 &1869235759170059392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c009ca3ef8464d96b596e5a4bc683d, type: 3}
+  m_Name: Add Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 0, y: 300}
+  ports:
+    keys: []
+    values: []
+  resource: 1
+  num: 1
+--- !u!114 &3352923700463361992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c009ca3ef8464d96b596e5a4bc683d, type: 3}
+  m_Name: Add Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -8, y: 424}
+  ports:
+    keys: []
+    values: []
+  resource: 4
+  num: 1
+--- !u!114 &8982039401638303351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c009ca3ef8464d96b596e5a4bc683d, type: 3}
+  m_Name: Add Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 232, y: 216}
+  ports:
+    keys: []
+    values: []
+  resource: 2
+  num: 1

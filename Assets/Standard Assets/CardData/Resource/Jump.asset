@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: Jump
+  m_EditorClassIdentifier: 
+  card: 18
+  playerCardType: 1
+  cardFront: {fileID: 2134327, guid: 2ef82ce3702cb9c40a6f549442ce48f1, type: 3}
+  textOffset: 0
+  cardName: "\u8DF3\u8DC3"
+  cardDescription: 
+  containResource: 01000000
+  action: {fileID: 11400000, guid: c6166595c9c1a29419ac181c786a0cef, type: 2}

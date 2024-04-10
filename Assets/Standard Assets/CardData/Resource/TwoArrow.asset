@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: TwoArrow
+  m_EditorClassIdentifier: 
+  card: 26
+  playerCardType: 1
+  cardFront: {fileID: 219369835, guid: 8bac92593ed4f2840b79b0696d771bf2, type: 3}
+  textOffset: 0
+  cardName: "\u53CC\u77E2"
+  cardDescription: 
+  action: {fileID: 11400000, guid: b567647bac809e447a1e8a33cc0c9d4c, type: 2}

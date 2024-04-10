@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47fec139032d47628fe5318bf456c326, type: 3}
+  m_Name: GreenDeck
+  m_EditorClassIdentifier: 
+  deckType: 4
+  deckBack: {fileID: 21300000, guid: 5a71b77ce3a7c464f965f8770f185b77, type: 3}
+  needTypeList:
+  - {fileID: 11400000, guid: 7d3aaa4474a141d4baac8e2c77eb0bfa, type: 2}
+  - {fileID: 11400000, guid: a7ee2dc583a8fc548896a7e33587b825, type: 2}
+  - {fileID: 11400000, guid: 00c8d4c13a918194f8533dae1d604737, type: 2}
+  - {fileID: 11400000, guid: 38ea7a3a792f5294db773438457a67a1, type: 2}
+  - {fileID: 11400000, guid: bb5c33f2c56199842a566e9dd270b2ab, type: 2}
+  - {fileID: 11400000, guid: e3c157a9611bd4d42b35e1a29b06e455, type: 2}
+  - {fileID: 11400000, guid: bbc39a518ee56814c839cc724c14875c, type: 2}
+  - {fileID: 11400000, guid: f9009595545d35343b8011faa7438dab, type: 2}
+  - {fileID: 11400000, guid: de035fe646406a4499202d2d5ff5da80, type: 2}
+  needValueList: 080000000200000001000000090000000700000004000000030000000400000002000000

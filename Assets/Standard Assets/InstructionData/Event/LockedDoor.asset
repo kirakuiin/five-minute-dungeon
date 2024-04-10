@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1d6827143b95f459a5771c8a1e84f4, type: 3}
+  m_Name: LockedDoor
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 8067217879330262906}
+  - {fileID: 4866775336188013836}
+  - {fileID: 507909538183379770}
+  subject: 2
+--- !u!114 &507909538183379770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a81e186b994acbafa0045d10018ace, type: 3}
+  m_Name: Discard Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 136, y: 408}
+  ports:
+    keys:
+    - playerList
+    - resource
+    values:
+    - _fieldName: playerList
+      _node: {fileID: 507909538183379770}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: playerList
+        node: {fileID: 4866775336188013836}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: resource
+      _node: {fileID: 507909538183379770}
+      _typeQualifiedName: Data.Resource, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: resource
+        node: {fileID: 8067217879330262906}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  playerList: 
+  resource: 0
+--- !u!114 &4866775336188013836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3efa2e71f246d788e2c95f8d1b9e96, type: 3}
+  m_Name: Select Player Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -152, y: 488}
+  ports:
+    keys:
+    - playerList
+    values:
+    - _fieldName: playerList
+      _node: {fileID: 4866775336188013836}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: playerList
+        node: {fileID: 507909538183379770}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  playerList: 
+  target: 0
+  selectPlayerNum: 0
+--- !u!114 &8067217879330262906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941834e4bb3e45d480febb674f4cc981, type: 3}
+  m_Name: Select Resource Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -152, y: 360}
+  ports:
+    keys:
+    - resource
+    values:
+    - _fieldName: resource
+      _node: {fileID: 8067217879330262906}
+      _typeQualifiedName: Data.Resource, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: resource
+        node: {fileID: 507909538183379770}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  resource: 0

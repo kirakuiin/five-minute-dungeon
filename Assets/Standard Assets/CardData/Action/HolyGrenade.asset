@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: HolyGrenade
+  m_EditorClassIdentifier: 
+  card: 9
+  playerCardType: 0
+  cardFront: {fileID: -748974737, guid: 74eb8f7374e3042408029ed39113c9ff, type: 3}
+  textOffset: -0.1
+  cardName: "\u5723\u6D01\u69B4\u5F39"
+  cardDescription: "\u51FB\u8D25\u4EFB\u610F\u7C7B\u578B\u6311\u6218\u3002"
+  action: {fileID: 11400000, guid: d359ef92231dba7438f6c71a2ecb3ddc, type: 2}

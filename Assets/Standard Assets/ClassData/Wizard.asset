@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabd11e353d94cd2b1466a70fdbf7312, type: 3}
+  m_Name: Wizard
+  m_EditorClassIdentifier: 
+  classType: 0
+  className: "\u7537\u5DEB"
+  skillData: {fileID: 11400000, guid: d00127e4c032afd4dbda8436ba0f4d8a, type: 2}
+  deckData: {fileID: 11400000, guid: f1daf594c37d25f47bb022b0986e7d3c, type: 2}
+  avatar: {fileID: 514471487, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
+  portraits: {fileID: 21300000, guid: 3551e1b4a9a026b46a238d48c20e186e, type: 3}
+  classColor: {r: 0.20080444, g: 0.6563418, b: 0.89433956, a: 0.79607844}

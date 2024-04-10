@@ -1,0 +1,98 @@
+﻿using System.Collections.Generic;
+using Data;
+using GameLib.Common.Extension;
+using Random = System.Random;
+
+namespace Gameplay.Core
+{
+    /// <summary>
+    /// 提供地牢敌人。
+    /// </summary>
+    public class DungeonEnemyProvider
+    {
+        private readonly int _playerNum;
+
+        private readonly BossData _bossData;
+
+        private int _curEnemyIndex;
+
+        private readonly List<IEnemyCard> _enemyDeck = new ();
+
+        /// <summary>
+        /// 当前进度(从1开始)。
+        /// </summary>
+        public int CurProgress => _curEnemyIndex;
+
+        /// <summary>
+        /// 总关卡数量。
+        /// </summary>
+        public int TotalLevelNum => _enemyDeck.Count;
+        
+        public DungeonEnemyProvider(int playerNum, BossData data)
+        {
+            _playerNum = playerNum;
+            _bossData = data;
+            Setup();
+        }
+
+        private void Setup()
+        {
+            BuildDeck();
+        }
+
+        private void BuildDeck()
+        {
+            _curEnemyIndex = 0;
+            _enemyDeck.Clear();
+            AddDoorCard();
+            AddChallengeCard();
+            TotalShuffle();
+        }
+
+        private void AddDoorCard()
+        {
+            var random = new Random();
+            var doorCardList = new List<DoorCardData>(DataService.Instance.GetAllDoorData());
+            random.Shuffle(doorCardList);
+            _enemyDeck.AddRange(doorCardList.GetRange(0, _bossData.doorCardNum));
+        }
+
+        private void AddChallengeCard()
+        {
+            var random = new Random();
+            var challengeCardList = new List<ChallengeCardData>(DataService.Instance.GetAllChallengeCard());
+            var k = _playerNum * 2 + _bossData.challengeNum;
+            _enemyDeck.AddRange(random.Sample(challengeCardList, k));
+        }
+
+        private void TotalShuffle()
+        {
+            var random = new Random();
+            random.Shuffle(_enemyDeck);
+        }
+
+        /// <summary>
+        /// 是否到达关底
+        /// </summary>
+        /// <returns></returns>
+        public bool IsReachBoss()
+        {
+            return _curEnemyIndex == _enemyDeck.Count;
+        }
+        
+        /// <summary>
+        /// 获得下一个需要挑战的敌人。
+        /// </summary>
+        /// <returns></returns>
+        public IEnemyCard GetNextEnemyCard()
+        {
+            if (!IsReachBoss())
+            {
+                var result = _enemyDeck[_curEnemyIndex];
+                _curEnemyIndex += 1;
+                return result;
+            }
+            return _enemyDeck[^1];
+        }
+    }
+}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: WildCard
+  m_EditorClassIdentifier: 
+  card: 15
+  playerCardType: 0
+  cardFront: {fileID: 1547828245, guid: 8bac92593ed4f2840b79b0696d771bf2, type: 3}
+  textOffset: -0.1
+  cardName: "\u767E\u642D\u724C"
+  cardDescription: "\u7B97\u4F5C\u4EFB\u4E00\u8D44\u6E90\u3002"
+  action: {fileID: 11400000, guid: 3b12054073b473d4b9a969a8559921a0, type: 2}

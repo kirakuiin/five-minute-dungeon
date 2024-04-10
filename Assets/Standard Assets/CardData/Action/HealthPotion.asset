@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: HealthPotion
+  m_EditorClassIdentifier: 
+  card: 10
+  playerCardType: 0
+  cardFront: {fileID: 25189946, guid: 74eb8f7374e3042408029ed39113c9ff, type: 3}
+  textOffset: 0
+  cardName: "\u751F\u547D\u836F\u6C34"
+  cardDescription: "\u6240\u6709\u73A9\u5BB6\u4ECE\u5F03\u724C\u5806\u9876\u90E8\u62BD3\u5F20\u724C\u3002"
+  action: {fileID: 11400000, guid: 1e01156efffc37d4cb651d00b9d8af37, type: 2}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48a4f756ed20fb4da4920133a782b02, type: 3}
+  m_Name: Heal
+  m_EditorClassIdentifier: 
+  card: 7
+  playerCardType: 0
+  cardFront: {fileID: -1514321571, guid: 74eb8f7374e3042408029ed39113c9ff, type: 3}
+  textOffset: 0
+  cardName: "\u6CBB\u7597\u672F"
+  cardDescription: "\u9009\u62E9\u4E00\u540D\u73A9\u5BB6\uFF0C\u5C06\u5176\u5F03\u724C\u5806\u653E\u5230\u62BD\u724C\u5806\u9876\u90E8\u3002"
+  action: {fileID: 11400000, guid: 00e36d0f1c8156b49a7967955e85d30d, type: 2}

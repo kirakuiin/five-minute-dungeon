@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabd11e353d94cd2b1466a70fdbf7312, type: 3}
+  m_Name: Huntress
+  m_EditorClassIdentifier: 
+  classType: 9
+  className: "\u5973\u730E\u4EBA"
+  skillData: {fileID: 11400000, guid: c2a410587af36884bb157eb7e5ee65b3, type: 2}
+  deckData: {fileID: 11400000, guid: 8585a05804b1d1342afdb82351c7b141, type: 2}
+  avatar: {fileID: 596043116, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
+  portraits: {fileID: 21300000, guid: 2363f5df2817bf24b9146abe863bda42, type: 3}
+  classColor: {r: 0.32063925, g: 0.85660374, b: 0.21172658, a: 0.79607844}

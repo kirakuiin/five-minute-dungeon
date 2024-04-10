@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabd11e353d94cd2b1466a70fdbf7312, type: 3}
+  m_Name: Valkyrie
+  m_EditorClassIdentifier: 
+  classType: 5
+  className: "\u5973\u6B66\u795E"
+  skillData: {fileID: 11400000, guid: fa75dca5790b0ca439919c924788559f, type: 2}
+  deckData: {fileID: 11400000, guid: 5bff2276700a8ed4c9b9f8eeb05e50af, type: 2}
+  avatar: {fileID: 182425779, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
+  portraits: {fileID: 21300000, guid: d803dd54f4ba6574db6b2daf465549cc, type: 3}
+  classColor: {r: 0.9245283, g: 0.89171845, b: 0.284336, a: 0.8}

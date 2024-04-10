@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabd11e353d94cd2b1466a70fdbf7312, type: 3}
+  m_Name: Paladin
+  m_EditorClassIdentifier: 
+  classType: 4
+  className: "\u5723\u9A91\u58EB"
+  skillData: {fileID: 11400000, guid: ba1131e7970e59e47b77f07b411d7474, type: 2}
+  deckData: {fileID: 11400000, guid: 5bff2276700a8ed4c9b9f8eeb05e50af, type: 2}
+  avatar: {fileID: 1104538627, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
+  portraits: {fileID: 21300000, guid: a5b5de62c7aaed646895ac64a85215d4, type: 3}
+  classColor: {r: 0.9245283, g: 0.89171845, b: 0.284336, a: 0.8}

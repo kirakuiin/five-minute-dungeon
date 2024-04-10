@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabd11e353d94cd2b1466a70fdbf7312, type: 3}
+  m_Name: Thief
+  m_EditorClassIdentifier: 
+  classType: 2
+  className: "\u7A83\u8D3C"
+  skillData: {fileID: 11400000, guid: b09368f7d0c3c0d439f01f1ac6c7e5e0, type: 2}
+  deckData: {fileID: 11400000, guid: 6d413336a4a789e40a9aefb2a8b01246, type: 2}
+  avatar: {fileID: -1356376756, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
+  portraits: {fileID: 21300000, guid: 439284ca3ec931645b9c8ccd6b2dd00f, type: 3}
+  classColor: {r: 0.76982254, g: 0.29440364, b: 0.87169814, a: 0.8}
