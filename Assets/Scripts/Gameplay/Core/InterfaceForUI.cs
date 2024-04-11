@@ -1,8 +1,34 @@
-﻿using Data;
+﻿using System;
+using System.Collections.Generic;
+using Data;
 using Gameplay.Data;
 
 namespace Gameplay.Core
 {
+    /// <summary>
+    /// 运行时上下文环境。
+    /// </summary>
+    public interface IRuntimeContext
+    {
+        /// <summary>
+        /// 获得玩家运行时信息。
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerRuntimeInfo GetPlayerRuntimeInfo(ulong clientID);
+
+        /// <summary>
+        /// 获得关卡运行时信息。
+        /// </summary>
+        /// <returns></returns>
+        public ILevelRuntimeInfo GetLevelRuntimeInfo();
+
+        /// <summary>
+        /// 获得时间的运行时信息。
+        /// </summary>
+        /// <returns></returns>
+        public ITimeRuntimeInfo GetTimeRuntimeInfo();
+    }
+    
     /// <summary>
     /// 获得玩家运行时数据。
     /// </summary>
@@ -30,5 +56,81 @@ namespace Gameplay.Core
         /// </summary>
         /// <returns></returns>
         public ICardCollectionsInfo GetDiscards();
+    }
+
+    /// <summary>
+    /// 敌人信息变化事件。
+    /// </summary>
+    public struct EnemyChangeEvent
+    {
+        public ulong enemyID;
+        public EnemyCard enemyCard;
+    }
+
+    /// <summary>
+    /// 获得关卡运行时数据。
+    /// </summary>
+    public interface ILevelRuntimeInfo
+    {
+        /// <summary>
+        /// 添加新的敌人时触发。
+        /// </summary>
+        public event Action<EnemyChangeEvent> OnEnemyAdded;
+
+        /// <summary>
+        /// 消灭了敌人时触发。
+        /// </summary>
+        public event Action<EnemyChangeEvent> OnEnemyDestroyed;
+
+        /// <summary>
+        /// 有玩家投入新的资源时触发。
+        /// </summary>
+        public event Action<Resource, int> OnResourceAdded;
+
+        /// <summary>
+        /// 获得当前关卡需要的资源。
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Resource> GetCurNeedResources();
+
+        /// <summary>
+        /// 获得已经投入的资源。
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Resource> GetAlreadyPlayedResources();
+
+        /// <summary>
+        /// 获得当前场上的敌人信息。
+        /// </summary>
+        /// <returns></returns>
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemyInfos();
+        
+        /// <summary>
+        /// 当前进度。
+        /// </summary>
+        public int CurProgress { get; }
+        
+        /// <summary>
+        /// 总关卡数目。
+        /// </summary>
+        public int TotalLevelNum { get; }
+    }
+
+    public interface ITimeRuntimeInfo
+    {
+        /// <summary>
+        /// 剩余时间。
+        /// </summary>
+        public int RemainTime { get; }
+
+        /// <summary>
+        /// 时间更新时触发。
+        /// </summary>
+        public event Action<int> OnTimeUpdated;
+
+        /// <summary>
+        /// 计时器结束时触发。
+        /// </summary>
+        public event Action OnTimeout;
     }
 }

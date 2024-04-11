@@ -45,6 +45,11 @@ namespace Test.Editor.InstructionTest
             return _levelController;
         }
 
+        public ITimeController GetTimeController()
+        {
+            throw new NotImplementedException();
+        }
+
         public LevelController GetLevel()
         {
             return _levelController;
@@ -208,6 +213,11 @@ namespace Test.Editor.InstructionTest
         public void StopTime()
         {
             Debug.Log("Stop time");
+        }
+
+        public void ContinueTime()
+        {
+            Debug.Log("Continue time");
         }
 
         public IEnumerable<ulong> GetEnemyIDs()

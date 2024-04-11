@@ -24,10 +24,12 @@ namespace Data
         private readonly Dictionary<Skill, SkillData> _skillData = new();
 
         private readonly Dictionary<Boss, BossData> _bossData = new();
+        
+        private readonly Dictionary<Resource, ResourceData> _resourceData = new();
 
         private int _initNum = 0;
 
-        private const int NeedInitNum = 7;
+        private const int NeedInitNum = 8;
 
         protected override void OnInitialized()
         {
@@ -74,6 +76,12 @@ namespace Data
                     Debug.Log("boss加载完毕。");
                     _initNum += 1;
                 };
+            Addressables.LoadAssetsAsync<ResourceData>("ResourceData", OnResourceLoadDone).Completed
+                += handle =>
+                {
+                    Debug.Log("resource加载完毕。");
+                    _initNum += 1;
+                };
         }
 
         public override bool IsInitialized()
@@ -115,6 +123,11 @@ namespace Data
         {
             _bossData[data.boss] = data;
         }
+        
+        private void OnResourceLoadDone(ResourceData data)
+        {
+            _resourceData[data.type] = data;
+        }
 
         /// <summary>
         /// 获取全部的职业数据。
@@ -154,6 +167,20 @@ namespace Data
         public ClassData GetClassData(Class classType)
         {
             return _classData[classType];
+        }
+
+        /// <summary>
+        /// 根据敌人卡获得其基本数据。
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public DictionaryScriptObj<Resource, int> GetEnemyCardData(EnemyCard card)
+        {
+            if (card.IsDoorCard())
+            {
+                return DataService.Instance.GetDoorCardData((Door)card.value);
+            }
+            return DataService.Instance.GetChallengeCardData((Challenge)card.value);
         }
 
         /// <summary>
@@ -209,6 +236,11 @@ namespace Data
         public BossData GetBossData(Boss boss)
         {
             return _bossData[boss];
+        }
+
+        public ResourceData GetResourceData(Resource res)
+        {
+            return _resourceData[res];
         }
     }
 }

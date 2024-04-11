@@ -33,11 +33,13 @@ namespace UI.Gameplay
 
         [SerializeField] private HandZoneUIController handUI;
 
+        [SerializeField] private LevelUIController levelUI;
+
         private readonly DisposableGroup _disposableGroup = new();
         
         private ulong PlayerID => NetworkManager.Singleton.LocalClientId;
 
-        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerCardsInfo(PlayerID);
+        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo(PlayerID);
         
         private void Start()
         {
@@ -75,6 +77,7 @@ namespace UI.Gameplay
             SetDiscardPileText();
             skillUI.Init(RuntimeInfo);
             handUI.Init(RuntimeInfo);
+            levelUI.Init();
         }
 
         private void SetDrawPileText()

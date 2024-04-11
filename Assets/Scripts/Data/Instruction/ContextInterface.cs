@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using PlasticPipe.PlasticProtocol.Client;
 
 namespace Data.Instruction
 {
@@ -26,6 +28,12 @@ namespace Data.Instruction
         /// </summary>
         /// <returns></returns>
         public ILevelController GetLevelController();
+
+        /// <summary>
+        /// 获得时间管理器。
+        /// </summary>
+        /// <returns></returns>
+        public ITimeController GetTimeController();
 
         /// <summary>
         /// 获得玩家控制器对象列表。
@@ -63,13 +71,27 @@ namespace Data.Instruction
         public void RevealNextLevel(int num);
 
         /// <summary>
-        /// 停止游戏计时。
-        /// </summary>
-        public void StopTime();
-
-        /// <summary>
         /// 获得当前在场敌人卡ID。
         /// </summary>
         public IEnumerable<ulong> GetEnemyIDs();
+    }
+
+    public interface ITimeController
+    {
+        /// <summary>
+        /// 启动计时器。
+        /// </summary>
+        /// <param name="totalCountdown"></param>
+        public void StartTimer(int totalCountdown);
+
+        /// <summary>
+        /// 暂停计时器。
+        /// </summary>
+        public void Stop();
+
+        /// <summary>
+        /// 继续计时器。
+        /// </summary>
+        public void Continue();
     }
 }

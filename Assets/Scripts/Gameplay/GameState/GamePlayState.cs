@@ -88,7 +88,7 @@ namespace Gameplay.GameState
         protected override void Exit()
         {
             StopAllCoroutines();
-            if (NetworkManager.Singleton.IsListening)
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
             {
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
             }

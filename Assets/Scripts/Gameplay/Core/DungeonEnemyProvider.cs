@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
 using GameLib.Common.Extension;
 using Random = System.Random;
@@ -16,7 +17,7 @@ namespace Gameplay.Core
 
         private int _curEnemyIndex;
 
-        private readonly List<IEnemyCard> _enemyDeck = new ();
+        private readonly List<EnemyCard> _enemyDeck = new ();
 
         /// <summary>
         /// 当前进度(从1开始)。
@@ -52,15 +53,17 @@ namespace Gameplay.Core
         private void AddDoorCard()
         {
             var random = new Random();
-            var doorCardList = new List<DoorCardData>(DataService.Instance.GetAllDoorData());
-            random.Shuffle(doorCardList);
-            _enemyDeck.AddRange(doorCardList.GetRange(0, _bossData.doorCardNum));
+            var doorCardList = (from data in DataService.Instance.GetAllDoorData()
+                select new EnemyCard() { type = data.enemyCardType, value = (int)data.card }).ToList();
+            _enemyDeck.AddRange(random.Sample(doorCardList, _bossData.doorCardNum));
+            
         }
 
         private void AddChallengeCard()
         {
             var random = new Random();
-            var challengeCardList = new List<ChallengeCardData>(DataService.Instance.GetAllChallengeCard());
+            var challengeCardList = (from data in DataService.Instance.GetAllChallengeCard()
+                select new EnemyCard() { type = data.enemyCardType, value = (int)data.card }).ToList();
             var k = _playerNum * 2 + _bossData.challengeNum;
             _enemyDeck.AddRange(random.Sample(challengeCardList, k));
         }
@@ -84,7 +87,7 @@ namespace Gameplay.Core
         /// 获得下一个需要挑战的敌人。
         /// </summary>
         /// <returns></returns>
-        public IEnemyCard GetNextEnemyCard()
+        public EnemyCard GetNextEnemyCard()
         {
             if (!IsReachBoss())
             {

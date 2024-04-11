@@ -14,13 +14,11 @@ namespace Gameplay.Core
     /// <summary>
     /// 负责提供游戏运行时的上下文环境。
     /// </summary>
-    public class GamePlayContext : NetworkSingleton<GamePlayContext>, ICmdContext
+    public class GamePlayContext : NetworkSingleton<GamePlayContext>, ICmdContext, IRuntimeContext
     {
         [SerializeField]
         private GameObject playerControllerPrefab; 
         
-        private LevelController _levelController;
-
         private readonly Dictionary<ulong, PlayerController> _playerControllers = new();
 
         private int _playerCount;
@@ -30,7 +28,7 @@ namespace Gameplay.Core
         /// </summary>
         public void InitLevel(Boss boss)
         {
-            _levelController = new LevelController(PlayerCount, boss);
+            GetComponent<LevelController>().Setup(PlayerCount, boss);
         }
 
         protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
@@ -110,9 +108,19 @@ namespace Gameplay.Core
             return _playerControllers[clientID];
         }
 
-        public IPlayerRuntimeInfo GetPlayerCardsInfo(ulong clientID)
+        public IPlayerRuntimeInfo GetPlayerRuntimeInfo(ulong clientID)
         {
             return _playerControllers[clientID];
+        }
+
+        public ILevelRuntimeInfo GetLevelRuntimeInfo()
+        {
+            return GetComponent<ILevelRuntimeInfo>();
+        }
+
+        public ITimeRuntimeInfo GetTimeRuntimeInfo()
+        {
+            return GetComponent<ITimeRuntimeInfo>();
         }
 
         public IEnumerable<ulong> GetAllClientIDs()
@@ -122,7 +130,12 @@ namespace Gameplay.Core
 
         public ILevelController GetLevelController()
         {
-            return _levelController;
+            return GetComponent<ILevelController>();
+        }
+
+        public ITimeController GetTimeController()
+        {
+            return GetComponent<ITimeController>();
         }
 
         /// <summary>

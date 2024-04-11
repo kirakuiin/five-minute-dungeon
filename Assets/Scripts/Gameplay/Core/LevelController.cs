@@ -1,44 +1,106 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
+using Unity.Netcode;
 
 namespace Gameplay.Core
 {
     /// <summary>
     /// 关卡控制。
     /// </summary>
-    public class LevelController : ILevelController
+    public class LevelController : NetworkBehaviour, ILevelController, ILevelRuntimeInfo
     {
+        private readonly Dictionary<ulong, EnemyCard> _enemyInfos = new();
         private readonly Counter<Resource> _resPool = new();
-
-        private readonly Dictionary<ulong, IEnemyCard> _enemyInfos = new();
+        private readonly NetworkVariable<int> _curProgress = new();
+        private readonly NetworkVariable<int> _totalLevelNum = new();
         
-        private readonly DungeonEnemyProvider _enemyProvider;
-
+        // server only
+        private DungeonEnemyProvider _enemyProvider;
         private ulong _currentEnemyId;
 
-        public LevelController(int playerNum, Boss bossType)
+        public event Action<EnemyChangeEvent> OnEnemyAdded;
+        public event Action<EnemyChangeEvent> OnEnemyDestroyed;
+        public event Action<Resource, int> OnResourceAdded;
+
+        public int CurProgress => _curProgress.Value;
+
+        public int TotalLevelNum => _totalLevelNum.Value;
+
+        public IEnumerable<Resource> GetCurNeedResources()
         {
-            _enemyProvider = new(playerNum, DataService.Instance.GetBossData(bossType));
-            Setup();
+            var tempList = new List<Resource>();
+            foreach (var enemyCard in _enemyInfos.Values)
+            {
+                var result = GetAllNeedResourceByCard(enemyCard);
+                tempList.AddRange(result.Elements());
+            }
+
+            return new Counter<Resource>(tempList).Elements();
         }
 
-        private void Setup()
+        private Counter<Resource> GetAllNeedResourceByCard(EnemyCard card)
         {
+            DictionaryScriptObj<Resource, int> data = DataService.Instance.GetEnemyCardData(card);
+            
+            var result = new Counter<Resource>();
+            foreach (var key in data.needTypeList)
+            {
+                result[key] += data.Get(key);
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Resource> GetAlreadyPlayedResources()
+        {
+            return _resPool.Elements();
+        }
+
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemyInfos()
+        {
+            return _enemyInfos;
+        }
+
+        /// <summary>
+        /// 初始化。
+        /// </summary>
+        /// <param name="playerNum"></param>
+        /// <param name="bossType"></param>
+        public void Setup(int playerNum, Boss bossType)
+        {
+            _enemyProvider = new DungeonEnemyProvider(playerNum, DataService.Instance.GetBossData(bossType));
+            _totalLevelNum.Value = _enemyProvider.TotalLevelNum;
             RevealNextLevel(1);
         }
         
         public void AddResource(Resource type, int num = 1)
         {
+            AddResourceClientRpc(type, num);
+        }
+
+        [ClientRpc]
+        private void AddResourceClientRpc(Resource type, int num)
+        {
             _resPool[type] += num;
+            OnResourceAdded?.Invoke(type, num);
         }
 
         public void DestroyEnemyCard(ulong enemyID)
         {
+            DestroyEnemyClientRpc(enemyID);
+        }
+
+        [ClientRpc]
+        private void DestroyEnemyClientRpc(ulong enemyID)
+        {
             if (_enemyInfos.ContainsKey(enemyID))
             {
+                var enemyCard = _enemyInfos[enemyID];
                 _enemyInfos.Remove(enemyID);
+                OnEnemyDestroyed?.Invoke(new EnemyChangeEvent() {enemyCard = enemyCard, enemyID = enemyID});
             }
         }
 
@@ -47,19 +109,29 @@ namespace Gameplay.Core
             for (var i = 0; i < num; ++i)
             {
                 if (_enemyProvider.IsReachBoss()) break;
-                _enemyInfos[_currentEnemyId] = _enemyProvider.GetNextEnemyCard();
+                var enemy = _enemyProvider.GetNextEnemyCard();
+                _curProgress.Value = _enemyProvider.CurProgress;
+                AddEnemyClientRpc(_currentEnemyId,
+                    new EnemyCardWrapper(){ value = enemy });
                 _currentEnemyId += 1;
             }
         }
 
-        public void StopTime()
+        [ClientRpc]
+        private void AddEnemyClientRpc(ulong enemyID, EnemyCardWrapper wrapper)
         {
-            throw new System.NotImplementedException();
+            _enemyInfos[_currentEnemyId] = wrapper.value;
+            OnEnemyAdded?.Invoke(new EnemyChangeEvent() {enemyID = enemyID, enemyCard = wrapper.value});
         }
 
         public IEnumerable<ulong> GetEnemyIDs()
         {
-            throw new System.NotImplementedException();
+            return _enemyInfos.Keys;
         }
+    }
+
+    public struct EnemyCardWrapper : INetworkSerializeByMemcpy
+    {
+        public EnemyCard value;
     }
 }

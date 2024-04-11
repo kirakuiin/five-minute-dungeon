@@ -9,7 +9,7 @@ namespace Data.Instruction.Nodes
 	{
         public override async Task Execute(ICmdContext context, TempContext tempContext)
         {
-            context.GetLevelController().StopTime();
+            context.GetTimeController().Stop();
             await Task.CompletedTask;
         }
 	}

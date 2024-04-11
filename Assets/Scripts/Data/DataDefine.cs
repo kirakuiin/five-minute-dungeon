@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -11,16 +10,16 @@ namespace Data
     /// </summary>
     public enum Class
     {
-        Wizard,
-        Sorceress,
-        Thief,
-        Ninja,
-        Paladin,
-        Valkyrie,
-        Barbarian,
-        Gladiator,
-        Ranger,
-        Huntress,
+        Wizard=0,
+        Sorceress=1,
+        Thief=2,
+        Ninja=3,
+        Paladin=4,
+        Valkyrie=5,
+        Barbarian=6,
+        Gladiator=7,
+        Ranger=8,
+        Huntress=9,
     }
 
     /// <summary>
@@ -28,16 +27,16 @@ namespace Data
     /// </summary>
     public enum Skill
     {
-        TimeStop,
-        Teleport,
-        PickPocket,
-        Vault,
-        Smite,
-        Inspire,
-        Slay,
-        Intimidate,
-        TrickShot,
-        AnimalCompanion,
+        TimeStop=0,
+        Teleport=1,
+        PickPocket=2,
+        Vault=3,
+        Smite=4,
+        Inspire=5,
+        Slay=6,
+        Intimidate=7,
+        TrickShot=8,
+        AnimalCompanion=9,
     }
 
     /// <summary>
@@ -45,12 +44,12 @@ namespace Data
     /// </summary>
     public enum Resource
     {
-        Arrow,
-        Jump,
-        Sword,
-        Shield,
-        Scroll,
-        Wild,
+        Arrow=0,
+        Jump=1,
+        Sword=2,
+        Shield=3,
+        Scroll=4,
+        Wild=5,
     }
 
     /// <summary>
@@ -58,11 +57,11 @@ namespace Data
     /// </summary>
     public enum Deck
     {
-        Blue,
-        Purple,
-        Yellow,
-        Red,
-        Green,
+        Blue=0,
+        Purple=1,
+        Yellow=2,
+        Red=3,
+        Green=4,
     }
 
     /// <summary>
@@ -70,42 +69,42 @@ namespace Data
     /// </summary>
     public enum Card
     {
-        Cancel,
-        MagicBomb,
-        Fireball,
+        Cancel=0,
+        MagicBomb=1,
+        Fireball=2,
         
-        BackStab,
-        Donation,
-        Sprint,
-        Steal,
+        BackStab=3,
+        Donation=4,
+        Sprint=5,
+        Steal=6,
         
-        Heal,
-        DivineShield,
-        HolyGrenade,
-        HealthPotion,
-        Smite,
+        Heal=7,
+        DivineShield=8,
+        HolyGrenade=9,
+        HealthPotion=10,
+        Smite=11,
         
-        Engage,
-        MightyLeap,
+        Engage=12,
+        MightyLeap=13,
         
-        Snipe,
-        WildCard,
-        HealingHerbs,
+        Snipe=14,
+        WildCard=15,
+        HealingHerbs=16,
         
-        Arrow,
-        Jump,
-        Scroll,
-        Shield,
-        Sword,
-        SwordArrow,
-        SwordJump,
-        SwordShield,
-        SwordScroll,
-        TwoArrow,
-        TwoJump,
-        TwoScroll,
-        TwoShield,
-        TwoSword,
+        Arrow=17,
+        Jump=18,
+        Scroll=19,
+        Shield=20,
+        Sword=21,
+        SwordArrow=22,
+        SwordJump=23,
+        SwordShield=24,
+        SwordScroll=25,
+        TwoArrow=26,
+        TwoJump=27,
+        TwoScroll=28,
+        TwoShield=29,
+        TwoSword=30,
     }
 
     /// <summary>
@@ -113,8 +112,8 @@ namespace Data
     /// </summary>
     public enum PlayerCardType
     {
-        ActionCard,
-        ResourceCard,
+        ActionCard=0,
+        ResourceCard=1,
     }
     
     /// <summary>
@@ -122,13 +121,13 @@ namespace Data
     /// </summary>
     public enum Boss
     {
-        BabyBarbarian,
-        TheGrimReaper,
-        ZolaTheGorgon,
-        AFreakingDragon,
-        TheDungeonMaster,
-        TheKick9000,
-        FinalForm,
+        BabyBarbarian=0,
+        TheGrimReaper=1,
+        ZolaTheGorgon=2,
+        AFreakingDragon=3,
+        TheDungeonMaster=4,
+        TheKick9000=5,
+        FinalForm=6,
     }
 
     /// <summary>
@@ -136,63 +135,63 @@ namespace Data
     /// </summary>
     public enum Door
     {
-        AWarriorPrincess,
-        TheNecromancer,
-        Steve,
-        SquireSoldier,
-        ASleepingGiant,
-        ScreamingChildren,
-        APuppetShow,
-        AMerchant,
-        MassiveCloak,
-        TheTall,
-        AGhost,
-        RichMan,
-        BarberArian,
-        AnArmDealer,
-        Ninja,
-        Dwarfs,
-        OneBow,
-        TwoBow,
+        AWarriorPrincess=0,
+        TheNecromancer=1,
+        Steve=2,
+        SquireSoldier=3,
+        ASleepingGiant=4,
+        ScreamingChildren=5,
+        APuppetShow=6,
+        AMerchant=7,
+        MassiveCloak=8,
+        TheTall=9,
+        AGhost=10,
+        RichMan=11,
+        BarberArian=12,
+        AnArmDealer=13,
+        Ninja=14,
+        Dwarfs=15,
+        OneBow=16,
+        TwoBow=17,
         
-        WallOfSpike,
-        WallOfIce,
-        ATournament,
-        Shortcut,
-        Quicksand,
-        LoadingScreen,
-        LivingVines,
-        AScarecrow,
-        JackBox,
-        InvisibleWall,
-        DisappearingBlock,
-        ADeadlyGame,
-        CollapseCeiling,
-        IronThrone,
-        TheCarpalTunnel,
-        ABunchOfStair,
-        BottomlessPit,
-        TrappedChest,
+        WallOfSpike=18,
+        WallOfIce=19,
+        ATournament=20,
+        Shortcut=21,
+        Quicksand=22,
+        LoadingScreen=23,
+        LivingVines=24,
+        AScarecrow=25,
+        JackBox=26,
+        InvisibleWall=27,
+        DisappearingBlock=28,
+        ADeadlyGame=29,
+        CollapseCeiling=30,
+        IronThrone=31,
+        TheCarpalTunnel=32,
+        ABunchOfStair=33,
+        BottomlessPit=34,
+        TrappedChest=35,
         
-        Boots,
-        EvilCreature,
-        TimberWolf,
-        TheUnicorn,
-        ASuspiciousCrate,
-        AStraightGhost,
-        FuzzyLumps,
-        SharkWithLegs,
-        AStoneStatue,
-        Zombies,
-        Lanterns,
-        AGriffin,
-        Goblin,
-        ARockyFairy,
-        Err,
-        TheDuckOfCanterbury,
-        ACactus,
-        AdorableSlime,
-        APheasant,
+        Boots=36,
+        EvilCreature=37,
+        TimberWolf=38,
+        TheUnicorn=39,
+        ASuspiciousCrate=40,
+        AStraightGhost=41,
+        FuzzyLumps=42,
+        SharkWithLegs=43,
+        AStoneStatue=44,
+        Zombies=45,
+        Lanterns=46,
+        AGriffin=47,
+        Goblin=48,
+        ARockyFairy=49,
+        Err=50,
+        TheDuckOfCanterbury=51,
+        ACactus=52,
+        AdorableSlime=53,
+        APheasant=54,
     }
 
     /// <summary>
@@ -213,27 +212,49 @@ namespace Data
     /// </summary>
     public enum Challenge
     {
-        LockedDoor,
-        TrapDoor,
-        Porcupines,
-        SuddenIllness,
-        YetMoreSpikes,
-        GimmeAHand,
-        DungeonError,
-        Confusion,
-        ABooBoo,
-        Ambush,
+        LockedDoor=0,
+        TrapDoor=1,
+        Porcupines=2,
+        SuddenIllness=3,
+        YetMoreSpikes=4,
+        GimmeAHand=5,
+        DungeonError=6,
+        Confusion=7,
+        ABooBoo=8,
+        Ambush=9,
         
-        TheRatKing,
-        TheVeryMiniBoss,
-        AWizardOfIllness,
-        APython,
-        ALowTechRobot,
-        DasBoot,
-        TheCollector,
-        TheGoblinKing,
-        GiantEnemyGrab,
-        TheTriBread,
+        TheRatKing=10,
+        TheVeryMiniBoss=11,
+        AWizardOfIllness=12,
+        APython=13,
+        ALowTechRobot=14,
+        DasBoot=15,
+        TheCollector=16,
+        TheGoblinKing=17,
+        GiantEnemyGrab=18,
+        TheTriBread=19,
+    }
+
+    public struct EnemyCard
+    {
+        public EnemyCardType type;
+
+        public int value;
+
+        /// <summary>
+        /// 是否为门卡类型。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsDoorCard()
+        {
+            return type != EnemyCardType.Event && type != EnemyCardType.MiniBoss;
+        }
+
+        /// <summary>
+        /// 是否为挑战卡类型。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsChallengeCard() => !IsDoorCard();
     }
 
     public abstract class DictionaryScriptObj<TK, TV> : ScriptableObject
@@ -243,6 +264,8 @@ namespace Data
 
         [Tooltip("类型值列表")]
         public List<TV> needValueList;
+
+        [Tooltip("描述")] public string desc;
 
         private readonly Dictionary<TK, TV> _dictionary = new();
         
@@ -269,38 +292,6 @@ namespace Data
             {
                 _dictionary[needTypeList[i]] = needValueList[i];
             }
-        }
-    }
-
-    /// <summary>
-    /// 敌方卡牌通用接口。
-    /// </summary>
-    public interface IEnemyCard
-    {
-        /// <summary>
-        /// 卡牌类型。
-        /// </summary>
-        public EnemyCardType Type { get; }
-
-        /// <summary>
-        /// 获得击败敌人所需要的全部资源。
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Resource> GetAllNeedResource();
-        
-        public int CardValue { get; }
-        
-        public string ToReadableString()
-        {
-            var builder = new StringBuilder();
-            builder.Append($"{Type}[");
-            foreach (var resource in GetAllNeedResource())
-            {
-                builder.Append($"{resource}, ");
-            }
-            builder.Append("]");
-            
-            return builder.ToString();
         }
     }
 }
