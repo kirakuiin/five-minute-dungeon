@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 0400000001000000
   needValueList: 0400000002000000
+  desc: "\u75BE\u75C5\u5DEB\u5E08<sprite name=\"miniboss\">"
   card: 12
-  enemyCardType: 4
-  desc: 
+  enemyCardType: 16
+  action: {fileID: 0}

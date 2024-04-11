@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 
   needValueList: 
+  desc: "\u6240\u6709\u73A9\u5BB6\u62BD5\u5F20\u724C\u3002<sprite name=\"event\">"
   card: 6
-  enemyCardType: 3
+  enemyCardType: 8
   action: {fileID: 11400000, guid: 2cab2174b6cd58643b211b86aaaefc04, type: 2}
-  desc: "\u6240\u6709\u73A9\u5BB6\u62BD5\u5F20\u724C\u3002"

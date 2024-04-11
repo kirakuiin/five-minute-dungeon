@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 0300000000000000
   needValueList: 0200000001000000
+  desc: "\u58EB\u5175<sprite name=\"person\">"
   card: 3
-  enemyCardType: 0
+  enemyCardType: 1

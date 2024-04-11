@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 0400000001000000000000000200000003000000
   needValueList: 0500000004000000020000000200000002000000
+  desc: "\u7A76\u6781\u5F62\u6001"
   boss: 6
   doorCardNum: 50
   challengeNum: 0

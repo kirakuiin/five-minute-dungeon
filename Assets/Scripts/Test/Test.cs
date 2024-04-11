@@ -15,10 +15,6 @@ public class Test : MonoBehaviour
 
     [SerializeField] private int playerNum;
     
-    void Start()
-    {
-    }
-
     private void OnGUI()
     {
         GUILayout.BeginArea(new Rect(new Vector2(0, 0), new Vector2(300, 300)));
@@ -29,7 +25,7 @@ public class Test : MonoBehaviour
         if (GUILayout.Button("获取下一个对象"))
         {
             var enemyCard = _provider.GetNextEnemyCard();
-            enemyInfo.text = $"{enemyCard.ToReadableString()}";
+            enemyInfo.text = $"{enemyCard.type}, {enemyCard.value}";
             progressText.text = $"{_provider.CurProgress}/{_provider.TotalLevelNum}";
         }
         GUILayout.EndArea();

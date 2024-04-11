@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 020000000400000001000000
   needValueList: 010000000100000001000000
+  desc: "\u6728\u5076\u4EBA<sprite name=\"obstacle\">"
   card: 25
-  enemyCardType: 1
+  enemyCardType: 2
