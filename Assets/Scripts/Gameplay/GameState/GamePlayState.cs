@@ -56,6 +56,7 @@ namespace Gameplay.GameState
             InitHand();
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitHand));
             PublishDone();
+            StartPlay();
         }
 
         private void InitContext()
@@ -80,9 +81,13 @@ namespace Gameplay.GameState
 
         private void PublishDone()
         {
-            
             current = GamePlayStateMsg.Create(GamePlayStateEnum.InitDone);
             GameplayState.Publish(current);
+        }
+
+        private void StartPlay()
+        {
+            GamePlayContext.Instance.GetTimeController().StartTimer(GameRule.CountdownTime);
         }
 
         protected override void Exit()

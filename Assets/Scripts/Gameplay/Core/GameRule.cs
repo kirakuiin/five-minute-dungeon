@@ -33,5 +33,10 @@
                     return 3;
             }
         }
+
+        /// <summary>
+        /// 游戏时间。
+        /// </summary>
+        public static int CountdownTime => 300;
     }
 }
