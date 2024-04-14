@@ -90,7 +90,6 @@ namespace Gameplay.Core
             }
         }
 
-
         private void OnInitPileDone()
         {
             NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.InitPile);
@@ -175,6 +174,29 @@ namespace Gameplay.Core
             {
                 NetworkManager.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
             }
+        }
+        
+
+        // === context函数 ===
+        [ContextMenu("击杀当前敌人")]
+        public void DestroyCurEnemy()
+        {
+            foreach (var id in GetLevelRuntimeInfo().GetAllEnemyInfos().Keys.ToList())
+            {
+                GetLevelController().DestroyEnemyCard(id);
+            }
+        }
+        
+        [ContextMenu("暂停时间")]
+        public void StopTime()
+        {
+            GetTimeController().Stop();
+        }
+        
+        [ContextMenu("恢复时间")]
+        public void ContinueTime()
+        {
+            GetTimeController().Continue();
         }
     }
 

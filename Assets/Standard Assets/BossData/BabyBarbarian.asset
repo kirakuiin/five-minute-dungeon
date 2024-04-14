@@ -16,5 +16,5 @@ MonoBehaviour:
   needValueList: 020000000200000003000000
   desc: "\u5A74\u513F\u72C2\u6218\u58EB"
   boss: 0
-  doorCardNum: 20
+  doorCardNum: 1
   challengeNum: 0

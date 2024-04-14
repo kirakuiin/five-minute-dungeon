@@ -66,8 +66,8 @@ namespace Gameplay.GameState
                 if (data.HasValue)
                 {
                     var newData = data.Value;
-                    newData.PlayerName = pair.Value.PlayerName;
-                    newData.PlayerClass = pair.Value.SelectedClass;
+                    newData.PlayerName = pair.Value.playerName;
+                    newData.PlayerClass = pair.Value.selectedClass;
                     manager.UpdatePlayerData(newData.ClientID, newData);
                 }
                 else

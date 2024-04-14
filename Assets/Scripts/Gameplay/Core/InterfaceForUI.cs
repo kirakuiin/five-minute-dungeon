@@ -114,6 +114,23 @@ namespace Gameplay.Core
         /// 总关卡数目。
         /// </summary>
         public int TotalLevelNum { get; }
+
+        /// <summary>
+        /// 是否包含事件。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsContainEvent()
+        {
+            foreach (var enemyCard in GetAllEnemyInfos().Values)
+            {
+                if (enemyCard.IsEventCard())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     public interface ITimeRuntimeInfo

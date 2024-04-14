@@ -205,6 +205,7 @@ namespace Data
         Monster = 4,
         Event = 8,
         MiniBoss = 16,
+        Boss = 32,
     }
     
     /// <summary>
@@ -247,14 +248,26 @@ namespace Data
         /// <returns></returns>
         public bool IsDoorCard()
         {
-            return type != EnemyCardType.Event && type != EnemyCardType.MiniBoss;
+            return type == EnemyCardType.Monster || type == EnemyCardType.Person || type == EnemyCardType.Obstacle;
         }
 
         /// <summary>
         /// 是否为挑战卡类型。
         /// </summary>
         /// <returns></returns>
-        public bool IsChallengeCard() => !IsDoorCard();
+        public bool IsChallengeCard() => !IsDoorCard() && !IsBossCard();
+
+        /// <summary>
+        /// 是否为Boss
+        /// </summary>
+        /// <returns></returns>
+        public bool IsBossCard() => type == EnemyCardType.Boss;
+
+        /// <summary>
+        /// 是否为事件卡。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsEventCard() => type == EnemyCardType.Event;
     }
 
     public abstract class DictionaryScriptObj<TK, TV> : ScriptableObject

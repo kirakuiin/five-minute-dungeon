@@ -48,6 +48,7 @@ namespace Gameplay.Core
             AddDoorCard();
             AddChallengeCard();
             TotalShuffle();
+            _enemyDeck.Add(new EnemyCard() {type = EnemyCardType.Boss, value = (int)_bossData.boss});
         }
 
         private void AddDoorCard()
@@ -80,7 +81,7 @@ namespace Gameplay.Core
         /// <returns></returns>
         public bool IsReachBoss()
         {
-            return _curEnemyIndex == _enemyDeck.Count;
+            return _curEnemyIndex == _enemyDeck.Count-1;
         }
         
         /// <summary>
@@ -89,13 +90,9 @@ namespace Gameplay.Core
         /// <returns></returns>
         public EnemyCard GetNextEnemyCard()
         {
-            if (!IsReachBoss())
-            {
-                var result = _enemyDeck[_curEnemyIndex];
-                _curEnemyIndex += 1;
-                return result;
-            }
-            return _enemyDeck[^1];
+            var result = _enemyDeck[_curEnemyIndex];
+            _curEnemyIndex += 1;
+            return result;
         }
     }
 }

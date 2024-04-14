@@ -34,14 +34,14 @@ namespace UI.Lobby
         private void CreateSelectionPanel(PlayerInfo info)
         {
             var networkObj = NetworkObjectPool.Instance.GetNetworkObject(selectionPrefab, Vector3.zero, Quaternion.identity);
-            networkObj.SpawnWithOwnership(info.ClientID, true);
+            networkObj.SpawnWithOwnership(info.clientID, true);
             networkObj.transform.SetParent(parent);
-            _createdPanels[info.ClientID] = networkObj;
+            _createdPanels[info.clientID] = networkObj;
         }
 
         private void OnPlayerInfoChanged(PlayerInfo info)
         {
-            if (_createdPanels.TryGetValue(info.ClientID, out var obj))
+            if (_createdPanels.TryGetValue(info.clientID, out var obj))
             {
                 obj.GetComponent<ClassSelectionController>().SetPlayerInfo(info);
             }

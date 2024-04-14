@@ -75,9 +75,9 @@ namespace UI.Lobby
 
         private void Init(PlayerInfo info)
         {
-            playerNameInput.text = info.PlayerName;
-            InitClassView(DataService.Instance.GetClassData(info.SelectedClass));
-            readyToggle.SetIsOnWithoutNotify(info.IsReady);
+            playerNameInput.text = info.playerName;
+            InitClassView(DataService.Instance.GetClassData(info.selectedClass));
+            readyToggle.SetIsOnWithoutNotify(info.isReady);
         }
 
         private void InitPlayerName()

@@ -3,7 +3,7 @@
     /// <summary>
     /// 数据帮助类。
     /// </summary>
-    public class DataHelper
+    public static class DataHelper
     {
         /// <summary>
         /// 卡牌内是否含有指定类型的资源。

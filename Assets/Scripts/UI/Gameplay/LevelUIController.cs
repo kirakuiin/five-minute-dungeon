@@ -81,7 +81,10 @@ namespace UI.Gameplay
             }
 
             var str = content.ToString();
-            enemyDesc.text = str.Substring(0, str.Length - 1);
+            if (str.Length > 0)
+            {
+                enemyDesc.text = str.Substring(0, str.Length - 1);
+            }
         }
     }
 }

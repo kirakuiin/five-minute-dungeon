@@ -34,50 +34,50 @@ namespace Gameplay.Data
         /// <summary>
         /// 玩家客户端ID。
         /// </summary>
-        public ulong ClientID;
+        public ulong clientID;
 
         /// <summary>
         /// 玩家用户名。
         /// </summary>
-        public string PlayerName;
+        public string playerName;
 
         /// <summary>
         /// 玩家选择的职业。
         /// </summary>
-        public Class SelectedClass;
+        public Class selectedClass;
 
         /// <summary>
         /// 玩家是否就绪。
         /// </summary>
-        public bool IsReady;
+        public bool isReady;
 
         public PlayerInfo(ulong clientID, string playerName="")
         {
-            ClientID = clientID;
-            PlayerName = playerName;
-            SelectedClass = Class.Barbarian;
-            IsReady = false;
+            this.clientID = clientID;
+            this.playerName = playerName;
+            selectedClass = Class.Barbarian;
+            isReady = false;
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
-            serializer.SerializeValue(ref ClientID);
-            serializer.SerializeValue(ref PlayerName);
-            serializer.SerializeValue(ref SelectedClass);
-            serializer.SerializeValue(ref IsReady);
+            serializer.SerializeValue(ref clientID);
+            serializer.SerializeValue(ref playerName);
+            serializer.SerializeValue(ref selectedClass);
+            serializer.SerializeValue(ref isReady);
         }
 
         public bool Equals(PlayerInfo obj)
         {
-            return ClientID == obj.ClientID
-                   && PlayerName == obj.PlayerName
-                   && SelectedClass == obj.SelectedClass
-                   && IsReady == obj.IsReady;
+            return clientID == obj.clientID
+                   && playerName == obj.playerName
+                   && selectedClass == obj.selectedClass
+                   && isReady == obj.isReady;
         }
 
         public override string ToString()
         {
-            return $"{PlayerName}({ClientID})[职业={SelectedClass}]目前{(IsReady ? "就绪" : "配置中")}";
+            return $"{playerName}({clientID})[职业={selectedClass}]目前{(isReady ? "就绪" : "配置中")}";
         }
     }
     
@@ -153,7 +153,7 @@ namespace Gameplay.Data
                 for (int i = 0; i < count; ++i)
                 {
                     reader.ReadValueSafe(out PlayerInfo info);
-                    _playerInfos[info.ClientID] = info;
+                    _playerInfos[info.clientID] = info;
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace Gameplay.Data
         {
             if (!IsServer)
             {
-                _playerInfos[info.ClientID] = info;
+                _playerInfos[info.clientID] = info;
             }
             OnPlayerJoined?.Invoke(info);
         }
@@ -259,14 +259,14 @@ namespace Gameplay.Data
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))
             {
-                curInfo.PlayerName = playerName;
+                curInfo.playerName = playerName;
                 UpdatePlayerInfo(curInfo);
             }
         }
 
         private void UpdatePlayerInfo(PlayerInfo curInfo)
         {
-            var clientID = curInfo.ClientID;
+            var clientID = curInfo.clientID;
             if (!_playerInfos[clientID].Equals(curInfo))
             {
                 _playerInfos[clientID] = curInfo;
@@ -279,7 +279,7 @@ namespace Gameplay.Data
         {
             if (!IsServer)
             {
-                _playerInfos[info.ClientID] = info;
+                _playerInfos[info.clientID] = info;
             }
             OnPlayerInfoChanged?.Invoke(info);
         }
@@ -299,7 +299,7 @@ namespace Gameplay.Data
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))
             {
-                curInfo.SelectedClass = classType;
+                curInfo.selectedClass = classType;
                 UpdatePlayerInfo(curInfo);
             }
         }
@@ -319,7 +319,7 @@ namespace Gameplay.Data
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))
             {
-                curInfo.IsReady = isReady;
+                curInfo.isReady = isReady;
                 UpdatePlayerInfo(curInfo);
                 InvokeReadyInfo();
             }
@@ -328,7 +328,7 @@ namespace Gameplay.Data
         private void InvokeReadyInfo()
         {
             var isAllReady = (from info in _playerInfos.Values
-                select info).All(info => info.IsReady);
+                select info).All(info => info.isReady);
             OnAllPlayerReady?.Invoke(isAllReady);
         }
     }

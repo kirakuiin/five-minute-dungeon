@@ -17,8 +17,10 @@ namespace Gameplay.GameState
     /// </summary>
     public class GamePlayState : GameStateBehaviour<GameState>
     {
+        [SerializeField] private GamePlayService service;
+            
         public override GameState State => GameState.InGame;
-
+        
         /// <summary>
         /// 广播游戏中状态变化。
         /// </summary>
@@ -87,7 +89,7 @@ namespace Gameplay.GameState
 
         private void StartPlay()
         {
-            GamePlayContext.Instance.GetTimeController().StartTimer(GameRule.CountdownTime);
+            service.StartService();
         }
 
         protected override void Exit()

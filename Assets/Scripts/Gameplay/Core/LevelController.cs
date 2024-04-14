@@ -73,7 +73,6 @@ namespace Gameplay.Core
         {
             _enemyProvider = new DungeonEnemyProvider(playerNum, DataService.Instance.GetBossData(bossType));
             _totalLevelNum.Value = _enemyProvider.TotalLevelNum;
-            RevealNextLevel(1);
         }
         
         public void AddResource(Resource type, int num = 1)
@@ -104,16 +103,33 @@ namespace Gameplay.Core
             }
         }
 
+        public bool IsReachBoss() => _enemyProvider.IsReachBoss();
+        
+        public bool IsComplete() => CurProgress == TotalLevelNum;
+
         public void RevealNextLevel(int num)
         {
             for (var i = 0; i < num; ++i)
             {
                 if (_enemyProvider.IsReachBoss()) break;
-                var enemy = _enemyProvider.GetNextEnemyCard();
-                _curProgress.Value = _enemyProvider.CurProgress;
-                AddEnemyClientRpc(_currentEnemyId,
-                    new EnemyCardWrapper(){ value = enemy });
-                _currentEnemyId += 1;
+                RevealOne();
+            }
+        }
+
+        private void RevealOne()
+        {
+            var enemy = _enemyProvider.GetNextEnemyCard();
+            _curProgress.Value = _enemyProvider.CurProgress;
+            AddEnemyClientRpc(_currentEnemyId,
+                new EnemyCardWrapper(){ value = enemy });
+            _currentEnemyId += 1;
+        }
+
+        public void RevealBoss()
+        {
+            if (IsReachBoss())
+            {
+                RevealOne();
             }
         }
 

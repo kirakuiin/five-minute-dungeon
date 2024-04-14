@@ -210,6 +210,21 @@ namespace Test.Editor.InstructionTest
             Debug.Log($"reveal {num}");
         }
 
+        public void RevealBoss()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsReachBoss()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsComplete()
+        {
+            throw new NotImplementedException();
+        }
+
         public void StopTime()
         {
             Debug.Log("Stop time");

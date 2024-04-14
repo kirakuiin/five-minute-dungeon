@@ -14,7 +14,9 @@ namespace Data.Instruction.Nodes
 
         public override async Task Execute(ICmdContext context, TempContext tempContext)
         {
-            context.GetLevelController().RevealNextLevel(num);
+            var levelController = context.GetLevelController();
+            if (levelController.IsReachBoss()) return;
+            levelController.RevealNextLevel(num);
             await Task.CompletedTask;
         }
     }

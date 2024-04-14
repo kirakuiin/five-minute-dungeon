@@ -178,9 +178,16 @@ namespace Data
         {
             if (card.IsDoorCard())
             {
-                return DataService.Instance.GetDoorCardData((Door)card.value);
+                return GetDoorCardData((Door)card.value);
             }
-            return DataService.Instance.GetChallengeCardData((Challenge)card.value);
+            else if (card.IsChallengeCard())
+            {
+                return GetChallengeCardData((Challenge)card.value);
+            }
+            else
+            {
+                return GetBossData((Boss)card.value);
+            }
         }
 
         /// <summary>

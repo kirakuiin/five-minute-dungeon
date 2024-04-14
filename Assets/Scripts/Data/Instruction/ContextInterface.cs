@@ -71,6 +71,23 @@ namespace Data.Instruction
         public void RevealNextLevel(int num);
 
         /// <summary>
+        /// 揭示boss。
+        /// </summary>
+        public void RevealBoss();
+
+        /// <summary>
+        /// 是否抵达boss关卡。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsReachBoss();
+
+        /// <summary>
+        /// 是否挑战完毕全部内容。
+        /// </summary>
+        /// <returns></returns>
+        public bool IsComplete();
+
+        /// <summary>
         /// 获得当前在场敌人卡ID。
         /// </summary>
         public IEnumerable<ulong> GetEnemyIDs();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
@@ -42,9 +43,8 @@ namespace UI.Gameplay
 
         protected virtual void CleanAll()
         {
-            for (var i = 0; i < layout.childCount; ++i)
+            foreach (var obj in Enumerable.Range(0, layout.childCount).Select(idx => layout.GetChild(idx)).ToList())
             {
-                var obj = layout.GetChild(i);
                 GameObjectPool.Instance.Return(obj.gameObject, resourcePrefab);
                 obj.SetParent(GameObjectPool.Instance.transform);
             }
