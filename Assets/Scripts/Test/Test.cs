@@ -1,38 +1,27 @@
-using Data;
-using Gameplay.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class Test : MonoBehaviour
+namespace Test
 {
-    private DungeonEnemyProvider _provider;
-
-    [SerializeField] private BossData data;
-
-    [SerializeField] private TMP_Text progressText;
-    
-    [SerializeField] private TMP_Text enemyInfo;
-
-    [SerializeField] private int playerNum;
-    
-    private void OnGUI()
+    public class Test : MonoBehaviour
     {
-        GUILayout.BeginArea(new Rect(new Vector2(0, 0), new Vector2(300, 300)));
-        if (GUILayout.Button("初始化"))
-        {
-            _provider = new DungeonEnemyProvider(playerNum, data);
-        }
-        if (GUILayout.Button("获取下一个对象"))
-        {
-            var enemyCard = _provider.GetNextEnemyCard();
-            enemyInfo.text = $"{enemyCard.type}, {enemyCard.value}";
-            progressText.text = $"{_provider.CurProgress}/{_provider.TotalLevelNum}";
-        }
-        GUILayout.EndArea();
-    }
+        [SerializeField] private TMP_Text progressText;
+    
+        [SerializeField] private TMP_Text enemyInfo;
 
-    // Update is called once per frame
-    void Update()
-    {
+        [SerializeField] private Button btn;
+
+        public void OnClick()
+        {
+            progressText.text = "abc";
+        }
+
+        public void OnUI(InputAction.CallbackContext callback)
+        {
+            Debug.Log($"{callback}");
+            enemyInfo.text = ("点击了");
+        }
     }
 }
