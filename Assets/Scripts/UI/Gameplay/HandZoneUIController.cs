@@ -34,10 +34,20 @@ namespace UI.Gameplay
         private GameObject CreateCardObj(Data.Card card)
         {
             var cardObj = GameObjectPool.Instance.Get(cardPrefab);
-            var setter = cardObj.GetComponent<CardAppearanceSetter>();
-            setter.Init(card);
+            var setter = cardObj.GetComponent<PlayableCard>();
+            setter.Init(card, this);
             return cardObj;
         }
-        
+
+        /// <summary>
+        /// 移除卡牌。
+        /// </summary>
+        /// <param name="cardObj"></param>
+        public void RemoveCard(GameObject cardObj)
+        {
+            layout.Remove(cardObj);
+            cardObj.transform.SetParent(GameObjectPool.Instance.transform);
+            GameObjectPool.Instance.Return(cardObj, cardPrefab); 
+        }
     }
 }

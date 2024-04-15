@@ -8,6 +8,7 @@ namespace UI.Card
     /// <summary>
     /// 设置卡牌外观。
     /// </summary>
+    [RequireComponent(typeof(CardRuntimeData))]
     public class CardAppearanceSetter : MonoBehaviour
     {
         [SerializeField]
@@ -25,15 +26,14 @@ namespace UI.Card
         [SerializeField]
         private Transform textBaseTransform;
 
-        private Data.Card _card;
+        private CardRuntimeData _data;
 
         /// <summary>
         /// 初始化卡牌。
         /// </summary>
-        /// <param name="card"></param>
-        public void Init(Data.Card card)
+        public void Init()
         {
-            _card = card;
+            _data = GetComponent<CardRuntimeData>();
             InitUI();
         }
 
@@ -49,7 +49,7 @@ namespace UI.Card
 
         private void InitUI()
         {
-            var cardData = DataService.Instance.GetPlayerCardData(_card);
+            var cardData = DataService.Instance.GetPlayerCardData(_data.Card);
             cardFrontUI.sprite = cardData.cardFront;
             cardNameUI.text = cardData.playerCardType == PlayerCardType.ActionCard ? cardData.cardName : "";
             cardDescUI.text = cardData.cardDescription;

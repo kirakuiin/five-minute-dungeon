@@ -63,4 +63,25 @@
         WaitForPlayer,
         InGame,
     }
+
+    public static class TagDefines
+    {
+        private const string DiscardArea = "DiscardArea";
+
+        private const string PlayArea = "PlayArea";
+
+        /// <summary>
+        /// 是否为弃牌区。
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public static bool IsDiscardArea(string tag) => DiscardArea == tag;
+
+        /// <summary>
+        /// 是否为出牌区。
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public static bool IsPlayArea(string tag) => PlayArea == tag;
+    }
 }

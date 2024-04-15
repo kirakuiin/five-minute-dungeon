@@ -66,6 +66,7 @@ namespace Gameplay.Core
         private void DiscardClientRpc(Card[] cards)
         {
             _hands.RemoveCard(cards);
+            _discards.AddCard(cards);
         }
 
         public void DrawFromDiscard(int num)

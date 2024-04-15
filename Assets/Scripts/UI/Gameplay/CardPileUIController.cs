@@ -75,13 +75,13 @@ namespace UI.Gameplay
             }
         }
 
-        private CardAppearanceSetter CreateCardObj(Data.Card card)
+        private GameObject CreateCardObj(Data.Card card)
         {
             var cardObj = GameObjectPool.Instance.Get(cardPrefab);
             cardObj.transform.SetParent(scrollContent);
-            var setter = cardObj.GetComponent<CardAppearanceSetter>();
+            var setter = cardObj.GetComponent<UnplayableCard>();
             setter.Init(card);
-            return setter;
+            return cardObj;
         }
 
         private void InitByStatistics()
@@ -89,8 +89,8 @@ namespace UI.Gameplay
             var counter = new Counter<Data.Card>(_info);
             foreach (var pair in counter.MostCommon())
             {
-                var setter = CreateCardObj(pair.Key);
-                setter.SetNum((int)pair.Value);
+                var obj = CreateCardObj(pair.Key);
+                obj.GetComponent<CardAppearanceSetter>().SetNum((int)pair.Value);
             }
         }
 
