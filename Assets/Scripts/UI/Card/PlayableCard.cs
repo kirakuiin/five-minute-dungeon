@@ -1,4 +1,7 @@
-﻿using UI.Gameplay;
+﻿using Data.Instruction;
+using Gameplay.Core;
+using UI.Gameplay;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace UI.Card
@@ -9,6 +12,7 @@ namespace UI.Card
     public class PlayableCard : MonoBehaviour
     {
         private HandZoneUIController _handZone;
+
         
         /// <summary>
         /// 初始化。
@@ -19,12 +23,19 @@ namespace UI.Card
             GetComponent<CardRuntimeData>().Init(card);
             GetComponent<CardAppearanceSetter>().Init();
         }
+
+        public void ReturnToOriginPos()
+        {
+            _handZone.ResetAllCardPos();
+        }
         
         /// <summary>
         /// 打出卡牌。
         /// </summary>
         public void PlayCard()
         {
+            GamePlayService.Instance.PlayCard(GetComponent<CardRuntimeData>().Card);
+            RemoveCard();
         }
 
         /// <summary>
@@ -32,14 +43,13 @@ namespace UI.Card
         /// </summary>
         public void DiscardCard()
         {
+            GamePlayService.Instance.DiscardCard(GetComponent<CardRuntimeData>().Card);
             RemoveCard();
-            // TODO(nico): 通过一个专门的对象实现同服务器的通信，比如弃牌，打牌，放技能等等。
         }
         
         private void RemoveCard()
         {
             _handZone.RemoveCard(gameObject);
         }
-
     }
 }

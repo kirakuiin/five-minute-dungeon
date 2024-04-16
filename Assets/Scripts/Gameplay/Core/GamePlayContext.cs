@@ -100,16 +100,31 @@ namespace Gameplay.Core
             NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.InitHand);
         }
         
-        private int PlayerCount => _playerCount;
+        /// <summary>
+        /// 玩家数量。
+        /// </summary>
+        public int PlayerCount => _playerCount;
 
         public IPlayerController GetPlayerController(ulong clientID)
         {
             return _playerControllers[clientID];
         }
 
+        public IPlayerController GetPlayerController()
+        {
+            var clientID = NetworkManager.LocalClientId;
+            return GetPlayerController(clientID);
+        }
+
         public IPlayerRuntimeInfo GetPlayerRuntimeInfo(ulong clientID)
         {
             return _playerControllers[clientID];
+        }
+
+        public IPlayerRuntimeInfo GetPlayerRuntimeInfo()
+        {
+            var clientID = NetworkManager.LocalClientId;
+            return GetPlayerRuntimeInfo(clientID);
         }
 
         public ILevelRuntimeInfo GetLevelRuntimeInfo()

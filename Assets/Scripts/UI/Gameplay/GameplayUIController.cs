@@ -37,9 +37,7 @@ namespace UI.Gameplay
 
         private readonly DisposableGroup _disposableGroup = new();
         
-        private ulong PlayerID => NetworkManager.Singleton.LocalClientId;
-
-        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo(PlayerID);
+        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
         
         private void Start()
         {

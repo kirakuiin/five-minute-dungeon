@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using PlasticPipe.PlasticProtocol.Client;
 
 namespace Data.Instruction
 {
@@ -16,6 +14,12 @@ namespace Data.Instruction
         /// <param name="clientID"></param>
         /// <returns></returns>
         public IPlayerController GetPlayerController(ulong clientID);
+
+        /// <summary>
+        /// 获得本地玩家控制器对象。
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerController GetPlayerController();
 
         /// <summary>
         /// 获得全部的玩家ID

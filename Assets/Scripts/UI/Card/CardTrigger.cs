@@ -1,7 +1,4 @@
 ﻿using Common;
-using Data.Instruction;
-using Gameplay.Core;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -46,6 +43,10 @@ namespace UI.Card
             else if (TagDefines.IsDiscardArea(_curZoneTag))
             {
                 _card.DiscardCard();
+            }
+            else
+            {
+                _card.ReturnToOriginPos();
             }
         }
     }

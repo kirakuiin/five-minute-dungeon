@@ -1,6 +1,8 @@
-﻿using GameLib.Common;
+﻿using System;
+using GameLib.Common;
 using GameLib.UI.SectorLayout;
 using Gameplay.Core;
+using Gameplay.Data;
 using UI.Card;
 using UnityEngine;
 
@@ -20,7 +22,27 @@ namespace UI.Gameplay
         public void Init(IPlayerRuntimeInfo info)
         {
             _info = info;
+            InitListen();
             InitUI();
+        }
+
+        private void InitListen()
+        {
+            _info.GetHands().OnCardChanged += OnCardChanged;
+        }
+
+        private void OnCardChanged(CardChangeEvent e)
+        {
+            if (e.type == CardChangeType.RemoveCard) return;
+            foreach (var card in e.cardList)
+            {
+                layout.Add(CreateCardObj(card));
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _info.GetHands().OnCardChanged -= OnCardChanged;
         }
 
         private void InitUI()
@@ -46,8 +68,15 @@ namespace UI.Gameplay
         public void RemoveCard(GameObject cardObj)
         {
             layout.Remove(cardObj);
-            cardObj.transform.SetParent(GameObjectPool.Instance.transform);
-            GameObjectPool.Instance.Return(cardObj, cardPrefab); 
+            GameObjectPool.Instance.ReturnWithReParent(cardObj, cardPrefab); 
+        }
+
+        /// <summary>
+        /// 重置卡牌位置。
+        /// </summary>
+        public void ResetAllCardPos()
+        {
+            layout.Rebuild();
         }
     }
 }

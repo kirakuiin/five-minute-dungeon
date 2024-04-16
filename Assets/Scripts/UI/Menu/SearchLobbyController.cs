@@ -61,7 +61,7 @@ namespace UI.Menu
                 var obj = scroll.GetChild(i).gameObject;
                 if (obj.activeSelf)
                 {
-                    GameObjectPool.Instance.Return(obj, itemPrefab);
+                    GameObjectPool.Instance.ReturnWithReParent(obj, itemPrefab);
                 }
             }
         }

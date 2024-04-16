@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using Data.Instruction;
 using Gameplay.Data;
 
 namespace Gameplay.Core
@@ -13,8 +14,15 @@ namespace Gameplay.Core
         /// <summary>
         /// 获得玩家运行时信息。
         /// </summary>
+        /// <param name="clientID"></param>
         /// <returns></returns>
         public IPlayerRuntimeInfo GetPlayerRuntimeInfo(ulong clientID);
+        
+        /// <summary>
+        /// 获得本地玩家运行时信息。
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerRuntimeInfo GetPlayerRuntimeInfo();
 
         /// <summary>
         /// 获得关卡运行时信息。

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
+using GameLib.Animation;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using Gameplay.Data;
 using Popup;
 using UI.Card;
-using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +13,6 @@ namespace UI.Gameplay
     /// <summary>
     /// 牌堆UI管理器。
     /// </summary>
-    [RequireComponent(typeof(MoveAction))]
     public class CardPileUIController : CacheablePopupBehaviour
     {
         private ICardCollectionsInfo _info;
@@ -105,7 +104,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position + new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().Move(tr, position);
+            GetComponent<MoveAction>().MoveTo(tr, position);
         }
 
         public void OnExit()
@@ -119,7 +118,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position - new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().Move(tr, position, Close);
+            GetComponent<MoveAction>().MoveTo(tr, position, Close);
         }
 
         private void CleanCardObj()
@@ -128,8 +127,7 @@ namespace UI.Gameplay
                 .Select(i => scrollContent.transform.GetChild(i)).ToList();
             foreach (var cardTransform in allObjs)
             {
-                cardTransform.SetParent(GameObjectPool.Instance.gameObject.transform);
-                GameObjectPool.Instance.Return(cardTransform.gameObject, cardPrefab);
+                GameObjectPool.Instance.ReturnWithReParent(cardTransform.gameObject, cardPrefab);
             }
         }
     }

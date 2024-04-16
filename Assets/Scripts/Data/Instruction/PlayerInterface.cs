@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Data.Instruction
 {
     /// <summary>
-    /// 操控玩家的行动。
+    /// 服务端操控玩家的行动。
     /// </summary>
     public interface IPlayerController
     {
@@ -12,6 +12,12 @@ namespace Data.Instruction
         /// 客户端ID。
         /// </summary>
         public ulong ClientID { get; }
+
+        /// <summary>
+        /// 打出卡牌。
+        /// </summary>
+        /// <param name="card"></param>
+        public void Play(Card card);
 
         /// <summary>
         /// 从抽牌堆抽牌。

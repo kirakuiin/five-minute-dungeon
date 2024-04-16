@@ -18,7 +18,7 @@ MonoBehaviour:
     keys: []
     values: []
   resource: 1
-  num: 2
+  num: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,4 +34,3 @@ MonoBehaviour:
   nodes:
   - {fileID: -5485775984415735965}
   subject: 1
-  choiceRules: 1

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Test.Editor.InstructionTest
@@ -33,6 +34,12 @@ namespace Test.Editor.InstructionTest
         public IPlayerController GetPlayerController(ulong clientID)
         {
             return _controllers[clientID];
+        }
+
+        public IPlayerController GetPlayerController()
+        {
+            var clientID = NetworkManager.Singleton.LocalClientId;
+            return GetPlayerController(clientID);
         }
 
         public IEnumerable<ulong> GetAllClientIDs()
@@ -108,6 +115,10 @@ namespace Test.Editor.InstructionTest
         public ulong ClientID { get; }
         
         public void InitDeck(IEnumerable<Card> cards)
+        {
+        }
+
+        public void Play(Card card)
         {
         }
 

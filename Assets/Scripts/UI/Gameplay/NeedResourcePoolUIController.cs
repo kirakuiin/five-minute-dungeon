@@ -45,8 +45,7 @@ namespace UI.Gameplay
         {
             foreach (var obj in Enumerable.Range(0, layout.childCount).Select(idx => layout.GetChild(idx)).ToList())
             {
-                GameObjectPool.Instance.Return(obj.gameObject, resourcePrefab);
-                obj.SetParent(GameObjectPool.Instance.transform);
+                GameObjectPool.Instance.ReturnWithReParent(obj.gameObject, resourcePrefab);
             }
         }
         

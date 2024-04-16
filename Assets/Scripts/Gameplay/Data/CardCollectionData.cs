@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Unity.Netcode;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Gameplay.Data
@@ -142,20 +141,25 @@ namespace Gameplay.Data
 
         public void AddCard(IEnumerable<Card> cards)
         {
-            foreach (var card in cards)
+            var list = cards.ToList();
+            foreach (var card in list)
             {
                 _hands.Add(card);
             }
-            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(cards));
+            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
         }
 
         public void RemoveCard(IEnumerable<Card> cards)
         {
-            foreach (var card in cards)
+            var list = cards.ToList();
+            foreach (var card in list)
             {
-                _hands.Remove(card);
+                if (_hands.Remove(card))
+                {
+                    Debug.LogWarning($"移除不存在的卡牌{card}");
+                }
             }
-            OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(cards));
+            OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(list));
         }
 
         public IEnumerable<Card> RemoveCard(int num)
@@ -186,11 +190,12 @@ namespace Gameplay.Data
 
         public void AddCard(IEnumerable<Card> cards)
         {
-            foreach (var card in cards)
+            var list = cards.ToList();
+            foreach (var card in list)
             {
                 _pile.Push(card);
             }
-            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(cards));
+            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
         }
 
         public void RemoveCard(IEnumerable<Card> cards)
@@ -200,8 +205,8 @@ namespace Gameplay.Data
 
         public IEnumerable<Card> RemoveCard(int num)
         {
-            var result = from _ in Enumerable.Range(0, Math.Min(_pile.Count, num))
-                select _pile.Pop();
+            var result = (from _ in Enumerable.Range(0, Math.Min(_pile.Count, num))
+                select _pile.Pop()).ToList();
             OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(result));
             return result;
         }

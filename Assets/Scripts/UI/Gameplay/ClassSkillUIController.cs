@@ -12,23 +12,26 @@ namespace UI.Gameplay
     {
         private IPlayerRuntimeInfo _playerInfo;
 
+        private ClassData _classData;
+
         [SerializeField] private Image skillIconUI;
         
         public void Init(IPlayerRuntimeInfo info)
         {
             _playerInfo = info;
+            _classData = DataService.Instance.GetClassData(_playerInfo.PlayerClass);
             InitUI();
         }
 
         private void InitUI()
         {
-            var classData = DataService.Instance.GetClassData(_playerInfo.PlayerClass);
-            skillIconUI.sprite = classData.skillData.skillIcon;
-            skillIconUI.color = classData.classColor;
+            skillIconUI.sprite = _classData.skillData.skillIcon;
+            skillIconUI.color = _classData.classColor;
         }
 
         public void CastSkill()
         {
+            GamePlayService.Instance.CastSkill(_classData.skillData.skill);
         }
     }
 }

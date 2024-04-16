@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Data;
 using Data.Instruction;
+using GameLib.Network.NGO;
 using Gameplay.Core.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Gameplay.Core
     /// <summary>
     /// 玩法服务器，主要控制游戏玩法进程。
     /// </summary>
-    public class GamePlayService : NetworkBehaviour
+    public class GamePlayService : NetworkSingleton<GamePlayService>
     {
         private GameplayServiceState _curState;
 
@@ -58,13 +59,18 @@ namespace Gameplay.Core
             _states[key].SetService(this);
         }
 
+        
         /// <summary>
         /// 执行释放技能效果。
         /// </summary>
         /// <param name="skill"></param>
-        /// <param name="param"></param>
+        public void CastSkill(Skill skill)
+        {
+            CastSkillServerRpc(skill);
+        }
+
         [ServerRpc(RequireOwnership = false)]
-        public void CastSkillServerRpc(Skill skill, ServerRpcParams param=default)
+        private void CastSkillServerRpc(Skill skill, ServerRpcParams param=default)
         {
             _curState.ExecuteAction(
                 new GameAction
@@ -79,9 +85,13 @@ namespace Gameplay.Core
         /// 执行打出手牌效果。
         /// </summary>
         /// <param name="card"></param>
-        /// <param name="param"></param>
+        public void PlayCard(Card card)
+        {
+            PlayCardServerRpc(card);
+        }
+
         [ServerRpc(RequireOwnership = false)]
-        public void PlayCardServerRpc(Card card, ServerRpcParams param=default)
+        private void PlayCardServerRpc(Card card, ServerRpcParams param=default)
         {
             _curState.ExecuteAction(
                 new GameAction
@@ -90,6 +100,20 @@ namespace Gameplay.Core
                     clientID = param.Receive.SenderClientId,
                 }
             );
+        }
+
+        /// <summary>
+        /// 丢弃手牌。
+        /// </summary>
+        /// <param name="card"></param>
+        public void DiscardCard(Card card)
+        {
+            DiscardCardServerRpc(card);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DiscardCardServerRpc(Card card, ServerRpcParams param=default)
+        {
         }
     }
 }

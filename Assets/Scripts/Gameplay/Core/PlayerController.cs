@@ -42,6 +42,17 @@ namespace Gameplay.Core
             LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPile);
         }
 
+        public void Play(Card card)
+        {
+            PlayClientRpc(card);
+        }
+
+        [ClientRpc]
+        private void PlayClientRpc(Card card)
+        {
+            _hands.RemoveCard(new [] {card});
+        }
+
         public void Draw(int num)
         {
             DrawClientRpc(num);
