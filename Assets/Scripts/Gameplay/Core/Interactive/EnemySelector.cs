@@ -9,7 +9,7 @@ namespace Gameplay.Core.Interactive
     /// <summary>
     /// 敌人选择器。
     /// </summary>
-    public class EnemySelector : Selector
+    public class EnemySelector : NetworkBehaviour
     {
         /// <summary>
         /// 通知选择敌对单位。
@@ -38,13 +38,13 @@ namespace Gameplay.Core.Interactive
         /// <returns></returns>
         public async Task<ulong> GetSelectEnemyID()
         {
-            GetSelectEnemyIDClientRpc(GetClientParam());
+            GetSelectEnemyIDClientRpc();
             await TaskExtension.Wait(() => _isSelect.Value);
             return _enemyID.Value;
         }
 
-        [ClientRpc]
-        private void GetSelectEnemyIDClientRpc(ClientRpcParams param=default)
+        [Rpc(SendTo.Owner)]
+        private void GetSelectEnemyIDClientRpc()
         {
             _isSelect.Value = false;
             OnSelectEnemy?.Invoke();

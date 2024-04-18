@@ -21,8 +21,6 @@ namespace Gameplay.Core
         
         private readonly Dictionary<ulong, PlayerController> _playerControllers = new();
 
-        private int _playerCount;
-
         /// <summary>
         /// 初始化关卡。
         /// </summary>
@@ -31,19 +29,10 @@ namespace Gameplay.Core
             GetComponent<LevelController>().Setup(PlayerCount, boss);
         }
 
-        protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
-        {
-            serializer.SerializeValue(ref _playerCount);
-        }
-
         protected override void Awake()
         {
             base.Awake();
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
-            if (NetworkManager.Singleton.IsServer)
-            {
-                _playerCount = NetworkManager.Singleton.ConnectedClientsIds.Count;
-            }
         }
 
         private void OnLoadEventCompleted(string sceneName, LoadSceneMode mode, List<ulong> clientID, List<ulong> timeouts)
@@ -103,7 +92,9 @@ namespace Gameplay.Core
         /// <summary>
         /// 玩家数量。
         /// </summary>
-        public int PlayerCount => _playerCount;
+        public int PlayerCount => GetAllClientIDs().Count();
+
+        public int InitHandNum => GameRule.GetInitHandNum(PlayerCount);
 
         public IPlayerController GetPlayerController(ulong clientID)
         {
@@ -179,7 +170,7 @@ namespace Gameplay.Core
             foreach (var clientID in GetAllClientIDs())
             {
                 var controller = GetPlayerController(clientID);
-                controller.Draw(GameRule.GetInitHandNum(PlayerCount));
+                controller.Draw(InitHandNum);
             }
         }
 
@@ -190,29 +181,5 @@ namespace Gameplay.Core
                 NetworkManager.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
             }
         }
-        
-
-        // === context函数 ===
-        [ContextMenu("击杀当前敌人")]
-        public void DestroyCurEnemy()
-        {
-            foreach (var id in GetLevelRuntimeInfo().GetAllEnemyInfos().Keys.ToList())
-            {
-                GetLevelController().DestroyEnemyCard(id);
-            }
-        }
-        
-        [ContextMenu("暂停时间")]
-        public void StopTime()
-        {
-            GetTimeController().Stop();
-        }
-        
-        [ContextMenu("恢复时间")]
-        public void ContinueTime()
-        {
-            GetTimeController().Continue();
-        }
     }
-
 }

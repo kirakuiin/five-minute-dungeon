@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Gameplay.Core
 {
@@ -78,29 +80,52 @@ namespace Gameplay.Core
         public void AddResource(Resource type, int num = 1)
         {
             AddResourceClientRpc(type, num);
+            ProcessLevelResource();
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void AddResourceClientRpc(Resource type, int num)
         {
             _resPool[type] += num;
             OnResourceAdded?.Invoke(type, num);
         }
 
+        private void ProcessLevelResource()
+        {
+            if (!IsPlayedResourceGeThanNeeded()) return;
+            foreach (var enemyID in _enemyInfos.Keys.ToList())
+            {
+                DestroyEnemyCard(enemyID);
+            }
+        }
+
+        private bool IsPlayedResourceGeThanNeeded()
+        {
+            var curRes = new Counter<Resource>(GetAlreadyPlayedResources());
+            curRes.Subtract(new Counter<Resource>(GetCurNeedResources()));
+            var negativeSum = (from val in curRes.Values where val < 0 select val).Sum();
+            return curRes[Resource.Wild] >= -negativeSum;
+        }
+
         public void DestroyEnemyCard(ulong enemyID)
         {
+            ClearResourcePoolClientRpc();
             DestroyEnemyClientRpc(enemyID);
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
+        private void ClearResourcePoolClientRpc()
+        {
+            _resPool.Clear();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
         private void DestroyEnemyClientRpc(ulong enemyID)
         {
-            if (_enemyInfos.ContainsKey(enemyID))
-            {
-                var enemyCard = _enemyInfos[enemyID];
-                _enemyInfos.Remove(enemyID);
-                OnEnemyDestroyed?.Invoke(new EnemyChangeEvent() {enemyCard = enemyCard, enemyID = enemyID});
-            }
+            if (!_enemyInfos.ContainsKey(enemyID)) return;
+            var enemyCard = _enemyInfos[enemyID];
+            _enemyInfos.Remove(enemyID);
+            OnEnemyDestroyed?.Invoke(new EnemyChangeEvent() {enemyCard = enemyCard, enemyID = enemyID});
         }
 
         public bool IsReachBoss() => _enemyProvider.IsReachBoss();
@@ -120,8 +145,8 @@ namespace Gameplay.Core
         {
             var enemy = _enemyProvider.GetNextEnemyCard();
             _curProgress.Value = _enemyProvider.CurProgress;
-            AddEnemyClientRpc(_currentEnemyId,
-                new EnemyCardWrapper(){ value = enemy });
+            AddOneEnemyClientRpc(_currentEnemyId,
+                new EnemyCardWrapper{ value = enemy });
             _currentEnemyId += 1;
         }
 
@@ -133,8 +158,8 @@ namespace Gameplay.Core
             }
         }
 
-        [ClientRpc]
-        private void AddEnemyClientRpc(ulong enemyID, EnemyCardWrapper wrapper)
+        [Rpc(SendTo.ClientsAndHost)]
+        private void AddOneEnemyClientRpc(ulong enemyID, EnemyCardWrapper wrapper)
         {
             _enemyInfos[_currentEnemyId] = wrapper.value;
             OnEnemyAdded?.Invoke(new EnemyChangeEvent() {enemyID = enemyID, enemyCard = wrapper.value});

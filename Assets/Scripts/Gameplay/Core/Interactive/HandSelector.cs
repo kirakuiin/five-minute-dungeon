@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Common;
 using Data;
 using GameLib.Common.Extension;
 using Unity.Netcode;
@@ -12,7 +10,7 @@ namespace Gameplay.Core.Interactive
     /// <summary>
     /// 手牌选择器。
     /// </summary>
-    public class HandSelector : Selector
+    public class HandSelector : NetworkBehaviour
     {
         /// <summary>
         /// 通知选择手牌。
@@ -20,7 +18,7 @@ namespace Gameplay.Core.Interactive
         public event Action<int> OnSelectHandCard;
         
         private readonly NetworkVariable<bool> _isSelect =
-            new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
+            new (false, writePerm: NetworkVariableWritePermission.Owner);
 
         private NetworkList<int> _cardList;
 
@@ -48,7 +46,7 @@ namespace Gameplay.Core.Interactive
         /// <returns></returns>
         public async Task<List<Card>> GetSelectHandCards(int num)
         {
-            GetSelectHandCardsClientRpc(num, GetClientParam());
+            GetSelectHandCardsClientRpc(num);
             await TaskExtension.Wait(() => _isSelect.Value);
             
             var result = new List<Card>();
@@ -60,8 +58,8 @@ namespace Gameplay.Core.Interactive
             return result;
         }
 
-        [ClientRpc]
-        private void GetSelectHandCardsClientRpc(int num, ClientRpcParams param=default)
+        [Rpc(SendTo.Owner)]
+        private void GetSelectHandCardsClientRpc(int num)
         {
             _isSelect.Value = false;
             _cardList.Clear();

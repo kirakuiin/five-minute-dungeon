@@ -39,22 +39,4 @@ namespace Gameplay.Core.Interactive
             return await resourceSelector.GetSelectRes();
         }
     }
-
-    public abstract class Selector : NetworkBehaviour
-    {
-        /// <summary>
-        /// 获得客户端目标参数。
-        /// </summary>
-        /// <returns></returns>
-        public ClientRpcParams GetClientParam()
-        {
-            return new ClientRpcParams
-            {
-                Send = new ClientRpcSendParams
-                {
-                    TargetClientIds = new ulong[] { OwnerClientId }
-                }
-            };
-        }
-    }
 }

@@ -34,8 +34,8 @@ namespace UI.Card
         /// </summary>
         public void PlayCard()
         {
-            GamePlayService.Instance.PlayCard(GetComponent<CardRuntimeData>().Card);
             RemoveCard();
+            GamePlayService.Instance.PlayCard(GetComponent<CardRuntimeData>().Card);
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace UI.Card
         /// </summary>
         public void DiscardCard()
         {
-            GamePlayService.Instance.DiscardCard(GetComponent<CardRuntimeData>().Card);
             RemoveCard();
+            GamePlayService.Instance.DiscardCard(GetComponent<CardRuntimeData>().Card);
         }
         
         private void RemoveCard()

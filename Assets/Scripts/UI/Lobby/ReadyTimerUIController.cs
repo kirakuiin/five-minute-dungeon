@@ -35,14 +35,14 @@ namespace UI.Lobby
             }
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void StopTimerClientRpc()
         {
             StopAllCoroutines();
             timerText.gameObject.SetActive(false);
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void StartTimerClientRpc()
         {
             timerText.gameObject.SetActive(true);

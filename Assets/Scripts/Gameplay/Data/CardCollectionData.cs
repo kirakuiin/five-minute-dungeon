@@ -154,7 +154,7 @@ namespace Gameplay.Data
             var list = cards.ToList();
             foreach (var card in list)
             {
-                if (_hands.Remove(card))
+                if (!_hands.Remove(card))
                 {
                     Debug.LogWarning($"移除不存在的卡牌{card}");
                 }
@@ -195,6 +195,7 @@ namespace Gameplay.Data
             {
                 _pile.Push(card);
             }
+
             OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
         }
 

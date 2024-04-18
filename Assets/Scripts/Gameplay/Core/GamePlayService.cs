@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
 using Data.Instruction;
@@ -18,8 +19,11 @@ namespace Gameplay.Core
 
         private readonly Dictionary<string, GameplayServiceState> _states = new();
 
+        private GamePlayContext Context => GamePlayContext.Instance;
+
         private void Update()
         {
+            if (!IsServer) return;
             _curState?.Update();
         }
 
@@ -29,7 +33,29 @@ namespace Gameplay.Core
         public async void StartService()
         {
             if (!IsServer) return;
+            InitListen();
             await ChangeState<BeginState>();
+        }
+
+        private void InitListen()
+        {
+            foreach (var clientID in Context.GetAllClientIDs())
+            {
+                var hand = Context.GetPlayerRuntimeInfo(clientID).GetHands();
+                hand.OnCardChanged += @event => OnCardChange(clientID);
+            }
+        }
+        
+        private void OnCardChange(ulong clientID)
+        {
+            Debug.Log(clientID);
+            var handSize = Context.GetPlayerRuntimeInfo(clientID).GetHands().Count;
+            var diff = Context.InitHandNum - handSize;
+            if (diff > 0)
+            {
+                var controller = Context.GetPlayerController(clientID);
+                controller.Draw(diff);
+            }
         }
 
         public async Task ChangeState<T>() where T : GameplayServiceState, new()
@@ -69,8 +95,8 @@ namespace Gameplay.Core
             CastSkillServerRpc(skill);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void CastSkillServerRpc(Skill skill, ServerRpcParams param=default)
+        [Rpc(SendTo.Server)]
+        private void CastSkillServerRpc(Skill skill, RpcParams param=default)
         {
             _curState.ExecuteAction(
                 new GameAction
@@ -90,9 +116,11 @@ namespace Gameplay.Core
             PlayCardServerRpc(card);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void PlayCardServerRpc(Card card, ServerRpcParams param=default)
+        [Rpc(SendTo.Server)]
+        private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
+            var controller = Context.GetPlayerController(param.Receive.SenderClientId);
+            controller.Play(card);
             _curState.ExecuteAction(
                 new GameAction
                 {
@@ -111,9 +139,11 @@ namespace Gameplay.Core
             DiscardCardServerRpc(card);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void DiscardCardServerRpc(Card card, ServerRpcParams param=default)
+        [Rpc(SendTo.Server)]
+        private void DiscardCardServerRpc(Card card, RpcParams param=default)
         {
+            var controller = Context.GetPlayerController(param.Receive.SenderClientId);
+            controller.Discard(new []{card});
         }
     }
 }

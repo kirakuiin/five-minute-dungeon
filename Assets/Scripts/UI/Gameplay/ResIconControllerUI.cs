@@ -29,11 +29,12 @@ namespace UI.Gameplay
         {
             if (type == Resource.Wild)
             {
-                animator.gameObject.SetActive(true);
+                animator.enabled = true;
                 animator.SetTrigger("PlayChange");
             }
             else
             {
+                animator.enabled = false;
                 image.sprite = DataService.Instance.GetResourceData(type).icon;
             }
         }

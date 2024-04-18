@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GameLib.Common;
+using GameLib.Common.DataStructure;
 using GameLib.UI.SectorLayout;
 using Gameplay.Core;
 using Gameplay.Data;
@@ -17,6 +20,10 @@ namespace UI.Gameplay
 
         [SerializeField] private GameObject cardPrefab;
 
+        [SerializeField] private Transform cardOrigin;
+
+        private readonly List<GameObject> _cardList = new ();
+
         private IPlayerRuntimeInfo _info;
 
         public void Init(IPlayerRuntimeInfo info)
@@ -33,10 +40,34 @@ namespace UI.Gameplay
 
         private void OnCardChanged(CardChangeEvent e)
         {
-            if (e.type == CardChangeType.RemoveCard) return;
-            foreach (var card in e.cardList)
+            var curCard = new Counter<Data.Card>(_cardList.Select(
+                cardObj => cardObj.GetComponent<CardRuntimeData>().Card));
+            var newCard = new Counter<Data.Card>(_info.GetHands());
+            newCard.Subtract(curCard);
+            foreach (var card in newCard.Keys)
             {
-                layout.Add(CreateCardObj(card));
+                var value = newCard[card];
+                for (var i = 0; i < value; ++i)
+                {
+                    layout.Add(CreateCardObj(card));
+                }
+
+                if (value < 0)
+                {
+                    RemoveCardsByType(card, -value);
+                }
+            }
+        }
+
+        private void RemoveCardsByType(Data.Card card, long num)
+        {
+            var cardObjList = _cardList.Where(
+                obj => obj.GetComponent<CardRuntimeData>().Card == card).Select(
+                obj => obj).ToList();
+
+            for (var i = 0; i < num; ++i)
+            {
+                RemoveCard(cardObjList[i]);
             }
         }
 
@@ -51,23 +82,24 @@ namespace UI.Gameplay
             {
                 layout.Add(CreateCardObj(card));
             }
+            layout.Rebuild();
         }
         
         private GameObject CreateCardObj(Data.Card card)
         {
             var cardObj = GameObjectPool.Instance.Get(cardPrefab);
+            cardObj.transform.position = cardOrigin.position;
             var setter = cardObj.GetComponent<PlayableCard>();
             setter.Init(card, this);
+            _cardList.Add(cardObj);
             return cardObj;
         }
 
-        /// <summary>
-        /// 移除卡牌。
-        /// </summary>
-        /// <param name="cardObj"></param>
         public void RemoveCard(GameObject cardObj)
         {
+            if (!_cardList.Contains(cardObj)) return;
             layout.Remove(cardObj);
+            _cardList.Remove(cardObj);
             GameObjectPool.Instance.ReturnWithReParent(cardObj, cardPrefab); 
         }
 

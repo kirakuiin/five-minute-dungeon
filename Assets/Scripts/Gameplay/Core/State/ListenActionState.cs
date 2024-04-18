@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Data;
 
 namespace Gameplay.Core.State
 {
     public class ListenActionState : ActionState
     {
-        private bool _alreadyStop;
-
         private readonly ILevelRuntimeInfo _info;
 
         public ListenActionState()
@@ -15,23 +14,23 @@ namespace Gameplay.Core.State
         
         public override async Task Enter()
         {
+            _info.OnEnemyDestroyed += OnEnemyDestroyed;
             StartActionCycle();
-            _alreadyStop = false;
             await Task.CompletedTask;
+        }
+
+        private async void OnEnemyDestroyed(EnemyChangeEvent e)
+        {
+            if (_info.GetAllEnemyInfos().Count == 0)
+            {
+                await ChangeState<RevealEnemyState>();
+            }
         }
 
         public override async Task Exit()
         {
+            _info.OnEnemyDestroyed -= OnEnemyDestroyed;
             await StopActionCycle();
-        }
-
-        public override async void Update()
-        {
-            if (_info.GetAllEnemyInfos().Count == 0 && !_alreadyStop)
-            {
-                _alreadyStop = true;
-                await ChangeState<RevealEnemyState>();
-            }
         }
     }
 }

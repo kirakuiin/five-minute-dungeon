@@ -8,6 +8,7 @@ namespace UI.Card
     /// 支持卡牌被选中时的一系列特效。
     /// </summary>
     [RequireComponent(typeof(IDrawOrder))]
+    [RequireComponent(typeof(PlayableCard))]
     public class CardSelection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]
@@ -54,20 +55,13 @@ namespace UI.Card
 
         private void SaveOriginInfo()
         {
-            _originOrder = _canvasDrawOrder.Order;
             _originScale = _transform.localScale;
-            _originRotation = _transform.rotation;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _canvasDrawOrder.Order = _originOrder;
+            GetComponent<PlayableCard>().ReturnToOriginPos();
             _transform.localScale = _originScale;
-            _transform.position -= moveOffset;
-            if (isEnableRotation)
-            {
-                _transform.rotation = _originRotation;
-            }
         }
     }
 }

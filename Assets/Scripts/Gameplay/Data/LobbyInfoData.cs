@@ -205,7 +205,7 @@ namespace Gameplay.Data
             });
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void InvokePlayerJoinedClientRpc(PlayerInfo info)
         {
             if (!IsServer)
@@ -224,7 +224,7 @@ namespace Gameplay.Data
             InvokeReadyInfo();
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void InvokePlayerLeftClientRpc(ulong clientID)
         {
             if (!IsServer)
@@ -253,8 +253,8 @@ namespace Gameplay.Data
             SetPlayerNameServerRpc(playerName);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void SetPlayerNameServerRpc(string playerName, ServerRpcParams rpcParams=default)
+        [Rpc(SendTo.Server)]
+        private void SetPlayerNameServerRpc(string playerName, RpcParams rpcParams=default)
         {
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))
@@ -274,7 +274,7 @@ namespace Gameplay.Data
             }
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void InvokePlayerInfoChangedClientRpc(PlayerInfo info)
         {
             if (!IsServer)
@@ -293,8 +293,8 @@ namespace Gameplay.Data
             SetPlayerClassServerRpc(classType);
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        private void SetPlayerClassServerRpc(Class classType, ServerRpcParams rpcParams=default)
+        [Rpc(SendTo.Server)]
+        private void SetPlayerClassServerRpc(Class classType, RpcParams rpcParams=default)
         {
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))
@@ -313,8 +313,8 @@ namespace Gameplay.Data
             SetPlayerReadyServerRpc(isReady);
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        private void SetPlayerReadyServerRpc(bool isReady, ServerRpcParams rpcParams=default)
+        [Rpc(SendTo.Server)]
+        private void SetPlayerReadyServerRpc(bool isReady, RpcParams rpcParams=default)
         {
             var clientID = rpcParams.Receive.SenderClientId;
             if (_playerInfos.TryGetValue(clientID, out var curInfo))

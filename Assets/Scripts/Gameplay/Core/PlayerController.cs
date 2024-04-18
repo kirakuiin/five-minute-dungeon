@@ -34,7 +34,7 @@ namespace Gameplay.Core
             InitClientRpc(cards.ToArray(), type);
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void InitClientRpc(Card[] cards, Class type)
         {
             PlayerClass = type;
@@ -47,7 +47,7 @@ namespace Gameplay.Core
             PlayClientRpc(card);
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void PlayClientRpc(Card card)
         {
             _hands.RemoveCard(new [] {card});
@@ -58,7 +58,7 @@ namespace Gameplay.Core
             DrawClientRpc(num);
         }
 
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void DrawClientRpc(int num)
         {
             _hands.AddCard(_draws.RemoveCard(num));
@@ -73,7 +73,7 @@ namespace Gameplay.Core
             DiscardClientRpc(cards.ToArray());
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void DiscardClientRpc(Card[] cards)
         {
             _hands.RemoveCard(cards);
@@ -85,7 +85,7 @@ namespace Gameplay.Core
             DrawFromDiscardClientRpc(num);
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void DrawFromDiscardClientRpc(int num)
         {
             _hands.AddCard(_discards.RemoveCard(num));
@@ -96,7 +96,7 @@ namespace Gameplay.Core
             DiscardToDrawClientRpc(num);
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void DiscardToDrawClientRpc(int num)
         {
             _draws.AddCard(_discards.RemoveCard(num));
@@ -107,14 +107,15 @@ namespace Gameplay.Core
             DiscardResourceClientRpc(type);
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void DiscardResourceClientRpc(Resource type)
         {
-            var discardList = from card in _hands
+            var discardList = (from card in _hands
                 where DataHelper.IsCardContainResource(card, type)
-                select card;
+                select card).ToList();
 
-            _hands.RemoveCard(discardList.ToList());
+            _hands.RemoveCard(discardList);
+            _discards.AddCard(discardList);
         }
 
         public void GiveHand(ulong targetPlayerID)
@@ -122,7 +123,7 @@ namespace Gameplay.Core
             GiveHandClientRpc(targetPlayerID);
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void GiveHandClientRpc(ulong targetPlayerID)
         {
             Debug.LogWarning("尚未实现手牌给予逻辑");
@@ -133,7 +134,7 @@ namespace Gameplay.Core
             AddHandClientRpc(cardList.ToArray());
         }
         
-        [ClientRpc]
+        [Rpc(SendTo.ClientsAndHost)]
         private void AddHandClientRpc(Card[] cardList)
         {
             _hands.AddCard(cardList);

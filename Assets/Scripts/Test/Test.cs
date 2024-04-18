@@ -12,16 +12,5 @@ namespace Test
         [SerializeField] private TMP_Text enemyInfo;
 
         [SerializeField] private Button btn;
-
-        public void OnClick()
-        {
-            progressText.text = "abc";
-        }
-
-        public void OnUI(InputAction.CallbackContext callback)
-        {
-            Debug.Log($"{callback}");
-            enemyInfo.text = ("点击了");
-        }
     }
 }
