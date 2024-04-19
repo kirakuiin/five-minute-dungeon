@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Data;
+using Data.Check;
 
 namespace Gameplay.Core.State
 {
@@ -21,7 +22,7 @@ namespace Gameplay.Core.State
 
         private async void OnEnemyDestroyed(EnemyChangeEvent e)
         {
-            if (_info.GetAllEnemyInfos().Count == 0)
+            if (_info.GetAllEnemiesInfo().Count == 0)
             {
                 await ChangeState<RevealEnemyState>();
             }

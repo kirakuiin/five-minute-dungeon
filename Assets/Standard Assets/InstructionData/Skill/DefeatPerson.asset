@@ -47,7 +47,6 @@ MonoBehaviour:
       _dynamic: 0
   playerList: 
   discardList: 
-  num: 3
 --- !u!114 &-105099689362283869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +108,7 @@ MonoBehaviour:
   m_Name: Defeat Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 264, y: 344}
+  position: {x: 264, y: 360}
   ports:
     keys:
     - enemyID
@@ -147,7 +146,6 @@ MonoBehaviour:
   - {fileID: 6698857952253161646}
   - {fileID: -39697732236409679}
   subject: 0
-  choiceRules: 1
 --- !u!114 &3923756443322300364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +183,6 @@ MonoBehaviour:
   playerList: 
   target: 0
   selectPlayerNum: 0
-  useChoiceRule: 0
 --- !u!114 &6698857952253161646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,3 +214,4 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   enemyID: 0
+  enemyType: 1

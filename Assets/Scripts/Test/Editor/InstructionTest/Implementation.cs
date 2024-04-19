@@ -236,6 +236,11 @@ namespace Test.Editor.InstructionTest
             throw new NotImplementedException();
         }
 
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemiesInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         public void StopTime()
         {
             Debug.Log("Stop time");
@@ -244,11 +249,6 @@ namespace Test.Editor.InstructionTest
         public void ContinueTime()
         {
             Debug.Log("Continue time");
-        }
-
-        public IEnumerable<ulong> GetEnemyIDs()
-        {
-            return enemies;
         }
     }
 

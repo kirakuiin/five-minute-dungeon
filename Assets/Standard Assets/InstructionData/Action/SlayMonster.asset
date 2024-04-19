@@ -16,7 +16,6 @@ MonoBehaviour:
   - {fileID: 6303107535081538931}
   - {fileID: 7193283538738633263}
   subject: 0
-  choiceRules: 1
 --- !u!114 &6303107535081538931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +47,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   enemyID: 0
+  enemyType: 4
 --- !u!114 &7193283538738633263
 MonoBehaviour:
   m_ObjectHideFlags: 0

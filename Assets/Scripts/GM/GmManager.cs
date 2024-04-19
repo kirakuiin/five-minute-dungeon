@@ -43,7 +43,7 @@ namespace GM
 
         public void KillAllEnemy()
         {
-            var ids = Context.GetLevelRuntimeInfo().GetAllEnemyInfos().Keys.ToList();
+            var ids = Context.GetLevelRuntimeInfo().GetAllEnemiesInfo().Keys.ToList();
             foreach (var id in ids)
             {
                 Context.GetLevelController().DestroyEnemyCard(id);

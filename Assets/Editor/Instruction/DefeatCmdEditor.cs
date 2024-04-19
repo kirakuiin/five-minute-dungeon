@@ -23,8 +23,7 @@ namespace Editor.Instruction
         {
             serializedObject.Update();
             
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("enemyType"), new GUIContent("敌人类型"));
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("enemyID"), new GUIContent("敌人ID"));
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.enemyID)), new GUIContent("敌人ID"));
             
             serializedObject.ApplyModifiedProperties();
         }

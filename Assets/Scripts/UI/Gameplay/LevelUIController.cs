@@ -1,6 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Data;
+using Data.Check;
 using Gameplay.Core;
 using TMPro;
 using UnityEngine;
@@ -74,7 +74,7 @@ namespace UI.Gameplay
         private void RefreshDesc()
         {
             StringBuilder content = new();
-            foreach (var enemy in _levelInfo.GetAllEnemyInfos().Values)
+            foreach (var enemy in _levelInfo.GetAllEnemiesInfo().Values)
             {
                 var data = DataService.Instance.GetEnemyCardData(enemy);
                 content.Append($"{data.desc}\n");

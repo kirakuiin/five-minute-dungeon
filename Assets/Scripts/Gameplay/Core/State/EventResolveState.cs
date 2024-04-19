@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Data;
+using Data.Check;
 using Data.Instruction;
 using Unity.Netcode;
 using UnityEngine;
@@ -63,7 +64,7 @@ namespace Gameplay.Core.State
 
         private void ExecuteEvent()
         {
-            foreach (var pair in _levelRuntime.GetAllEnemyInfos())
+            foreach (var pair in _levelRuntime.GetAllEnemiesInfo())
             {
                 var enemyInfo = pair.Value;
                 if (!enemyInfo.IsEventCard()) return;

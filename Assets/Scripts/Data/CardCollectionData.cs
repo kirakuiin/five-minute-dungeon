@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Data;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Gameplay.Data
+namespace Data
 {
     /// <summary>
     /// 卡牌变化类型。

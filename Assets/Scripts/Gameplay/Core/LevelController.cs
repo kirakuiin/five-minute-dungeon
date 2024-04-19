@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Data.Check;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
 using Unity.Netcode;
@@ -61,7 +62,7 @@ namespace Gameplay.Core
             return _resPool.Elements();
         }
 
-        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemyInfos()
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemiesInfo()
         {
             return _enemyInfos;
         }
@@ -163,11 +164,6 @@ namespace Gameplay.Core
         {
             _enemyInfos[_currentEnemyId] = wrapper.value;
             OnEnemyAdded?.Invoke(new EnemyChangeEvent() {enemyID = enemyID, enemyCard = wrapper.value});
-        }
-
-        public IEnumerable<ulong> GetEnemyIDs()
-        {
-            return _enemyInfos.Keys;
         }
     }
 

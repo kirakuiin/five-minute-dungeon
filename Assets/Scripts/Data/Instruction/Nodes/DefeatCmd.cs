@@ -12,11 +12,6 @@ namespace Data.Instruction.Nodes
         /// </summary>
         [Input] public ulong enemyID;
         
-        /// <summary>
-        /// 被击败的敌人的类型。
-        /// </summary>
-        public EnemyCardType enemyType;
-        
         public override async Task Execute(ICmdContext context, TempContext tempContext)
         {
             enemyID = GetInputValue<ulong>(nameof(enemyID));

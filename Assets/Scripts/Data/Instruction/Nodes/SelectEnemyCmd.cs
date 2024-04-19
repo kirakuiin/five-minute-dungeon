@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEditor.Experimental.GraphView;
 using XNode;
@@ -15,6 +17,8 @@ namespace Data.Instruction.Nodes
         /// </summary>
         [Output] public ulong enemyID;
 
+        public EnemyCardType enemyType;
+
         public override object GetValue(NodePort port)
         {
             return enemyID;
@@ -22,16 +26,28 @@ namespace Data.Instruction.Nodes
 
         public override async Task Execute(ICmdContext context, TempContext tempContext)
         {
+            var enemies = context.GetLevelController().GetAllEnemiesInfo();
+            var candidates = (from id in enemies.Keys
+                where (enemyType & enemies[id].type) > 0
+                select id).ToList();
+            await SetEnemyID(context, tempContext, candidates);
+        }
+
+        private async Task SetEnemyID(ICmdContext context, TempContext tempContext, List<ulong> candidates)
+        {
             var player = context.GetPlayerController(tempContext.ClientID);
             var handler = player.GetInteractiveHandler();
-            var enemies = context.GetLevelController().GetEnemyIDs().ToList();
-            if (enemies.Count == 1)
+            if (candidates.Count == 1)
             {
-                enemyID = enemies.First();
+                enemyID = candidates[0];
+            }
+            else if (candidates.Count > 1)
+            {
+                enemyID = await handler.SelectEnemy();
             }
             else
             {
-                enemyID = await handler.SelectEnemy();
+                throw new InstructionException($"找不到合法的敌方对象[{enemyType}]");
             }
         }
     }

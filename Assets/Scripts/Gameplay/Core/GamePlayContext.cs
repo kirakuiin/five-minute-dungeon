@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Data.Check;
 using Data.Instruction;
 using GameLib.Common;
 using GameLib.Network.NGO;

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data;
-using Data.Instruction;
-using Gameplay.Data;
 
-namespace Gameplay.Core
+namespace Data.Check
 {
     /// <summary>
     /// 运行时上下文环境。
@@ -111,7 +108,7 @@ namespace Gameplay.Core
         /// 获得当前场上的敌人信息。
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemyInfos();
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemiesInfo();
         
         /// <summary>
         /// 当前进度。
@@ -129,7 +126,7 @@ namespace Gameplay.Core
         /// <returns></returns>
         public bool IsContainEvent()
         {
-            foreach (var enemyCard in GetAllEnemyInfos().Values)
+            foreach (var enemyCard in GetAllEnemiesInfo().Values)
             {
                 if (enemyCard.IsEventCard())
                 {

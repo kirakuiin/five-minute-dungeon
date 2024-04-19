@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Check;
 using Data.Instruction;
 using UnityEngine;
 
@@ -30,5 +31,8 @@ namespace Data
 
         [Tooltip("执行动作")]
         public InstructionGraph action;
+
+        [Tooltip("执行检查")]
+        public CheckGraph check;
     }
 }

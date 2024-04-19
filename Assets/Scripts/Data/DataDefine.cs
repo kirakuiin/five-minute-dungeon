@@ -248,7 +248,7 @@ namespace Data
         /// <returns></returns>
         public bool IsDoorCard()
         {
-            return type == EnemyCardType.Monster || type == EnemyCardType.Person || type == EnemyCardType.Obstacle;
+            return ((EnemyCardType.Monster|EnemyCardType.Person|EnemyCardType.Obstacle) & type) > 0;
         }
 
         /// <summary>

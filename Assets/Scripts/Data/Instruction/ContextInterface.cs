@@ -92,9 +92,10 @@ namespace Data.Instruction
         public bool IsComplete();
 
         /// <summary>
-        /// 获得当前在场敌人卡ID。
+        /// 获得当前在场敌人信息。
         /// </summary>
-        public IEnumerable<ulong> GetEnemyIDs();
+        /// <returns></returns>
+        public IReadOnlyDictionary<ulong, EnemyCard> GetAllEnemiesInfo();
     }
 
     public interface ITimeController
