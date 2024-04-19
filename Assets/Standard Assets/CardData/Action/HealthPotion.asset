@@ -19,3 +19,4 @@ MonoBehaviour:
   cardName: "\u751F\u547D\u836F\u6C34"
   cardDescription: "\u6240\u6709\u73A9\u5BB6\u4ECE\u5F03\u724C\u5806\u9876\u90E8\u62BD3\u5F20\u724C\u3002"
   action: {fileID: 11400000, guid: 1e01156efffc37d4cb651d00b9d8af37, type: 2}
+  check: {fileID: 11400000, guid: 57769fd426f4d554cb662bd4e921d3d1, type: 2}

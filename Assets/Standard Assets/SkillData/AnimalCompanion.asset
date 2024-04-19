@@ -17,3 +17,4 @@ MonoBehaviour:
   skillDesc: "\u4E22\u5F03\u4E09\u5F20\u624B\u724C: \u53E6\u4E00\u4F4D\u73A9\u5BB6\u62BD4\u5F20\u724C\u3002"
   skillIcon: {fileID: 21300000, guid: 0613f5eef13c68a44abae6e1c8430c5c, type: 3}
   action: {fileID: 11400000, guid: 10a01254d0e4a7a4d8f8a5b75ea28620, type: 2}
+  check: {fileID: 11400000, guid: 96a1ad5e36a72de43ba2f145fcfa1753, type: 2}

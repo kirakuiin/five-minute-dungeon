@@ -1,4 +1,5 @@
-﻿using Data.Instruction;
+﻿using Data.Check;
+using Data.Instruction;
 using UnityEngine;
 
 namespace Data
@@ -20,5 +21,8 @@ namespace Data
 
         [Tooltip("行动")]
         public InstructionGraph action;
+
+        [Tooltip("检查")]
+        public CheckGraph check;
     }
 }

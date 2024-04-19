@@ -18,5 +18,5 @@ MonoBehaviour:
   textOffset: 0
   cardName: "\u5377\u8F74"
   cardDescription: 
-  containResource: 04000000
   action: {fileID: 11400000, guid: 6914cf3b92b3ab34f99d9b33c45888ff, type: 2}
+  check: {fileID: 11400000, guid: 57769fd426f4d554cb662bd4e921d3d1, type: 2}
