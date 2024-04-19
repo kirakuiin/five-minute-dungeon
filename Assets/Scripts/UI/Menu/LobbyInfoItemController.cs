@@ -9,7 +9,6 @@ using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Data;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.Menu
 {
@@ -27,9 +26,6 @@ namespace UI.Menu
         [SerializeField]
         private TMP_Text lobbyLatency;
 
-        [SerializeField]
-        private Button selectButton;
-
         private IPEndPoint _endPoint;
 
         private LobbyInfo _info;
@@ -43,6 +39,7 @@ namespace UI.Menu
         /// </summary>
         /// <param name="ipAddress">主机ip地址</param>
         /// <param name="info">房间信息</param>
+        /// <param name="callback">创建回调</param>
         public void Init(IPAddress ipAddress, LobbyInfo info, Action<IPAddress, LobbyInfo> callback)
         {
             _endPoint = Address.GetIPEndPoint(ipAddress.ToString(), NetworkDefines.Port);
@@ -70,7 +67,7 @@ namespace UI.Menu
         {
             var factor = (float)_info.playerNum / ConnectionManager.Instance.config.maxConnectedPlayerNum;
             var text = $"{_info.playerNum}/{ConnectionManager.Instance.config.maxConnectedPlayerNum}";
-            playerNumText.text = GetGreenRedColor(text, 0.5f);
+            playerNumText.text = GetGreenRedColor(text, factor);
         }
 
         private void SetLobbyNameText()
@@ -82,7 +79,7 @@ namespace UI.Menu
         {
             _latency = new Latency(_endPoint.Address.ToString(), NetworkDefines.Timeout);
             var result = await _latency.GetLatencyAsync();
-            if (result.IsReachable())
+            if (result.IsReachable)
             {
                 lobbyLatency.text = GetGreenRedColor(result.Latency.ToString(),
                     (float)result.Latency / TimeScalar.ConvertSecondToMs(NetworkDefines.Timeout));

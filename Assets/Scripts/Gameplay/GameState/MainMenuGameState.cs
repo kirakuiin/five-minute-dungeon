@@ -42,10 +42,10 @@ namespace Gameplay.GameState
                 RebuildConnectionMethod(ipAddress, password);
                 ConnectionManager.Instance.StartClient();
             }
-            catch (IPParseException e)
+            catch (IPParseException)
             {
                 LockScreenManager.Instance.Unlock();
-                InformManager.Instance.CreateInform($"IP地址无效: {ipAddress}\n原因: {e}");
+                InformManager.Instance.CreateInform($"IP地址无效: {ipAddress}。");
             }
         }
 
