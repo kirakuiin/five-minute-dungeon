@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Data;
 using Data.Instruction;
 using GameLib.Common.Extension;
 

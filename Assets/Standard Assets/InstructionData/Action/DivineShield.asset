@@ -51,7 +51,6 @@ MonoBehaviour:
   playerList: 
   target: 3
   selectPlayerNum: 0
-  useChoiceRule: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,10 +65,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -7879268796295971520}
-  - {fileID: 9120815385316845602}
   - {fileID: -7034722289617587321}
+  - {fileID: 9120815385316845602}
   subject: 0
-  choiceRules: 1
 --- !u!114 &9120815385316845602
 MonoBehaviour:
   m_ObjectHideFlags: 0

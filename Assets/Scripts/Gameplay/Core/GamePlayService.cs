@@ -128,6 +128,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.Server)]
         private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
+            Context.GetTimeController().Continue();
             _curState.ExecuteAction(
                 new GameAction
                 {
