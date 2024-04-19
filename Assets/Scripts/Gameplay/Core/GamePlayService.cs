@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
 using Data.Instruction;
 using GameLib.Network.NGO;
 using Gameplay.Core.State;
+using Gameplay.Data;
+using Gameplay.GameState;
+using Gameplay.Message;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -15,8 +18,12 @@ namespace Gameplay.Core
     /// </summary>
     public class GamePlayService : NetworkSingleton<GamePlayService>
     {
+        [SerializeField] private GamePlayState gamePlay;
+        
         private GameplayServiceState _curState;
 
+        private IDisposable _disposable;
+        
         private readonly Dictionary<string, GameplayServiceState> _states = new();
 
         private GamePlayContext Context => GamePlayContext.Instance;
@@ -27,35 +34,36 @@ namespace Gameplay.Core
             _curState?.Update();
         }
 
+        private void Start()
+        {
+            _disposable = gamePlay.GameplayState.Subscribe(InitListen);
+        }
+        
+        private void InitListen(GamePlayStateMsg msg)
+        {
+            if (msg.state != GamePlayStateEnum.InitDone) return;
+            Context.GetPlayerRuntimeInfo().GetHands().OnCardChanged += OnCardChange;
+        }
+
+        private void OnCardChange(CardChangeEvent e)
+        {
+            var handSize = Context.GetPlayerRuntimeInfo().GetHands().Count;
+            var diff = Context.InitHandNum - handSize;
+            if (diff > 0)
+            {
+                var controller = Context.GetPlayerController();
+                controller.Draw(diff);
+            }
+        }
+        
+
         /// <summary>
         /// 启动服务。
         /// </summary>
         public async void StartService()
         {
             if (!IsServer) return;
-            InitListen();
             await ChangeState<BeginState>();
-        }
-
-        private void InitListen()
-        {
-            foreach (var clientID in Context.GetAllClientIDs())
-            {
-                var hand = Context.GetPlayerRuntimeInfo(clientID).GetHands();
-                hand.OnCardChanged += @event => OnCardChange(clientID);
-            }
-        }
-        
-        private void OnCardChange(ulong clientID)
-        {
-            Debug.Log(clientID);
-            var handSize = Context.GetPlayerRuntimeInfo(clientID).GetHands().Count;
-            var diff = Context.InitHandNum - handSize;
-            if (diff > 0)
-            {
-                var controller = Context.GetPlayerController(clientID);
-                controller.Draw(diff);
-            }
         }
 
         public async Task ChangeState<T>() where T : GameplayServiceState, new()
@@ -114,13 +122,12 @@ namespace Gameplay.Core
         public void PlayCard(Card card)
         {
             PlayCardServerRpc(card);
+            Context.GetPlayerController().Play(card);
         }
 
         [Rpc(SendTo.Server)]
         private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
-            var controller = Context.GetPlayerController(param.Receive.SenderClientId);
-            controller.Play(card);
             _curState.ExecuteAction(
                 new GameAction
                 {
@@ -128,22 +135,6 @@ namespace Gameplay.Core
                     clientID = param.Receive.SenderClientId,
                 }
             );
-        }
-
-        /// <summary>
-        /// 丢弃手牌。
-        /// </summary>
-        /// <param name="card"></param>
-        public void DiscardCard(Card card)
-        {
-            DiscardCardServerRpc(card);
-        }
-
-        [Rpc(SendTo.Server)]
-        private void DiscardCardServerRpc(Card card, RpcParams param=default)
-        {
-            var controller = Context.GetPlayerController(param.Receive.SenderClientId);
-            controller.Discard(new []{card});
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Data.Instruction;
 using Gameplay.Core;
 using UI.Gameplay;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace UI.Card
@@ -13,13 +12,17 @@ namespace UI.Card
     {
         private HandZoneUIController _handZone;
 
-        
+        private Data.Card _card;
+
+        private IPlayerController Controller => GamePlayContext.Instance.GetPlayerController();
+
         /// <summary>
         /// 初始化。
         /// </summary>
         public void Init(Data.Card card, HandZoneUIController zone)
         {
             _handZone = zone;
+            _card = card;
             GetComponent<CardRuntimeData>().Init(card);
             GetComponent<CardAppearanceSetter>().Init();
         }
@@ -35,7 +38,7 @@ namespace UI.Card
         public void PlayCard()
         {
             RemoveCard();
-            GamePlayService.Instance.PlayCard(GetComponent<CardRuntimeData>().Card);
+            GamePlayService.Instance.PlayCard(_card);
         }
 
         /// <summary>
@@ -44,7 +47,7 @@ namespace UI.Card
         public void DiscardCard()
         {
             RemoveCard();
-            GamePlayService.Instance.DiscardCard(GetComponent<CardRuntimeData>().Card);
+            Controller.Discard(new []{_card});
         }
         
         private void RemoveCard()
