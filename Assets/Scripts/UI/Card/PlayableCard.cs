@@ -16,6 +16,8 @@ namespace UI.Card
 
         private IPlayerController Controller => GamePlayContext.Instance.GetPlayerController();
 
+        private GamePlayService Service => GamePlayService.Instance;
+
         /// <summary>
         /// 初始化。
         /// </summary>
@@ -37,8 +39,15 @@ namespace UI.Card
         /// </summary>
         public void PlayCard()
         {
-            RemoveCard();
-            GamePlayService.Instance.PlayCard(_card);
+            if (Service.CanIPlayThisCard(_card))
+            {
+                RemoveCard();
+                Service.PlayCard(_card);
+            }
+            else
+            {
+                ReturnToOriginPos();
+            }
         }
 
         /// <summary>

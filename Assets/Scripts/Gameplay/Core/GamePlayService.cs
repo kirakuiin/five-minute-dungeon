@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
-using Data.Instruction;
 using GameLib.Network.NGO;
 using Gameplay.Core.State;
-using Gameplay.Data;
 using Gameplay.GameState;
 using Gameplay.Message;
 using Unity.Netcode;
@@ -23,6 +21,8 @@ namespace Gameplay.Core
         private GameplayServiceState _curState;
 
         private IDisposable _disposable;
+
+        private PlayableChecker _checker;
         
         private readonly Dictionary<string, GameplayServiceState> _states = new();
 
@@ -36,12 +36,13 @@ namespace Gameplay.Core
 
         private void Start()
         {
-            _disposable = gamePlay.GameplayState.Subscribe(InitListen);
+            _disposable = gamePlay.GameplayState.Subscribe(OnInitState);
         }
         
-        private void InitListen(GamePlayStateMsg msg)
+        private void OnInitState(GamePlayStateMsg msg)
         {
             if (msg.state != GamePlayStateEnum.InitDone) return;
+            _checker = new PlayableChecker();
             Context.GetPlayerRuntimeInfo().GetHands().OnCardChanged += OnCardChange;
         }
 
@@ -109,7 +110,7 @@ namespace Gameplay.Core
             _curState.ExecuteAction(
                 new GameAction
                 {
-                    graph = DataService.Instance.GetSkillData(skill).action.Copy() as InstructionGraph,
+                    graph = DataService.Instance.GetSkillData(skill).action,
                     clientID = param.Receive.SenderClientId,
                 }
             );
@@ -132,10 +133,28 @@ namespace Gameplay.Core
             _curState.ExecuteAction(
                 new GameAction
                 {
-                    graph = DataService.Instance.GetPlayerCardData(card).action.Copy() as InstructionGraph,
+                    graph = DataService.Instance.GetPlayerCardData(card).action,
                     clientID = param.Receive.SenderClientId,
                 }
             );
+        }
+
+        /// <summary>
+        /// 是否可以释放法术？
+        /// </summary>
+        public bool CanICastSkill(Skill skill)
+        {
+            return _checker.CheckSkill(skill);
+        }
+
+        /// <summary>
+        /// 是否可以打出卡牌？
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public bool CanIPlayThisCard(Card card)
+        {
+            return _checker.CheckCard(card);
         }
     }
 }

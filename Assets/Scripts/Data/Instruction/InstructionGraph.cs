@@ -75,32 +75,5 @@ namespace Data.Instruction
 
             return result;
         }
-
-        public override NodeGraph Copy()
-        {
-            InstructionGraph graph = Instantiate(this);
-            for (int i = 0; i < nodes.Count; i++) {
-                if (nodes[i] == null) continue;
-                Node.graphHotfix = graph;
-                Node node = Instantiate(nodes[i]) as Node;
-                node.name = nodes[i].name;
-                node.graph = graph;
-                graph.nodes[i] = node;
-            }
-
-            // Redirect all connections
-            for (int i = 0; i < graph.nodes.Count; i++) {
-                if (graph.nodes[i] == null) continue;
-                foreach (NodePort port in graph.nodes[i].Ports) {
-                    port.Redirect(nodes, graph.nodes);
-                }
-            }
-
-            graph.subject = subject;
-            graph.name = name;
-            
-            return graph;
-        }
-
     }
 }

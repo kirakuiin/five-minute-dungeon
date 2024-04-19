@@ -71,9 +71,7 @@ namespace Gameplay.Core.State
                 var action = new EventAction()
                 {
                     clientID = NetworkManager.Singleton.LocalClientId,
-                    graph =
-                        DataService.Instance.GetChallengeCardData((Challenge)pair.Value.value).action.Copy() as
-                            InstructionGraph,
+                    graph = DataService.Instance.GetChallengeCardData((Challenge)pair.Value.value).action,
                     enemyID = pair.Key,
                 };
                 ExecuteAction(action);
