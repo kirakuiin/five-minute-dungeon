@@ -5,6 +5,7 @@ using Data.Check;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using GameLib.UI.SectorLayout;
+using Gameplay.Core;
 using UI.Card;
 using UnityEngine;
 
@@ -27,26 +28,25 @@ namespace UI.Gameplay
 
         private readonly List<GameObject> _cardList = new ();
 
-        private IPlayerRuntimeInfo _info;
+        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
 
-        public void Init(IPlayerRuntimeInfo info)
+        public void Init()
         {
             selector.Init(this);
-            _info = info;
             InitListen();
             InitUI();
         }
 
         private void InitListen()
         {
-            _info.GetHands().OnCardChanged += OnCardChanged;
+            RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
         }
 
         private void OnCardChanged(CardChangeEvent e)
         {
             var curCard = new Counter<Data.Card>(_cardList.Select(
                 cardObj => cardObj.GetComponent<CardRuntimeData>().Card));
-            var newCard = new Counter<Data.Card>(_info.GetHands());
+            var newCard = new Counter<Data.Card>(RuntimeInfo.GetHands());
             newCard.Subtract(curCard);
             foreach (var card in newCard.Keys)
             {
@@ -77,12 +77,12 @@ namespace UI.Gameplay
 
         private void OnDestroy()
         {
-            _info.GetHands().OnCardChanged -= OnCardChanged;
+            RuntimeInfo.GetHands().OnCardChanged -= OnCardChanged;
         }
 
         private void InitUI()
         {
-            foreach (var card in _info.GetHands())
+            foreach (var card in RuntimeInfo.GetHands())
             {
                 layout.Add(CreateCardObj(card));
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using Data;
+﻿using Data;
 using Data.Check;
 using GameLib.Common;
 using GameLib.Network.NGO.ConnectionManagement;
@@ -73,8 +72,8 @@ namespace UI.Gameplay
             RuntimeInfo.GetDiscards().OnCardChanged += OnDiscardChanged;
             SetDrawPileText();
             SetDiscardPileText();
-            skillUI.Init(RuntimeInfo);
-            handUI.Init(RuntimeInfo);
+            skillUI.Init();
+            handUI.Init();
             levelUI.Init();
             resSelectUI.Init();
         }

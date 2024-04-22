@@ -11,7 +11,7 @@ namespace UI.Gameplay
     /// </summary>
     public class ClassSkillUIController : MonoBehaviour
     {
-        private IPlayerRuntimeInfo _playerInfo;
+        private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
 
         private ClassData _classData;
 
@@ -23,10 +23,9 @@ namespace UI.Gameplay
 
         [SerializeField] private Button castBtn;
         
-        public void Init(IPlayerRuntimeInfo info)
+        public void Init()
         {
-            _playerInfo = info;
-            _classData = DataService.Instance.GetClassData(_playerInfo.PlayerClass);
+            _classData = DataService.Instance.GetClassData(RuntimeInfo.PlayerClass);
             _skill = _classData.skillData.skill;
             InitUI();
             InitListen();
@@ -34,7 +33,7 @@ namespace UI.Gameplay
 
         private void InitListen()
         {
-            _playerInfo.GetHands().OnCardChanged += OnCardChanged;
+            RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
             GamePlayContext.Instance.GetLevelRuntimeInfo().OnEnemyAdded += OnEnemyChanged;
         }
 

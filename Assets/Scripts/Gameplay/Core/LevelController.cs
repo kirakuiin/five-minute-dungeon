@@ -100,7 +100,8 @@ namespace Gameplay.Core
         }
 
         private bool IsPlayedResourceGeThanNeeded()
-        {
+        {   
+            if ((this as ILevelRuntimeInfo).IsContainEvent()) return false;
             var curRes = new Counter<Resource>(GetAlreadyPlayedResources());
             curRes.Subtract(new Counter<Resource>(GetCurNeedResources()));
             var negativeSum = (from val in curRes.Values where val < 0 select val).Sum();
@@ -130,7 +131,7 @@ namespace Gameplay.Core
 
         public bool IsReachBoss() => _enemyProvider.IsReachBoss();
         
-        public bool IsComplete() => CurProgress == TotalLevelNum;
+        public bool IsComplete() => CurProgress >= TotalLevelNum;
 
         public void RevealNextLevel(int num)
         {
