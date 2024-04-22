@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Gameplay.Core;
 using Unity.Netcode;
@@ -16,10 +17,10 @@ namespace GM
 
         [SerializeField] private GameObject uiPrefab;
 
-        [SerializeField] private LevelController controller;
+        [SerializeField] private LevelController levelController;
 
         private GamePlayContext Context => GamePlayContext.Instance;
-
+        
         private GameObject _uiObj;
         
         public void OnTriggerShow(InputAction.CallbackContext callback)
@@ -57,17 +58,32 @@ namespace GM
 
         public int GetRemainEnemyCount()
         {
-            return controller.TotalLevelNum - controller.CurProgress;
+            return levelController.TotalLevelNum - levelController.CurProgress;
         }
 
         public void ClearAllEnemy()
         {
-            controller.ClearAllEnemy();
+            levelController.ClearAllEnemy();
         }
 
         public void AddEnemy(EnemyCard card)
         {
-            controller.AddEnemy(card);
+            levelController.AddEnemy(card);
+        }
+
+        public void AddDrawPileCard(ulong clientID, Card card)
+        {
+            Context.GetPlayerController(clientID).AddDraw(new []{card});
+        }
+
+        public void ClearAllDrawPile(ulong clientID)
+        {
+            Context.GetPlayerController(clientID).CleanDrawPile();
+        }
+
+        public IEnumerable<ulong> GetAllClientIDs()
+        {
+            return Context.GetAllClientIDs();
         }
     }
 }

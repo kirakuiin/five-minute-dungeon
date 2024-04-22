@@ -1,14 +1,13 @@
 ﻿using System;
-using Data;
 using TMPro;
 using UnityEngine;
 
 namespace GM
 {
     /// <summary>
-    /// 敌方卡牌按钮。
+    /// 玩家选择按钮。
     /// </summary>
-    public class EnemyCardAddBtn : MonoBehaviour
+    public class PlayerSelectBtn : MonoBehaviour
     {
         private Action _callback;
 
@@ -16,12 +15,14 @@ namespace GM
         
         public void Init(string desc, Action callback)
         {
+            gameObject.SetActive(true);
             _callback = callback;
             text.text = desc;
         }
 
-        public void OnClick()
+        public void OnClick(bool isSelected)
         {
+            if (!isSelected) return;
             _callback?.Invoke();
         }
     }

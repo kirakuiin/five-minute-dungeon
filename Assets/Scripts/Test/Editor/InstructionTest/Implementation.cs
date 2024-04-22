@@ -179,6 +179,16 @@ namespace Test.Editor.InstructionTest
             Hands.AddRange(cardList);
         }
 
+        public void AddDraw(IEnumerable<Card> cardList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanDrawPile()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetInteractiveMode(InteractiveMode mode)
         {
             _interactive = mode switch

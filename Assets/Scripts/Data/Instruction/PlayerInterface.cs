@@ -67,6 +67,17 @@ namespace Data.Instruction
         public void AddHand(IEnumerable<Card> cardList);
 
         /// <summary>
+        /// 讲一堆牌加入抽牌堆。
+        /// </summary>
+        /// <param name="cardList"></param>
+        public void AddDraw(IEnumerable<Card> cardList);
+
+        /// <summary>
+        /// 清理抽牌堆。
+        /// </summary>
+        public void CleanDrawPile();
+        
+        /// <summary>
         /// 获得玩家交互处理器。
         /// </summary>
         /// <returns></returns>

@@ -53,7 +53,7 @@ namespace GM
         private void CreateBtn(string desc, EnemyCard card)
         {
             var btn = GameObjectPool.Instance.Get(btnPrefab);
-            btn.GetComponent<EnemyCardAddBtn>().Init(desc, () => OnClickEnemyBtn(card));
+            btn.GetComponent<CardAddBtn>().Init(desc, () => OnClickEnemyBtn(card));
             btn.transform.SetParent(content);
         }
 

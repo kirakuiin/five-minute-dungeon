@@ -1,6 +1,4 @@
-﻿using Common;
-using GameLib.Network.NGO;
-using GameLib.Network.NGO.ConnectionManagement;
+﻿using GameLib.Network.NGO.ConnectionManagement;
 
 namespace Gameplay.Connection
 {

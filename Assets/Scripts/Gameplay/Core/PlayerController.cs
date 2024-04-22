@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Check;
@@ -33,14 +34,14 @@ namespace Gameplay.Core
 
         public void Init(IEnumerable<Card> cards, Class type)
         {
-            InitClientRpc(cards.ToArray(), type);
+            AddDraw(cards);
+            InitClientRpc(type);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
-        private void InitClientRpc(Card[] cards, Class type)
+        private void InitClientRpc(Class type)
         {
             PlayerClass = type;
-            _draws.AddCard(cards);
             LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPile);
         }
 
@@ -131,7 +132,29 @@ namespace Gameplay.Core
         {
             AddHandClientRpc(cardList.ToArray());
         }
+
+        public void AddDraw(IEnumerable<Card> cardList)
+        {
+            AddDrawClientRpc(cardList.ToArray());
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void AddDrawClientRpc(Card[] cardList)
+        {
+            _draws.AddCard(cardList);
+        }
+
+        public void CleanDrawPile()
+        {
+            CleanDrawPileClientRpc();
+        }
         
+        [Rpc(SendTo.ClientsAndHost)]
+        private void CleanDrawPileClientRpc()
+        {
+            _draws.RemoveCard(Int32.MaxValue);
+        }
+
         [Rpc(SendTo.ClientsAndHost)]
         private void AddHandClientRpc(Card[] cardList)
         {

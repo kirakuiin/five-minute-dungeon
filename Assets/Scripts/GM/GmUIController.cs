@@ -1,29 +1,46 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace GM
 {
     public class GmUIController : MonoBehaviour
     {
-        [SerializeField] private GameObject common;
+        [SerializeField] private List<ToggleConfig> toggleConfigs;
 
-        [SerializeField] private GameObject enemy;
-        
-        public void OnSelectCommon(bool isSelected)
+        private void Start()
         {
-            if (isSelected)
+            foreach (var config in toggleConfigs)
             {
-                common.SetActive(true);
-                enemy.SetActive(false);
+                config.toggle.onValueChanged.AddListener((isSelect) => OnSelected(isSelect, config.subDialog));
             }
         }
 
-        public void OnSelectEnemy(bool isSelected)
+        private void OnDestroy()
         {
-            if (isSelected)
+            foreach (var config in toggleConfigs)
             {
-                common.SetActive(false);
-                enemy.SetActive(true);
+                config.toggle.onValueChanged.RemoveAllListeners();
             }
         }
+
+        private void OnSelected(bool isSelected, GameObject dialog)
+        {
+            if (!isSelected) return;
+            foreach (var config in toggleConfigs.Where(config => config.subDialog != dialog))
+            {
+                config.subDialog.SetActive(false);
+            }
+            dialog.SetActive(true);
+        }
+    }
+    
+    [Serializable]
+    public struct ToggleConfig
+    {
+        public Toggle toggle;
+        public GameObject subDialog;
     }
 }
