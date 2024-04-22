@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Data.Check;
 using GameLib.Common.Extension;
 using Unity.Netcode;
 
@@ -10,22 +12,16 @@ namespace Gameplay.Core.Interactive
     /// <summary>
     /// 手牌选择器。
     /// </summary>
-    public class HandSelector : NetworkBehaviour
+    public class HandSelector : NetworkBehaviour, IHandSelector
     {
         /// <summary>
         /// 通知选择手牌。
         /// </summary>
-        public event Action<int> OnSelectHandCard;
-        
-        private readonly NetworkVariable<bool> _isSelect =
-            new (false, writePerm: NetworkVariableWritePermission.Owner);
+        public event Action<int> OnHandSelecting;
 
-        private NetworkList<int> _cardList;
+        private bool _isSelect;
 
-        private void Awake()
-        {
-            _cardList = new NetworkList<int>(writePerm: NetworkVariableWritePermission.Owner);
-        }
+        private List<Card> _cardList;
 
         /// <summary>
         /// 选择手牌。
@@ -33,11 +29,14 @@ namespace Gameplay.Core.Interactive
         /// <param name="cardList"></param>
         public void SelectHand(IEnumerable<Card> cardList)
         {
-            _isSelect.Value = true;
-            foreach (var cardEnum in cardList)
-            {
-                _cardList.Add((int)cardEnum);
-            }
+            SelectHandServerRpc(cardList.ToArray());
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SelectHandServerRpc(Card[] cards)
+        {
+            _cardList = new(cards);
+            _isSelect = true;
         }
         
         /// <summary>
@@ -46,24 +45,16 @@ namespace Gameplay.Core.Interactive
         /// <returns></returns>
         public async Task<List<Card>> GetSelectHandCards(int num)
         {
+            _isSelect = false;
             GetSelectHandCardsClientRpc(num);
-            await TaskExtension.Wait(() => _isSelect.Value);
-            
-            var result = new List<Card>();
-            foreach (var cardEnum in _cardList)
-            {
-                result.Add((Card)cardEnum);
-            }
-
-            return result;
+            await TaskExtension.Wait(() => _isSelect);
+            return _cardList;
         }
 
         [Rpc(SendTo.Owner)]
         private void GetSelectHandCardsClientRpc(int num)
         {
-            _isSelect.Value = false;
-            _cardList.Clear();
-            OnSelectHandCard?.Invoke(num);
+            OnHandSelecting?.Invoke(num);
         }
     }
 }

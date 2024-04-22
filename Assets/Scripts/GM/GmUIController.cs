@@ -4,26 +4,26 @@ namespace GM
 {
     public class GmUIController : MonoBehaviour
     {
-        private GmManager _manager;
+        [SerializeField] private GameObject common;
 
-        private void Start()
+        [SerializeField] private GameObject enemy;
+        
+        public void OnSelectCommon(bool isSelected)
         {
-            _manager = FindObjectOfType<GmManager>();
+            if (isSelected)
+            {
+                common.SetActive(true);
+                enemy.SetActive(false);
+            }
         }
 
-        public void OnKillEnemy()
+        public void OnSelectEnemy(bool isSelected)
         {
-            _manager.KillAllEnemy();
-        }
-
-        public void OnStopTime()
-        {
-            _manager.StopTime();
-        }
-
-        public void OnContinueTime()
-        {
-            _manager.ContinueTime();
+            if (isSelected)
+            {
+                common.SetActive(false);
+                enemy.SetActive(true);
+            }
         }
     }
 }

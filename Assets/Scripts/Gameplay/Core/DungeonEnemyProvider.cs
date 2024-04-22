@@ -94,5 +94,21 @@ namespace Gameplay.Core
             _curEnemyIndex += 1;
             return result;
         }
+
+        /// <summary>
+        /// 新增敌人
+        /// </summary>
+        public void AddEnemy(EnemyCard card)
+        {
+            _enemyDeck.Add(card);
+        }
+
+        /// <summary>
+        /// 清理当前敌人以外的全部敌人。
+        /// </summary>
+        public void ClearAllEnemyExceptCurrent()
+        {
+            _enemyDeck.RemoveRange(_curEnemyIndex, TotalLevelNum-_curEnemyIndex);
+        }
     }
 }

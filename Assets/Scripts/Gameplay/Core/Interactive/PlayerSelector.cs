@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Data.Check;
 using GameLib.Common.Extension;
 using Unity.Netcode;
 
@@ -9,22 +11,16 @@ namespace Gameplay.Core.Interactive
     /// <summary>
     /// 玩家选择器。
     /// </summary>
-    public class PlayerSelector : NetworkBehaviour
+    public class PlayerSelector : NetworkBehaviour, IPlayerSelector
     {
         /// <summary>
         /// 通知选择玩家对象。
         /// </summary>
-        public event Action<int, bool> OnSelectPlayer;
+        public event Action<int, bool> OnPlayerSelecting;
         
-        private readonly NetworkVariable<bool> _isSelect =
-            new (false, writePerm: NetworkVariableWritePermission.Owner);
+        private bool _isSelect;
 
-        private NetworkList<ulong> _playerList;
-
-        private void Awake()
-        {
-            _playerList = new NetworkList<ulong>(writePerm: NetworkVariableWritePermission.Owner);
-        }
+        private List<ulong> _playerList;
 
         /// <summary>
         /// 选择玩家。
@@ -32,11 +28,14 @@ namespace Gameplay.Core.Interactive
         /// <param name="playerList"></param>
         public void SelectPlayer(IEnumerable<ulong> playerList)
         {
-            _isSelect.Value = true;
-            foreach (var id in playerList)
-            {
-                _playerList.Add(id);
-            }
+            SelectPlayerServerRpc(playerList.ToArray());
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SelectPlayerServerRpc(ulong[] playerList)
+        {
+            _playerList = new(playerList);
+            _isSelect = true;
         }
         
         /// <summary>
@@ -45,24 +44,17 @@ namespace Gameplay.Core.Interactive
         /// <returns></returns>
         public async Task<List<ulong>> GetSelectPlayerList(int num, bool canSelectSelf)
         {
+            _isSelect = false;
             GetSelectPlayerListClientRpc(num, canSelectSelf);
-            await TaskExtension.Wait(() => _isSelect.Value);
+            await TaskExtension.Wait(() => _isSelect);
             
-            var result = new List<ulong>();
-            foreach (var id in _playerList)
-            {
-                result.Add(id);
-            }
-
-            return result;
+            return _playerList;
         }
 
         [Rpc(SendTo.Owner)]
         private void GetSelectPlayerListClientRpc(int num, bool canSelectSelf)
         {
-            _isSelect.Value = false;
-            _playerList.Clear();
-            OnSelectPlayer?.Invoke(num, canSelectSelf);
+            OnPlayerSelecting?.Invoke(num, canSelectSelf);
         }
     }
 }

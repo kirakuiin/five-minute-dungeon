@@ -27,23 +27,24 @@ namespace Gameplay.Core.State
         public override async Task Enter()
         {
             _countdown = GameRule.EventCancelWaitTime;
-            onActionDone += OnActionDone;
+            OnActionDone += OnAction;
             StartActionCycle();
             await Task.CompletedTask;
         }
 
-        private void OnActionDone(GameAction action)
+        private async void OnAction(GameAction action)
         {
             if (action is EventAction e)
             {
                 _levelController.DestroyEnemyCard(e.enemyID);
+                await ChangeState<RevealEnemyState>();
             }
         }
 
         public override async Task Exit()
         {
             await StopActionCycle();
-            onActionDone -= OnActionDone;
+            OnActionDone -= OnAction;
         }
 
         public override async void Update()
@@ -55,10 +56,9 @@ namespace Gameplay.Core.State
                 ExecuteEvent();
             }
 
-            if (!_levelRuntime.IsContainEvent())
+            if (_levelRuntime.GetAllEnemiesInfo().Count == 0)
             {
-                _countdown = float.MaxValue;
-                await ChangeState<ListenActionState>();
+                await ChangeState<RevealEnemyState>();
             }
         }
 

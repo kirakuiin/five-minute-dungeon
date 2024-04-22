@@ -27,6 +27,8 @@ namespace Gameplay.Core
 
         public ulong ClientID => OwnerClientId;
 
+        public IReadOnlyList<Card> HandCards => _hands.ToList();
+
         public Class PlayerClass { private set; get; }
 
         public void Init(IEnumerable<Card> cards, Class type)
@@ -120,13 +122,9 @@ namespace Gameplay.Core
 
         public void GiveHand(ulong targetPlayerID)
         {
-            GiveHandClientRpc(targetPlayerID);
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void GiveHandClientRpc(ulong targetPlayerID)
-        {
-            Debug.LogWarning("尚未实现手牌给予逻辑");
+            var targetPlayer = GamePlayContext.Instance.GetPlayerController(targetPlayerID);
+            targetPlayer.AddHand(HandCards);
+            Discard(HandCards);
         }
 
         public void AddHand(IEnumerable<Card> cardList)
@@ -158,6 +156,11 @@ namespace Gameplay.Core
         public ICardCollectionsInfo GetDiscards()
         {
             return _discards;
+        }
+
+        public IRuntimeInteractive GetRuntimeInteractive()
+        {
+            return GetComponent<IRuntimeInteractive>();
         }
     }
 }

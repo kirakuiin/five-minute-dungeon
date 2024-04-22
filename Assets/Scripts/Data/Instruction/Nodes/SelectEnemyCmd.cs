@@ -43,7 +43,7 @@ namespace Data.Instruction.Nodes
             }
             else if (candidates.Count > 1)
             {
-                enemyID = await handler.SelectEnemy();
+                enemyID = await handler.SelectEnemy(enemyType);
             }
             else
             {

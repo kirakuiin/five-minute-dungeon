@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using GameLib.Common;
+using GameLib.Common.Extension;
 using Gameplay.Broadcaster;
 using Gameplay.Data;
 using UnityEngine;
@@ -56,14 +57,15 @@ namespace UI.Menu
 
         private void CleanScroll()
         {
-            for (int i = 0; i < scroll.childCount; ++i)
-            {
-                var obj = scroll.GetChild(i).gameObject;
-                if (obj.activeSelf)
+            scroll.DoSomethingToAllChildren(
+                obj =>
                 {
-                    GameObjectPool.Instance.ReturnWithReParent(obj, itemPrefab);
+                    if (obj.activeSelf)
+                    {
+                        GameObjectPool.Instance.ReturnWithReParent(obj, itemPrefab);
+                    }
                 }
-            }
+            );
         }
 
         public void OnRefresh()

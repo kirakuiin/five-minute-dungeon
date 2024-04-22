@@ -2,7 +2,6 @@
 using System.Linq;
 using XNode;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Data.Instruction.Nodes
 {
@@ -35,8 +34,15 @@ namespace Data.Instruction.Nodes
         {
             playerList = GetInputValue<List<ulong>>(nameof(playerList));
             var player = context.GetPlayerController(playerList.First());
-            var handler = player.GetInteractiveHandler();
-            cardList = await handler.SelectHandCards(num);
+            if (player.HandCards.Count <= num)
+            {
+                cardList = new List<Card>(player.HandCards);
+            }
+            else
+            {
+                var handler = player.GetInteractiveHandler();
+                cardList = await handler.SelectHandCards(num);
+            }
         }
     }
 }

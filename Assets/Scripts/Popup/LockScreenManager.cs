@@ -12,10 +12,18 @@ namespace Popup
         [SerializeField]
         private GameObject lockPrefab;
 
-        [SerializeField]
-        private Transform uiRoot;
-
         private GameObject _lockDialog;
+        
+        private Transform LockRoot { set; get; }
+
+        protected override void OnInitialized()
+        {
+            var root = FindObjectOfType<LockRoot>();
+            if (root != null)
+            {
+                LockRoot = root.transform;
+            }
+        }
         
         /// <summary>
         /// 创建一个锁定窗口。
@@ -24,7 +32,7 @@ namespace Popup
         /// <returns></returns>
         public void Lock(string text)
         {
-            _lockDialog ??= Instantiate(lockPrefab, uiRoot);
+            _lockDialog ??= Instantiate(lockPrefab, LockRoot);
             _lockDialog.GetComponent<ILockDialog>().SetString(text);
         }
 

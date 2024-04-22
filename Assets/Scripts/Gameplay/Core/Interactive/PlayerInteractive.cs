@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
+using Data.Check;
 using Data.Instruction;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace Gameplay.Core.Interactive
@@ -11,7 +11,7 @@ namespace Gameplay.Core.Interactive
     /// 玩家交互控制器。
     /// </summary>
     [RequireComponent(typeof(PlayerController))]
-    public class PlayerInteractive : MonoBehaviour, IPlayerInteractive
+    public class PlayerInteractive : MonoBehaviour, IPlayerInteractive, IRuntimeInteractive
     {
         [SerializeField] private EnemySelector enemySelector;
         [SerializeField] private ResourceSelector resourceSelector;
@@ -29,14 +29,34 @@ namespace Gameplay.Core.Interactive
         }
         
 
-        public async Task<ulong> SelectEnemy()
+        public async Task<ulong> SelectEnemy(EnemyCardType type)
         {
-            return await enemySelector.GetSelectEnemyID();
+            return await enemySelector.GetSelectEnemyID(type);
         }
         
         public async Task<Resource> SelectResource()
         {
             return await resourceSelector.GetSelectRes();
+        }
+
+        public IEnemySelector GetEnemySelector(EnemyCardType type)
+        {
+            return enemySelector;
+        }
+
+        public IResourceSelector GetResourceSelector()
+        {
+            return resourceSelector;
+        }
+
+        public IPlayerSelector GetPlayerSelector()
+        {
+            return playerSelector;
+        }
+
+        public IHandSelector GetHandSelector()
+        {
+            return handSelector;
         }
     }
 }

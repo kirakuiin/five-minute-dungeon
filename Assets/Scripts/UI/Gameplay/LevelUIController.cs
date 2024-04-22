@@ -43,11 +43,17 @@ namespace UI.Gameplay
             progress.maxValue = _levelInfo.TotalLevelNum;
             progress.minValue = 0;
             _levelInfo.OnEnemyAdded += OnEnemyAdded;
+            _levelInfo.OnEnemyDestroyed += OnEnemyDestroyed;
         }
 
         private void OnEnemyAdded(EnemyChangeEvent e)
         {
             RefreshUI();
+        }
+        
+        private void OnEnemyDestroyed(EnemyChangeEvent e)
+        {
+            RefreshDesc();
         }
 
         private void OnDestroy()
@@ -84,6 +90,10 @@ namespace UI.Gameplay
             if (str.Length > 0)
             {
                 enemyDesc.text = str.Substring(0, str.Length - 1);
+            }
+            else
+            {
+                enemyDesc.text = "";
             }
         }
     }

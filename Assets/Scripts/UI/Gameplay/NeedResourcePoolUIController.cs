@@ -4,6 +4,7 @@ using Data;
 using Data.Check;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
+using GameLib.Common.Extension;
 using Gameplay.Core;
 using Unity.Mathematics;
 using UnityEngine;
@@ -44,10 +45,7 @@ namespace UI.Gameplay
 
         protected virtual void CleanAll()
         {
-            foreach (var obj in Enumerable.Range(0, layout.childCount).Select(idx => layout.GetChild(idx)).ToList())
-            {
-                GameObjectPool.Instance.ReturnWithReParent(obj.gameObject, resourcePrefab);
-            }
+            layout.DoSomethingToAllChildren(obj => GameObjectPool.Instance.ReturnWithReParent(obj, resourcePrefab));
         }
         
         protected ResIconControllerUI CreateIcon(Resource type)

@@ -61,6 +61,12 @@ namespace Data.Check
         /// </summary>
         /// <returns></returns>
         public ICardCollectionsInfo GetDiscards();
+        
+        /// <summary>
+        /// 获得运行时交互器。
+        /// </summary>
+        /// <returns></returns>
+        public IRuntimeInteractive GetRuntimeInteractive();
     }
 
     /// <summary>
@@ -119,7 +125,7 @@ namespace Data.Check
         /// 总关卡数目。
         /// </summary>
         public int TotalLevelNum { get; }
-
+        
         /// <summary>
         /// 是否包含事件。
         /// </summary>
@@ -154,5 +160,32 @@ namespace Data.Check
         /// 计时器结束时触发。
         /// </summary>
         public event Action OnTimeout;
+    }
+
+    public interface IRuntimeInteractive
+    {
+        /// <summary>
+        /// 获得敌方选择器。
+        /// </summary>
+        /// <returns></returns>
+        public IEnemySelector GetEnemySelector(EnemyCardType type);
+
+        /// <summary>
+        /// 获得资源选择器。
+        /// </summary>
+        /// <returns></returns>
+        public IResourceSelector GetResourceSelector();
+
+        /// <summary>
+        /// 获得玩家选择器。
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerSelector GetPlayerSelector();
+
+        /// <summary>
+        /// 获得手牌选择器。
+        /// </summary>
+        /// <returns></returns>
+        public IHandSelector GetHandSelector();
     }
 }

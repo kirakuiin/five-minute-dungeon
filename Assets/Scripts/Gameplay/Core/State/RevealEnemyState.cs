@@ -9,7 +9,11 @@ namespace Gameplay.Core.State
         public override async Task Enter()
         {
             var level = Context.GetLevelController();
-            if (level.IsComplete())
+            if (level.GetAllEnemiesInfo().Count > 0)
+            {
+                await ToNextState();
+            }
+            else if (level.IsComplete())
             {
                 await ChangeState<EndState>();
             }

@@ -3,6 +3,7 @@ using Data;
 using GameLib.Animation;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
+using GameLib.Common.Extension;
 using Gameplay.Data;
 using Popup;
 using UI.Card;
@@ -69,7 +70,7 @@ namespace UI.Gameplay
 
         private void InitByOrder()
         {
-            foreach (var card in _info)
+            foreach (var card in _info.Reverse())
             {
                 CreateCardObj(card);
             }
@@ -124,12 +125,9 @@ namespace UI.Gameplay
 
         private void CleanCardObj()
         {
-            var allObjs = Enumerable.Range(0, scrollContent.transform.childCount)
-                .Select(i => scrollContent.transform.GetChild(i)).ToList();
-            foreach (var cardTransform in allObjs)
-            {
-                GameObjectPool.Instance.ReturnWithReParent(cardTransform.gameObject, cardPrefab);
-            }
+            scrollContent.DoSomethingToAllChildren(
+                obj => GameObjectPool.Instance.ReturnWithReParent(obj, cardPrefab)
+            );
         }
     }
 

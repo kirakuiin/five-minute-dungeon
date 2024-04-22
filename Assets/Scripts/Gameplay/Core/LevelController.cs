@@ -6,7 +6,6 @@ using Data.Check;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace Gameplay.Core
 {
@@ -31,7 +30,7 @@ namespace Gameplay.Core
         public int CurProgress => _curProgress.Value;
 
         public int TotalLevelNum => _totalLevelNum.Value;
-
+        
         public IEnumerable<Resource> GetCurNeedResources()
         {
             var tempList = new List<Resource>();
@@ -162,8 +161,22 @@ namespace Gameplay.Core
         [Rpc(SendTo.ClientsAndHost)]
         private void AddOneEnemyClientRpc(ulong enemyID, EnemyCardWrapper wrapper)
         {
-            _enemyInfos[_currentEnemyId] = wrapper.value;
+            _enemyInfos[enemyID] = wrapper.value;
             OnEnemyAdded?.Invoke(new EnemyChangeEvent() {enemyID = enemyID, enemyCard = wrapper.value});
+        }
+        
+        // GM使用
+
+        public void AddEnemy(EnemyCard card)
+        {
+            _enemyProvider.AddEnemy(card);
+            _totalLevelNum.Value = _enemyProvider.TotalLevelNum;
+        }
+
+        public void ClearAllEnemy()
+        {
+            _enemyProvider.ClearAllEnemyExceptCurrent();
+            _totalLevelNum.Value = _enemyProvider.TotalLevelNum;
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using Data.Instruction;
+using GameLib.UI;
 using Gameplay.Core;
 using UI.Gameplay;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace UI.Card
     {
         private HandZoneUIController _handZone;
 
+        private HandZoneSelectorController _selector;
+
         private Data.Card _card;
 
         private IPlayerController Controller => GamePlayContext.Instance.GetPlayerController();
@@ -21,9 +24,10 @@ namespace UI.Card
         /// <summary>
         /// 初始化。
         /// </summary>
-        public void Init(Data.Card card, HandZoneUIController zone)
+        public void Init(Data.Card card, HandZoneUIController zone, HandZoneSelectorController selector)
         {
             _handZone = zone;
+            _selector = selector;
             _card = card;
             GetComponent<CardRuntimeData>().Init(card);
             GetComponent<CardAppearanceSetter>().Init();
@@ -62,6 +66,30 @@ namespace UI.Card
         private void RemoveCard()
         {
             _handZone.RemoveCard(gameObject);
+        }
+
+        public void SelectCard(bool isSelected)
+        {
+            if (isSelected)
+            {
+                _selector.SelectCard(_card);
+            }
+            else
+            {
+                _selector.UnSelect(_card);
+            }
+        }
+
+        public void EnterSelectMode()
+        {
+            GetComponent<DraggableUI>().enabled = false;
+            GetComponent<HandCardSelector>().EnableIt();
+        }
+
+        public void ExitSelectMode()
+        {
+            GetComponent<DraggableUI>().enabled = true;
+            GetComponent<HandCardSelector>().DisableIt();
         }
     }
 }

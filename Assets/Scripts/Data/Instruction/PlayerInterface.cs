@@ -14,6 +14,11 @@ namespace Data.Instruction
         public ulong ClientID { get; }
 
         /// <summary>
+        /// 手牌数量。
+        /// </summary>
+        public IReadOnlyList<Card> HandCards { get; }
+
+        /// <summary>
         /// 打出卡牌。
         /// </summary>
         /// <param name="card"></param>
@@ -92,7 +97,7 @@ namespace Data.Instruction
         /// 通知玩家选择敌方单位。
         /// </summary>
         /// <returns></returns>
-        public Task<ulong> SelectEnemy();
+        public Task<ulong> SelectEnemy(EnemyCardType type);
 
         /// <summary>
         /// 通知玩家选择一种类型的资源。

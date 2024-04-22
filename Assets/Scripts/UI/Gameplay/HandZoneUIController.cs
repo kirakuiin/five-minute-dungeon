@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Check;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using GameLib.UI.SectorLayout;
-using Gameplay.Core;
-using Gameplay.Data;
 using UI.Card;
 using UnityEngine;
 
@@ -24,12 +21,17 @@ namespace UI.Gameplay
 
         [SerializeField] private Transform cardOrigin;
 
+        [SerializeField] private HandZoneSelectorController selector;
+
+        public IReadOnlyList<GameObject> HandCardObjList => _cardList;
+
         private readonly List<GameObject> _cardList = new ();
 
         private IPlayerRuntimeInfo _info;
 
         public void Init(IPlayerRuntimeInfo info)
         {
+            selector.Init(this);
             _info = info;
             InitListen();
             InitUI();
@@ -92,7 +94,7 @@ namespace UI.Gameplay
             var cardObj = GameObjectPool.Instance.Get(cardPrefab);
             cardObj.transform.position = cardOrigin.position;
             var setter = cardObj.GetComponent<PlayableCard>();
-            setter.Init(card, this);
+            setter.Init(card, this, selector);
             _cardList.Add(cardObj);
             return cardObj;
         }

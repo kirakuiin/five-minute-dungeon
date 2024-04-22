@@ -71,12 +71,14 @@ namespace Gameplay.Core.State
     public abstract class ActionState : GameplayServiceState
     {
         private readonly ConcurrentQueue<GameAction> _actionQueue = new();
+        
+        private readonly ConcurrentQueue<GameAction> _runningQueue = new();
 
         private bool _isRunning;
 
         private const int ExecuteInterval = 50;
 
-        protected Action<GameAction> onActionDone;
+        protected event Action<GameAction> OnActionDone;
 
         protected void StartActionCycle()
         {
@@ -87,17 +89,19 @@ namespace Gameplay.Core.State
         protected async Task StopActionCycle()
         {
             _isRunning = false;
-            await TaskExtension.Wait(() => _actionQueue.IsEmpty);
+            await TaskExtension.Wait(() => _actionQueue.IsEmpty && _runningQueue.IsEmpty);
         }
 
         private async void Executing()
         {
-            while (_isRunning)
+            while (_isRunning || !_actionQueue.IsEmpty || !_runningQueue.IsEmpty)
             {
                 if (_actionQueue.TryDequeue(out var action))
                 {
+                    _runningQueue.Enqueue(action);
                     await action.graph.Execution(Context, action.clientID);
-                    onActionDone?.Invoke(action);
+                    OnActionDone?.Invoke(action);
+                    _runningQueue.TryDequeue(out var _);
                 }
                 else
                 {

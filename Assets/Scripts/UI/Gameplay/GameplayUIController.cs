@@ -4,12 +4,10 @@ using Data.Check;
 using GameLib.Common;
 using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Core;
-using Gameplay.Data;
 using Gameplay.GameState;
 using Gameplay.Message;
 using Popup;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace UI.Gameplay
@@ -29,13 +27,13 @@ namespace UI.Gameplay
 
         [SerializeField] private GameObject discardUIPrefab;
 
-        [SerializeField] private Transform uiParent;
-
         [SerializeField] private ClassSkillUIController skillUI;
 
         [SerializeField] private HandZoneUIController handUI;
 
         [SerializeField] private LevelUIController levelUI;
+
+        [SerializeField] private ResourceSelectorController resSelectUI;
 
         private readonly DisposableGroup _disposableGroup = new();
         
@@ -78,6 +76,7 @@ namespace UI.Gameplay
             skillUI.Init(RuntimeInfo);
             handUI.Init(RuntimeInfo);
             levelUI.Init();
+            resSelectUI.Init();
         }
 
         private void SetDrawPileText()
@@ -112,7 +111,6 @@ namespace UI.Gameplay
 
         private void OnCreateDrawDone(GameObject dialog)
         {
-            dialog.transform.SetParent(uiParent, false);
             var controller = dialog.GetComponent<CardPileUIController>();
             controller.Init(RuntimeInfo.GetDraws(), ShowType.Statistics);
         }
@@ -124,7 +122,6 @@ namespace UI.Gameplay
 
         private void OnCreateDiscardDone(GameObject dialog)
         {
-            dialog.transform.SetParent(uiParent, false);
             var controller = dialog.GetComponent<CardPileUIController>();
             controller.Init(RuntimeInfo.GetDiscards(), ShowType.ByOrder);
         }

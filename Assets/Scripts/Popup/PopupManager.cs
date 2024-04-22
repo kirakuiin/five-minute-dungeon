@@ -13,6 +13,17 @@ namespace Popup
     {
         private readonly Dictionary<IPopupDialog, GameObject> _cache = new();
         
+        private Transform DialogRoot { set; get; }
+
+        protected override void OnInitialized()
+        {
+            var root = FindObjectOfType<DialogRoot>();
+            if (root != null)
+            {
+                DialogRoot = root.transform;
+            }
+        }
+
         /// <summary>
         /// 创建弹窗。
         /// </summary>
@@ -26,6 +37,8 @@ namespace Popup
 
             var isFirstCreate = !_cache.ContainsKey(component);
             var popup = GetPopup(component);
+            popup.transform.SetParent(DialogRoot, false);
+            
             if (isFirstCreate)
             {
                 onCreateDone?.Invoke(popup);

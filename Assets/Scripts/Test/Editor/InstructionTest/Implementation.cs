@@ -113,7 +113,8 @@ namespace Test.Editor.InstructionTest
         }
         
         public ulong ClientID { get; }
-        
+        public IReadOnlyList<Card> HandCards { get; }
+
         public void InitDeck(IEnumerable<Card> cards)
         {
         }
@@ -276,7 +277,7 @@ namespace Test.Editor.InstructionTest
             return _player.Hands.GetRange(0, Math.Min(num, _player.Hands.Count));
         }
 
-        public async Task<ulong> SelectEnemy()
+        public async Task<ulong> SelectEnemy(EnemyCardType type)
         {
             await Task.Delay(1000);
             return 1;

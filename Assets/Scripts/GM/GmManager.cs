@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using Data;
 using Gameplay.Core;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,12 +16,15 @@ namespace GM
 
         [SerializeField] private GameObject uiPrefab;
 
+        [SerializeField] private LevelController controller;
+
         private GamePlayContext Context => GamePlayContext.Instance;
 
         private GameObject _uiObj;
         
         public void OnTriggerShow(InputAction.CallbackContext callback)
         {
+            if (!NetworkManager.Singleton.IsServer) return;
             if (callback.phase != InputActionPhase.Performed) return;
             if (_uiObj is null)
             {
@@ -48,6 +53,21 @@ namespace GM
             {
                 Context.GetLevelController().DestroyEnemyCard(id);
             }
+        }
+
+        public int GetRemainEnemyCount()
+        {
+            return controller.TotalLevelNum - controller.CurProgress;
+        }
+
+        public void ClearAllEnemy()
+        {
+            controller.ClearAllEnemy();
+        }
+
+        public void AddEnemy(EnemyCard card)
+        {
+            controller.AddEnemy(card);
         }
     }
 }

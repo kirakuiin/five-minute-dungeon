@@ -39,7 +39,8 @@ namespace Data.Instruction
 
             foreach (var tempContext in contexts)
             {
-                taskPool.Add(InnerExecution(context, tempContext));
+                var clone = Clone();
+                taskPool.Add(clone.InnerExecution(context, tempContext));
             }
 
             await Task.WhenAll(taskPool);
@@ -74,6 +75,16 @@ namespace Data.Instruction
             }
 
             return result;
+        }
+
+        private InstructionGraph Clone()
+        {
+            var clone = Copy() as InstructionGraph;
+            if (!clone) return clone;
+
+            clone.subject = subject;
+            clone.name = name;
+            return clone;
         }
     }
 }

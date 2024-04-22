@@ -26,6 +26,9 @@ namespace UI.Card
         [SerializeField]
         private Transform textBaseTransform;
 
+        [SerializeField]
+        private GameObject selectImg;
+
         private CardRuntimeData _data;
 
         /// <summary>
@@ -60,6 +63,11 @@ namespace UI.Card
         private void MoveTextBase(CardData cardData)
         {
             textBaseTransform.Translate(new Vector3(0, cardData.textOffset));
+        }
+
+        public void SetSelected(bool isSelected)
+        {
+            selectImg.SetActive(isSelected);
         }
     }
 }
