@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Check;
@@ -34,7 +35,7 @@ namespace UI.Gameplay
         {
             selector.Init(this);
             InitListen();
-            InitUI();
+            StartCoroutine(InitUI());
         }
 
         private void InitListen()
@@ -75,13 +76,15 @@ namespace UI.Gameplay
             }
         }
 
-        private void InitUI()
+        private IEnumerator InitUI()
         {
             foreach (var card in RuntimeInfo.GetHands())
             {
                 layout.Add(CreateCardObj(card));
+                yield return new WaitForEndOfFrame();
             }
             layout.Rebuild();
+            yield return new WaitForEndOfFrame();
         }
         
         private GameObject CreateCardObj(Data.Card card)
