@@ -28,6 +28,7 @@ namespace Gameplay.Core.State
         {
             _countdown = GameRule.EventCancelWaitTime;
             OnActionDone += OnAction;
+            _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
             StartActionCycle();
             await Task.CompletedTask;
         }
@@ -40,25 +41,29 @@ namespace Gameplay.Core.State
                 await ChangeState<RevealEnemyState>();
             }
         }
+        
+        private async void OnEnemyDestroyed(EnemyChangeEvent e)
+        {
+            if (_levelRuntime.GetAllEnemiesInfo().Count == 0)
+            {
+                await ChangeState<RevealEnemyState>();
+            }
+        }
 
         public override async Task Exit()
         {
             await StopActionCycle();
+            _levelRuntime.OnEnemyDestroyed -= OnEnemyDestroyed;
             OnActionDone -= OnAction;
         }
 
-        public override async void Update()
+        public override void Update()
         {
             _countdown -= Time.deltaTime;
             if (_countdown <= 0)
             {
                 _countdown = float.MaxValue;
                 ExecuteEvent();
-            }
-
-            if (_levelRuntime.GetAllEnemiesInfo().Count == 0)
-            {
-                await ChangeState<RevealEnemyState>();
             }
         }
 

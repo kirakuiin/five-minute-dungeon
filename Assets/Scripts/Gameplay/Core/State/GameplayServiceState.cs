@@ -116,6 +116,7 @@ namespace Gameplay.Core.State
         /// <param name="action"></param>
         public override void ExecuteAction(GameAction action)
         {
+            if (!_isRunning) return;
             _actionQueue.Enqueue(action);
         }
     }

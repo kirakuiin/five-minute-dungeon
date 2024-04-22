@@ -29,8 +29,8 @@ namespace Gameplay.Core.State
 
         public override async Task Exit()
         {
-            _info.OnEnemyDestroyed -= OnEnemyDestroyed;
             await StopActionCycle();
+            _info.OnEnemyDestroyed -= OnEnemyDestroyed;
         }
     }
 }
