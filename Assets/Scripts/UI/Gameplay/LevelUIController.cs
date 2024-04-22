@@ -56,14 +56,6 @@ namespace UI.Gameplay
             RefreshDesc();
         }
 
-        private void OnDestroy()
-        {
-            if (_levelInfo != null)
-            {
-                _levelInfo.OnEnemyAdded -= OnEnemyAdded;
-            }
-        }
-
         private void RefreshUI()
         {
             RefreshProgress();

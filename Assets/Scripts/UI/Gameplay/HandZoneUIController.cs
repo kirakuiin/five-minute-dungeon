@@ -75,11 +75,6 @@ namespace UI.Gameplay
             }
         }
 
-        private void OnDestroy()
-        {
-            RuntimeInfo.GetHands().OnCardChanged -= OnCardChanged;
-        }
-
         private void InitUI()
         {
             foreach (var card in RuntimeInfo.GetHands())

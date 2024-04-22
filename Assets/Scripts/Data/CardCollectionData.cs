@@ -145,7 +145,10 @@ namespace Data
             {
                 _hands.Add(card);
             }
-            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
+            if (list.Count > 0)
+            {
+                OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
+            }
         }
 
         public void RemoveCard(IEnumerable<Card> cards)
@@ -158,7 +161,11 @@ namespace Data
                     Debug.LogWarning($"移除不存在的卡牌{card}");
                 }
             }
-            OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(list));
+
+            if (list.Count > 0)
+            {
+                OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(list));
+            }
         }
 
         public IEnumerable<Card> RemoveCard(int num)
@@ -166,7 +173,10 @@ namespace Data
             var realRemoveCount = Math.Min(num, _hands.Count);
             var result = _hands.GetRange(0, realRemoveCount);
             _hands.RemoveRange(0, realRemoveCount);
-            OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(result));
+            if (result.Count > 0)
+            {
+                OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(result));
+            }
             return result;
         }
 
@@ -195,7 +205,10 @@ namespace Data
                 _pile.Push(card);
             }
 
-            OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
+            if (list.Count > 0)
+            {
+                OnCardChanged?.Invoke(CardChangeEvent.CreateAddEvent(list));
+            }
         }
 
         public void RemoveCard(IEnumerable<Card> cards)
@@ -207,7 +220,10 @@ namespace Data
         {
             var result = (from _ in Enumerable.Range(0, Math.Min(_pile.Count, num))
                 select _pile.Pop()).ToList();
-            OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(result));
+            if (result.Count > 0)
+            {
+                OnCardChanged?.Invoke(CardChangeEvent.CreateRemoveEvent(result));
+            }
             return result;
         }
 
