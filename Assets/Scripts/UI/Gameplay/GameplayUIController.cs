@@ -34,9 +34,9 @@ namespace UI.Gameplay
 
         [SerializeField] private ResourceSelectorController resSelectUI;
 
-        private readonly DisposableGroup _disposableGroup = new();
-        
         private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
+
+        private readonly DisposableGroup _disposable = new();
         
         private void Start()
         {
@@ -46,7 +46,7 @@ namespace UI.Gameplay
         
         private void InitListen()
         {
-            _disposableGroup.Add(state.GameplayState.Subscribe(OnGamePlayStateChanged));
+            _disposable.Add(state.GameplayState.Subscribe(OnGamePlayStateChanged));
         }
 
         private void LockUI()

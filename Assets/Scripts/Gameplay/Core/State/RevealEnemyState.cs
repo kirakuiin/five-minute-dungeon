@@ -6,8 +6,11 @@ namespace Gameplay.Core.State
 {
     public class RevealEnemyState : GameplayServiceState
     {
+        public override ServiceState State => ServiceState.RevealEnemy;
+
         public override async Task Enter()
         {
+            UpdateStatus(GameServiceStatus.Create(State));
             var level = Context.GetLevelController();
             if (level.GetAllEnemiesInfo().Count > 0)
             {

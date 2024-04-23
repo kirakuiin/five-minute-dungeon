@@ -29,6 +29,7 @@ namespace Gameplay.Message
     {
         NotStart,
         InitDone,
+        Running,
     }
     
 }

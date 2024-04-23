@@ -79,14 +79,7 @@ namespace UI.Gameplay
             }
 
             var str = content.ToString();
-            if (str.Length > 0)
-            {
-                enemyDesc.text = str.Substring(0, str.Length - 1);
-            }
-            else
-            {
-                enemyDesc.text = "";
-            }
+            enemyDesc.text = str.Length > 0 ? str.Substring(0, str.Length - 1) : "";
         }
     }
 }

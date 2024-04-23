@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Data.Instruction;
 using GameLib.Common.Extension;
+using Unity.Netcode;
 
 namespace Gameplay.Core.State
 {
@@ -14,6 +15,11 @@ namespace Gameplay.Core.State
         protected GamePlayContext Context => GamePlayContext.Instance;
         
         private GamePlayService Service { set; get; }
+        
+        /// <summary>
+        /// 状态枚举。
+        /// </summary>
+        public abstract ServiceState State { get; }
 
         public void SetService(GamePlayService service)
         {
@@ -23,6 +29,11 @@ namespace Gameplay.Core.State
         protected async Task ChangeState<T>() where T : GameplayServiceState, new()
         {
             await Service.ChangeState<T>();
+        }
+
+        protected void UpdateStatus(GameServiceStatus status)
+        {
+            Service.NotifyStatus(status);
         }
         
         public virtual Task Enter()
@@ -80,6 +91,8 @@ namespace Gameplay.Core.State
 
         protected event Action<GameAction> OnActionDone;
 
+        protected event Action<GameAction> OnActionBegin;
+
         protected void StartActionCycle()
         {
             _isRunning = true;
@@ -99,6 +112,7 @@ namespace Gameplay.Core.State
                 if (_actionQueue.TryDequeue(out var action))
                 {
                     _runningQueue.Enqueue(action);
+                    OnActionBegin?.Invoke(action);
                     await action.graph.Execution(Context, action.clientID);
                     OnActionDone?.Invoke(action);
                     _runningQueue.TryDequeue(out var _);
@@ -118,6 +132,53 @@ namespace Gameplay.Core.State
         {
             if (!_isRunning) return;
             _actionQueue.Enqueue(action);
+        }
+    }
+
+    public enum ServiceState
+    {
+        Begin,
+        End,
+        EventResolve,
+        ListenAction,
+        RevealEnemy,
+    }
+
+    public enum ServiceStage
+    {
+        /// <summary>
+        /// 一般状态。
+        /// </summary>
+        Normal,
+        
+        /// <summary>
+        /// 结算行动状态。
+        /// </summary>
+        Resolving,
+    }
+
+    public struct GameServiceStatus : INetworkSerializeByMemcpy
+    {
+        public ServiceState state;
+        public ServiceStage stage;
+
+        public static GameServiceStatus Create(ServiceState state, ServiceStage stage=ServiceStage.Normal)
+        {
+            return new GameServiceStatus()
+            {
+                state = state,
+                stage = stage,
+            };
+        }
+
+        /// <summary>
+        /// 是否为事件结算阶段？
+        /// </summary>
+        public bool IsEventResolving => state == ServiceState.EventResolve && stage == ServiceStage.Resolving;
+
+        public override string ToString()
+        {
+            return $"state: {state}, stage: {stage}";
         }
     }
 }

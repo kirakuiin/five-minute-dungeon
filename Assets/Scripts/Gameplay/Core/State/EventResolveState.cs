@@ -23,21 +23,34 @@ namespace Gameplay.Core.State
             _levelRuntime = Context.GetLevelRuntimeInfo();
             _levelController = Context.GetLevelController();
         }
-        
+
+        public override ServiceState State => ServiceState.EventResolve;
+
         public override async Task Enter()
         {
+            UpdateStatus(GameServiceStatus.Create(State));
             _countdown = GameRule.EventCancelWaitTime;
-            OnActionDone += OnAction;
+            OnActionDone += OnDone;
+            OnActionBegin += OnBegin;
             _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
             StartActionCycle();
             await Task.CompletedTask;
         }
+        
+        private void OnBegin(GameAction action)
+        {
+            if (action is EventAction)
+            {
+                UpdateStatus(GameServiceStatus.Create(State, ServiceStage.Resolving));
+            }
+        }
 
-        private async void OnAction(GameAction action)
+        private async void OnDone(GameAction action)
         {
             if (action is EventAction e)
             {
                 _levelController.DestroyEnemyCard(e.enemyID);
+                UpdateStatus(GameServiceStatus.Create(State));
                 await ChangeState<RevealEnemyState>();
             }
         }
@@ -54,7 +67,8 @@ namespace Gameplay.Core.State
         {
             await StopActionCycle();
             _levelRuntime.OnEnemyDestroyed -= OnEnemyDestroyed;
-            OnActionDone -= OnAction;
+            OnActionDone -= OnDone;
+            OnActionBegin -= OnBegin;
         }
 
         public override void Update()

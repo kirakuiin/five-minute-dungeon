@@ -90,6 +90,8 @@ namespace Gameplay.GameState
         private void StartPlay()
         {
             service.StartService();
+            current = GamePlayStateMsg.Create(GamePlayStateEnum.Running);
+            GameplayState.Publish(current);
         }
 
         protected override void Exit()

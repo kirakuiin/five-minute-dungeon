@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data;
+using GameLib.Common;
 using GameLib.Network.NGO;
 using Gameplay.Core.State;
 using Gameplay.GameState;
@@ -20,13 +21,39 @@ namespace Gameplay.Core
         
         private GameplayServiceState _curState;
 
-        private IDisposable _disposable;
-
         private PlayableChecker _checker;
+
+        private readonly DisposableGroup _disposable = new();
         
         private readonly Dictionary<string, GameplayServiceState> _states = new();
 
         private GamePlayContext Context => GamePlayContext.Instance;
+
+        /// <summary>
+        /// 状态改变事件。
+        /// </summary>
+        public event Action<GameServiceStatus> OnStateChanged;
+
+        /// <summary>
+        /// 当前状态。
+        /// </summary>
+        private GameServiceStatus CurrentStatus { set; get; }
+
+        /// <summary>
+        /// 发布消息。(内部使用)
+        /// </summary>
+        /// <param name="status"></param>
+        public void NotifyStatus(GameServiceStatus status)
+        {
+            NotifyStatusClientRpc(status);
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void NotifyStatusClientRpc(GameServiceStatus status)
+        {
+            CurrentStatus = status;
+            OnStateChanged?.Invoke(status);
+        }
 
         private void Update()
         {
@@ -36,7 +63,7 @@ namespace Gameplay.Core
 
         private void Start()
         {
-            _disposable = gamePlay.GameplayState.Subscribe(OnInitState);
+            _disposable.Add(gamePlay.GameplayState.Subscribe(OnInitState));
         }
         
         private void OnInitState(GamePlayStateMsg msg)
@@ -63,7 +90,6 @@ namespace Gameplay.Core
                 controller.Draw(diff);
             }
         }
-        
 
         /// <summary>
         /// 启动服务。
@@ -151,7 +177,7 @@ namespace Gameplay.Core
         /// </summary>
         public bool CanICastSkill(Skill skill)
         {
-            return _checker.CheckSkill(skill);
+            return !CurrentStatus.IsEventResolving && _checker.CheckSkill(skill);
         }
 
         /// <summary>
@@ -161,7 +187,7 @@ namespace Gameplay.Core
         /// <returns></returns>
         public bool CanIPlayThisCard(Card card)
         {
-            return _checker.CheckCard(card);
+            return !CurrentStatus.IsEventResolving && _checker.CheckCard(card);
         }
     }
 }

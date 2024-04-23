@@ -11,9 +11,12 @@ namespace Gameplay.Core.State
         {
             _info = Context.GetLevelRuntimeInfo();
         }
-        
+
+        public override ServiceState State => ServiceState.ListenAction;
+
         public override async Task Enter()
         {
+            UpdateStatus(GameServiceStatus.Create(State));
             _info.OnEnemyDestroyed += OnEnemyDestroyed;
             StartActionCycle();
             await Task.CompletedTask;

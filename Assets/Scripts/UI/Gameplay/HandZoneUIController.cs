@@ -47,14 +47,28 @@ namespace UI.Gameplay
         {
             var curCard = new Counter<Data.Card>(_cardList.Select(
                 cardObj => cardObj.GetComponent<CardRuntimeData>().Card));
-            var newCard = new Counter<Data.Card>(RuntimeInfo.GetHands());
-            newCard.Subtract(curCard);
-            foreach (var card in newCard.Keys)
+            var diff = new Counter<Data.Card>(RuntimeInfo.GetHands());
+            diff.Subtract(curCard);
+            SetSectorIntervalByHandCount(RuntimeInfo.GetHands().Count);
+            StartCoroutine(ExecuteCardChange(diff));
+        }
+
+        private void SetSectorIntervalByHandCount(long count)
+        {
+            var x = count;
+            var interval = -0.001466666666666703*x*x*x+0.06800000000000087*x*x-1.0633333333333392*x+6.800000000000011;
+            layout.SetAngle((float)interval);
+        }
+
+        private IEnumerator ExecuteCardChange(Counter<Data.Card> diff)
+        {
+            foreach (var card in diff.Keys)
             {
-                var value = newCard[card];
+                var value = diff[card];
                 for (var i = 0; i < value; ++i)
                 {
                     layout.Add(CreateCardObj(card));
+                    yield return new WaitForEndOfFrame();
                 }
 
                 if (value < 0)
@@ -62,6 +76,8 @@ namespace UI.Gameplay
                     RemoveCardsByType(card, -value);
                 }
             }
+            layout.Rebuild();
+            yield return new WaitForEndOfFrame();
         }
 
         private void RemoveCardsByType(Data.Card card, long num)
