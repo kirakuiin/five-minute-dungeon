@@ -81,7 +81,7 @@ namespace Gameplay.Core
         /// <returns></returns>
         public bool IsReachBoss()
         {
-            return _curEnemyIndex == _enemyDeck.Count-1;
+            return _curEnemyIndex >= _enemyDeck.Count-1;
         }
         
         /// <summary>

@@ -33,6 +33,7 @@ namespace Gameplay.Core.State
             OnActionDone += OnDone;
             OnActionBegin += OnBegin;
             _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
+            Context.GetTimeRuntimeInfo().OnTimeUpdated += OnTimeUpdate;
             StartActionCycle();
             await Task.CompletedTask;
         }
@@ -67,18 +68,18 @@ namespace Gameplay.Core.State
         {
             await StopActionCycle();
             _levelRuntime.OnEnemyDestroyed -= OnEnemyDestroyed;
+            Context.GetTimeRuntimeInfo().OnTimeUpdated -= OnTimeUpdate;
             OnActionDone -= OnDone;
             OnActionBegin -= OnBegin;
         }
 
-        public override void Update()
+        private void OnTimeUpdate(int t)
         {
-            _countdown -= Time.deltaTime;
-            if (_countdown <= 0)
+            if (_countdown == 0)
             {
-                _countdown = float.MaxValue;
                 ExecuteEvent();
             }
+            _countdown -= 1;
         }
 
         private void ExecuteEvent()

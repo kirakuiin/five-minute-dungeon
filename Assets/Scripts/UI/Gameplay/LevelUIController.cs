@@ -23,6 +23,8 @@ namespace UI.Gameplay
 
         [SerializeField] private CountdownUIController countdown;
 
+        [SerializeField] private EventResolveCountdownUIController eventResolve;
+
         private ILevelRuntimeInfo _levelInfo;
 
         /// <summary>
@@ -35,6 +37,7 @@ namespace UI.Gameplay
             needZone.Init();
             playedZone.Init();
             countdown.Init();
+            eventResolve.Init();
             RefreshUI();
         }
 

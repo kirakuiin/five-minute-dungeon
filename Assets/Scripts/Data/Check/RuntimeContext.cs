@@ -160,6 +160,11 @@ namespace Data.Check
         /// 计时器结束时触发。
         /// </summary>
         public event Action OnTimeout;
+
+        /// <summary>
+        /// 时间流动/暂停(true/false)
+        /// </summary>
+        public event Action<bool> OnTimeIsFlow;
     }
 
     public interface IRuntimeInteractive

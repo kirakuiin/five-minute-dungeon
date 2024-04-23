@@ -126,7 +126,6 @@ namespace Gameplay.Core
             _states[key] = new T();
             _states[key].SetService(this);
         }
-
         
         /// <summary>
         /// 执行释放技能效果。
@@ -177,7 +176,13 @@ namespace Gameplay.Core
         /// </summary>
         public bool CanICastSkill(Skill skill)
         {
-            return !CurrentStatus.IsEventResolving && _checker.CheckSkill(skill);
+            return IsActionPhase() && _checker.CheckSkill(skill);
+        }
+
+        private bool IsActionPhase()
+        {
+            var isRightState = CurrentStatus.state is ServiceState.EventResolve or ServiceState.ListenAction;
+            return isRightState && !CurrentStatus.IsEventResolving;
         }
 
         /// <summary>
@@ -187,7 +192,7 @@ namespace Gameplay.Core
         /// <returns></returns>
         public bool CanIPlayThisCard(Card card)
         {
-            return !CurrentStatus.IsEventResolving && _checker.CheckCard(card);
+            return IsActionPhase() && _checker.CheckCard(card);
         }
     }
 }

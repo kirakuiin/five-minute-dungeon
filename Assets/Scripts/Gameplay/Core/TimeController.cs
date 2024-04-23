@@ -40,6 +40,7 @@ namespace Gameplay.Core
             if (newVal == 0)
             {
                 OnTimeout?.Invoke();
+                OnTimeIsFlow?.Invoke(false);
             }
         }
 
@@ -48,16 +49,19 @@ namespace Gameplay.Core
             _curRemainTime = totalCountdown;
             _timeValue.Value = totalCountdown;
             _isRunning = true;
+            OnTimeIsFlow?.Invoke(_isRunning);
         }
 
         public void Stop()
         {
             _isRunning = false;
+            OnTimeIsFlow?.Invoke(_isRunning);
         }
 
         public void Continue()
         {
             _isRunning = true;
+            OnTimeIsFlow?.Invoke(_isRunning);
         }
 
         public int RemainTime => _timeValue.Value;
@@ -65,12 +69,14 @@ namespace Gameplay.Core
         public event Action<int> OnTimeUpdated;
         
         public event Action OnTimeout;
+        
+        public event Action<bool> OnTimeIsFlow;
 
         private void Update()
         {
             if (!IsServer || !_isRunning || _curRemainTime <= 0) return;
             _curRemainTime -= Time.deltaTime;
-            int realRemain = (int)math.floor(_curRemainTime) + 1;
+            var realRemain = (int)math.floor(_curRemainTime) + 1;
             if (realRemain >= 0 && realRemain != _timeValue.Value)
             {
                 _timeValue.Value = realRemain;

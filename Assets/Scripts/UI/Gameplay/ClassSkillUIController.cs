@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.Check;
 using Gameplay.Core;
+using Gameplay.Core.State;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,15 +35,15 @@ namespace UI.Gameplay
         private void InitListen()
         {
             RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
-            GamePlayContext.Instance.GetLevelRuntimeInfo().OnEnemyAdded += OnEnemyChanged;
+            GamePlayService.Instance.OnStateChanged += OnStateChanged;
         }
 
-        private void OnCardChanged(CardChangeEvent e)
+        private void OnStateChanged(GameServiceStatus status)
         {
             UpdateSkillBtnState();
         }
 
-        private void OnEnemyChanged(EnemyChangeEvent e)
+        private void OnCardChanged(CardChangeEvent e)
         {
             UpdateSkillBtnState();
         }
