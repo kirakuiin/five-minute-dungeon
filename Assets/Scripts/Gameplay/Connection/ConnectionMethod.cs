@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using GameLib.Common;
 using GameLib.Network.NGO.ConnectionManagement;
 using Unity.Netcode;
-using UnityEngine.Device;
 
 namespace Gameplay.Connection
 {
@@ -17,8 +15,9 @@ namespace Gameplay.Connection
         public IPPassConnectionMethod(IPEndPoint endPoint, string password) : base(endPoint)
         {
             _password = password;
-            // TODO() : 测试完毕后还原
+#if UNITY_EDITOR 
             PlayerID = System.Environment.CurrentDirectory;
+#endif
         }
 
         protected override void SetConnectionPayload()

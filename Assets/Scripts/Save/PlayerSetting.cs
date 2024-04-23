@@ -36,8 +36,11 @@ namespace Save
 
         private string GetKey(string key)
         {
-            // TODO(): 测试完毕及后去除。
+#if UNITY_EDITOR
             return $"{_prefix}{key}";
+#else
+            return key;
+#endif
         }
         
         /// <summary>
