@@ -4,7 +4,6 @@ using GameLib.Animation;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using GameLib.Common.Extension;
-using Gameplay.Data;
 using Popup;
 using UI.Card;
 using UnityEngine;
@@ -28,6 +27,8 @@ namespace UI.Gameplay
         private GameObject cardPrefab;
 
         [SerializeField] private ScrollRect scroll;
+
+        [SerializeField] private float animTime;
 
         /// <summary>
         /// 初始化UI
@@ -106,7 +107,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position + new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().MoveTo(tr, position);
+            GetComponent<MoveAction>().MoveTo(tr, position, animTime);
         }
 
         public void OnExit()
@@ -120,7 +121,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position - new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().MoveTo(tr, position, Close);
+            GetComponent<MoveAction>().MoveTo(tr, position, animTime, Close);
         }
 
         private void CleanCardObj()

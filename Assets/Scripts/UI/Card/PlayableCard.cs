@@ -1,4 +1,5 @@
 ﻿using Data.Instruction;
+using GameLib.Animation;
 using GameLib.UI;
 using Gameplay.Core;
 using UI.Gameplay;
@@ -50,8 +51,14 @@ namespace UI.Card
             }
             else
             {
-                ReturnToOriginPos();
+                ShakeCard();
             }
+        }
+
+        private void ShakeCard()
+        {
+            GetComponent<VibrationAction>().SimpleShake(transform, Vector3.right,
+                5f, 20f, 2.5f, ReturnToOriginPos);
         }
 
         /// <summary>

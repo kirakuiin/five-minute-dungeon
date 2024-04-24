@@ -30,8 +30,6 @@ namespace UI.Card
         {
             _move = GetComponent<MoveAction>();
             _scale = GetComponent<ScaleAction>();
-            _move.time = playTime;
-            _scale.time = playTime;
             _originScale = transform.localScale;
         }
 
@@ -53,20 +51,8 @@ namespace UI.Card
         /// <param name="target"></param>
         public void MoveToTarget(Transform target)
         {
-            _scale.ScaleTo(transform, _originScale/3);
-            _move.MoveTo(transform, target.position, () => GameObjectPool.Instance.ReturnWithReParent(gameObject, _prefab));
-        }
-
-        private void OnValidate()
-        {
-            if (_scale)
-            {
-                _scale.time = playTime;
-            }
-            if (_move)
-            {
-                _move.time = playTime;
-            }
+            _scale.ScaleTo(transform, _originScale/3, playTime);
+            _move.MoveTo(transform, target.position, playTime, () => GameObjectPool.Instance.ReturnWithReParent(gameObject, _prefab));
         }
     }
 }
