@@ -51,6 +51,7 @@ namespace UI.Gameplay
         private void UpdateSkillBtnState()
         {
             castBtn.interactable = Service.CanICastSkill(_skill);
+            skillIconUI.color = castBtn.interactable ? _classData.classColor : Color.grey;
         }
 
         private void InitUI()

@@ -25,11 +25,11 @@ namespace UI.Gameplay
 
         [SerializeField] private HandZoneSelectorController selector;
 
-        public IReadOnlyList<GameObject> HandCardObjList => _cardList;
-
         private readonly List<GameObject> _cardList = new ();
 
         private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
+
+        private bool _isSelectMode;
 
         public void Init()
         {
@@ -56,7 +56,7 @@ namespace UI.Gameplay
         private void SetSectorIntervalByHandCount(long count)
         {
             var x = count;
-            var interval = -0.001466666666666703*x*x*x+0.06800000000000087*x*x-1.0633333333333392*x+6.800000000000011;
+            var interval = -0.00040000000000002447*x*x*x+0.022000000000000797*x*x-0.4600000000000055*x+5.800000000000011;
             layout.SetAngle((float)interval);
         }
 
@@ -68,7 +68,7 @@ namespace UI.Gameplay
                 for (var i = 0; i < value; ++i)
                 {
                     layout.Add(CreateCardObj(card));
-                    yield return new WaitForEndOfFrame();
+                    yield return null;
                 }
 
                 if (value < 0)
@@ -77,7 +77,8 @@ namespace UI.Gameplay
                 }
             }
             layout.Rebuild();
-            yield return new WaitForEndOfFrame();
+            ChangeCardSelectMode();
+            yield return null;
         }
 
         private void RemoveCardsByType(Data.Card card, long num)
@@ -88,6 +89,7 @@ namespace UI.Gameplay
 
             for (var i = 0; i < num; ++i)
             {
+                PlayDiscardAnim(cardObjList[i]);
                 RemoveCard(cardObjList[i]);
             }
         }
@@ -97,10 +99,10 @@ namespace UI.Gameplay
             foreach (var card in RuntimeInfo.GetHands())
             {
                 layout.Add(CreateCardObj(card));
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
             layout.Rebuild();
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         
         private GameObject CreateCardObj(Data.Card card)
@@ -121,12 +123,45 @@ namespace UI.Gameplay
             GameObjectPool.Instance.ReturnWithReParent(cardObj, cardPrefab); 
         }
 
+        private void PlayDiscardAnim(GameObject cardObj)
+        {
+            var discardEffect = GetComponent<CardDiscardEffect>();
+            discardEffect.Discard(cardObj);
+        }
+
         /// <summary>
         /// 重置卡牌位置。
         /// </summary>
         public void ResetAllCardPos()
         {
             layout.Rebuild();
+        }
+
+        public void EnterSelectMode()
+        {
+            _isSelectMode = true;
+            ChangeCardSelectMode();
+        }
+
+        private void ChangeCardSelectMode()
+        {
+            foreach (var obj in _cardList)
+            {
+                if (_isSelectMode)
+                {
+                    obj.GetComponent<PlayableCard>().EnterSelectMode();
+                }
+                else
+                {
+                    obj.GetComponent<PlayableCard>().ExitSelectMode();
+                }
+            }
+        }
+
+        public void ExitSelectMode()
+        {
+            _isSelectMode = false;
+            ChangeCardSelectMode();
         }
     }
 }

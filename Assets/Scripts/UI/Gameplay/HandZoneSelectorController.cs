@@ -54,10 +54,7 @@ namespace UI.Gameplay
         {
             mask.SetActive(true);
             discardText.text = $"丢弃{num}张手牌";
-            foreach (var obj in _handUI.HandCardObjList)
-            {
-                obj.GetComponent<PlayableCard>().EnterSelectMode();
-            }
+            _handUI.EnterSelectMode();
         }
         
         private bool IsSatisfy()
@@ -69,10 +66,7 @@ namespace UI.Gameplay
         private void ExitSelectMode()
         {
             mask.SetActive(false);
-            foreach (var obj in _handUI.HandCardObjList)
-            {
-                obj.GetComponent<PlayableCard>().ExitSelectMode();
-            }
+            _handUI.ExitSelectMode();
         }
 
         /// <summary>

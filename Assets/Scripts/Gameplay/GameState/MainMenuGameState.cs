@@ -8,6 +8,7 @@ using GameLib.Network;
 using GameLib.Network.NGO;
 using Gameplay.Connection;
 using Popup;
+using UnityEngine;
 
 namespace Gameplay.GameState
 {

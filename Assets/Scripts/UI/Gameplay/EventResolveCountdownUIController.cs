@@ -93,7 +93,7 @@ namespace UI.Gameplay
                     time += Time.deltaTime;
                     slider.value = time;
                 }
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
         }
 
