@@ -46,9 +46,7 @@ namespace Gameplay.Core
         {
             foreach (var clientID in GetAllClientIDs())
             {
-                var obj = Instantiate(playerControllerPrefab);
-                obj.GetComponent<NetworkObject>().SpawnWithOwnership(clientID);
-                // ReSharper disable once Unity.InstantiateWithoutParent
+                var obj = NetworkObject.InstantiateAndSpawn(playerControllerPrefab, NetworkManager, clientID);
                 obj.transform.SetParent(transform);
             }
         }
