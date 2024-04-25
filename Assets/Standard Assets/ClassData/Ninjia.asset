@@ -19,3 +19,4 @@ MonoBehaviour:
   avatar: {fileID: -805986434, guid: de94dc2af125414449a0c1c0d0457022, type: 3}
   portraits: {fileID: 21300000, guid: 58f8f27ed0643164b84fc528ab33a1f5, type: 3}
   classColor: {r: 0.76982254, g: 0.29440364, b: 0.87169814, a: 0.8}
+  classPrefab: {fileID: 8482299413927646947, guid: d42e2c782f4a63b44b7193d5456c4f57, type: 3}

@@ -28,5 +28,8 @@ namespace Data
 
         [Tooltip("职业颜色")]
         public Color classColor;
+
+        [Tooltip("职业模型")]
+        public GameObject classPrefab;
     }
 }
