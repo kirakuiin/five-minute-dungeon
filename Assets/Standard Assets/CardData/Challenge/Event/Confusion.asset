@@ -16,6 +16,7 @@ MonoBehaviour:
   needValueList: 
   desc: "\u6240\u6709\u73A9\u5BB6\u5C06\u624B\u724C\u7ED9\u4E88\u53E6\u4E00\u540D\u73A9\u5BB6\u3002<sprite
     name=\"event\">"
+  prefab: {fileID: 853653278030674462, guid: 03f08a2886e69984d949ea2d27834a61, type: 3}
   card: 7
   enemyCardType: 8
   action: {fileID: 11400000, guid: c041798574802cf44bd32f25968f0072, type: 2}

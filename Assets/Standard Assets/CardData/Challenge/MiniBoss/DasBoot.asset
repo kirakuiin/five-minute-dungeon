@@ -15,6 +15,7 @@ MonoBehaviour:
   needTypeList: 0100000002000000
   needValueList: 0300000002000000
   desc: "\u6234\u65AF<sprite name=\"miniboss\">"
+  prefab: {fileID: 4144740011356820717, guid: 12900804194ad4a4ea4ae799b0c8ed0f, type: 3}
   card: 15
   enemyCardType: 16
   action: {fileID: 0}

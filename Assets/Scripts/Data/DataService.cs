@@ -174,7 +174,7 @@ namespace Data
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>
-        public DictionaryScriptObj<Resource, int> GetEnemyCardData(EnemyCard card)
+        public EnemyScriptObj GetEnemyCardData(EnemyCard card)
         {
             if (card.IsDoorCard())
             {

@@ -7,7 +7,7 @@ namespace Data
     /// Boss数据。
     /// </summary>
     [CreateAssetMenu(fileName = "BossData", menuName = "数据/首领数据", order = 0)]
-    public class BossData : DictionaryScriptObj<Resource, int>
+    public class BossData : EnemyScriptObj
     {
         [Tooltip("boss类别")]
         public Boss boss;

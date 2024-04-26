@@ -15,6 +15,7 @@ MonoBehaviour:
   needTypeList: 00000000020000000300000004000000
   needValueList: 04000000040000000400000004000000
   desc: "\u5730\u7262\u5927\u5E08"
+  prefab: {fileID: 5530444615607714642, guid: ea650cab68e649a4a895f6044919a869, type: 3}
   boss: 4
   doorCardNum: 40
   challengeNum: 0

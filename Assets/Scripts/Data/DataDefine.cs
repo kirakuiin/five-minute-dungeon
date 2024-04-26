@@ -278,8 +278,6 @@ namespace Data
         [Tooltip("类型值列表")]
         public List<TV> needValueList;
 
-        [Tooltip("描述")] public string desc;
-
         private readonly Dictionary<TK, TV> _dictionary = new();
         
         /// <summary>
@@ -306,6 +304,16 @@ namespace Data
                 _dictionary[needTypeList[i]] = needValueList[i];
             }
         }
+    }
+
+    /// <summary>
+    /// 敌方数据配置的抽象类。
+    /// </summary>
+    public abstract class EnemyScriptObj : DictionaryScriptObj<Resource, int>
+    {
+        [Tooltip("描述")] public string desc;
+
+        [Tooltip("模型")] public GameObject prefab;
     }
 }
 

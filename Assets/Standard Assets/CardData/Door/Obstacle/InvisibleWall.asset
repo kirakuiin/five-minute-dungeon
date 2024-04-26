@@ -15,5 +15,6 @@ MonoBehaviour:
   needTypeList: 04000000
   needValueList: 02000000
   desc: "\u65E0\u5F62\u4E4B\u5899<sprite name=\"obstacle\">"
+  prefab: {fileID: 3858548801922586989, guid: 1d73687bdf29def4abc4206577f28c68, type: 3}
   card: 27
   enemyCardType: 2

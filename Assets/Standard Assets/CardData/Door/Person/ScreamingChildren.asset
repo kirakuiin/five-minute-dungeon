@@ -15,5 +15,6 @@ MonoBehaviour:
   needTypeList: 020000000300000000000000
   needValueList: 010000000100000001000000
   desc: "\u5C16\u53EB\u513F\u7AE5<sprite name=\"person\">"
+  prefab: {fileID: 4106973984856387350, guid: 2e8db8c628d3de34198cf25658fb7249, type: 3}
   card: 5
   enemyCardType: 1

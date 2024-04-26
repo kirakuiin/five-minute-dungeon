@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Data;
-using GameLib.Animation;
+using DG.Tweening;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using GameLib.Common.Extension;
@@ -107,7 +107,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position + new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().MoveTo(tr, position, animTime);
+            tr.DOMove(position, animTime);
         }
 
         public void OnExit()
@@ -121,7 +121,7 @@ namespace UI.Gameplay
             Transform tr = transform;
             var parentRect = tr.parent.GetComponent<RectTransform>().rect;
             var position = tr.position - new Vector3(0, parentRect.height);
-            GetComponent<MoveAction>().MoveTo(tr, position, animTime, Close);
+            tr.DOMove(position, animTime).OnComplete(Close);
         }
 
         private void CleanCardObj()
