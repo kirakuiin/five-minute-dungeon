@@ -1,5 +1,5 @@
 ﻿using Data.Instruction;
-using GameLib.Animation;
+using DG.Tweening;
 using GameLib.UI;
 using Gameplay.Core;
 using UI.Gameplay;
@@ -57,8 +57,9 @@ namespace UI.Card
 
         private void ShakeCard()
         {
-            GetComponent<VibrationAction>().SimpleShake(transform, Vector3.right,
-                5f, 20f, 2.5f, ReturnToOriginPos);
+            transform.DOShakePosition(0.2f,
+                strength: 10f, vibrato: 20, randomness:0, randomnessMode: ShakeRandomnessMode.Harmonic).
+                OnComplete(ReturnToOriginPos);
         }
 
         /// <summary>

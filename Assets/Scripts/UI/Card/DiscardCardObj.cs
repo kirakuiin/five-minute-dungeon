@@ -1,5 +1,5 @@
 ﻿using Data;
-using GameLib.Animation;
+using DG.Tweening;
 using GameLib.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,18 +9,11 @@ namespace UI.Card
     /// <summary>
     /// 被丢弃卡牌对象。
     /// </summary>
-    [ExecuteAlways]
-    [RequireComponent(typeof(MoveAction))]
-    [RequireComponent(typeof(ScaleAction))]
     public class DiscardCardObj : MonoBehaviour
     {
         [SerializeField] private Image cardImage;
         
         [Range(0.1f, 1f)] [SerializeField] private float playTime;
-        
-        private MoveAction _move;
-
-        private ScaleAction _scale;
 
         private Vector3 _originScale;
 
@@ -28,8 +21,6 @@ namespace UI.Card
         
         private void Awake()
         {
-            _move = GetComponent<MoveAction>();
-            _scale = GetComponent<ScaleAction>();
             _originScale = transform.localScale;
         }
 
@@ -51,8 +42,9 @@ namespace UI.Card
         /// <param name="target"></param>
         public void MoveToTarget(Transform target)
         {
-            _scale.ScaleTo(transform, _originScale/3, playTime);
-            _move.MoveTo(transform, target.position, playTime, () => GameObjectPool.Instance.ReturnWithReParent(gameObject, _prefab));
+            transform.DOScale(_originScale / 3, playTime);
+            transform.DOMove(target.position, playTime)
+                .OnComplete(() => GameObjectPool.Instance.ReturnWithReParent(gameObject, _prefab));
         }
     }
 }

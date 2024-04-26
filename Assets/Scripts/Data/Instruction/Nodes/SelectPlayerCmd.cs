@@ -38,12 +38,24 @@ namespace Data.Instruction.Nodes
             playerList = target switch
             {
                 PlayerTarget.Self => new List<ulong>() { player.ClientID },
-                PlayerTarget.SpecificPlayer => await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, true),
+                PlayerTarget.SpecificPlayer => await GetSpecificPlayer(context, player),
                 PlayerTarget.AllPlayer => context.GetAllClientIDs().ToList(),
                 PlayerTarget.AllExceptSelf => context.GetAllClientIDs().Except(new List<ulong>() {tempContext.ClientID}).ToList(),
-                PlayerTarget.AnotherPlayer => await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, false),
+                PlayerTarget.AnotherPlayer => await GetAnotherPlayer(context, player),
                 _ => playerList
             };
+        }
+
+        private async Task<List<ulong>> GetSpecificPlayer(ICmdContext context, IPlayerController player)
+        {
+            //TODO(nico): 玩家数小于要求数时直接返回结果。
+            return await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, true);
+        }
+        
+        private async Task<List<ulong>> GetAnotherPlayer(ICmdContext context, IPlayerController player)
+        {
+            //TODO(nico): 玩家数小于要求数时直接返回结果。
+            return await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, false);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Check;
-using GameLib.Animation;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
 using GameLib.UI.SectorLayout;

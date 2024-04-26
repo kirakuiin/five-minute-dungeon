@@ -45,7 +45,7 @@ namespace Gameplay.Core
 
         private Counter<Resource> GetAllNeedResourceByCard(EnemyCard card)
         {
-            DictionaryScriptObj<Resource, int> data = DataService.Instance.GetEnemyCardData(card);
+            EnemyScriptObj data = DataService.Instance.GetEnemyCardData(card);
             
             var result = new Counter<Resource>();
             foreach (var key in data.needTypeList)
