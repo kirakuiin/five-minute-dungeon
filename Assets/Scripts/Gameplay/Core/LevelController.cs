@@ -110,8 +110,17 @@ namespace Gameplay.Core
 
         public void DestroyEnemyCard(ulong enemyID)
         {
-            ClearResourcePoolClientRpc();
+            if (!_enemyInfos.ContainsKey(enemyID)) return;
             DestroyEnemyClientRpc(enemyID);
+            var noEnemy = GetAllEnemiesInfo().Count == 0;
+            if (noEnemy)
+            {
+                ClearResourcePoolClientRpc();
+            }
+            else
+            {
+                ProcessLevelResource();
+            }
         }
 
         [Rpc(SendTo.ClientsAndHost)]

@@ -56,7 +56,7 @@ namespace UI.Gameplay
         
         private void OnEnemyDestroyed(EnemyChangeEvent e)
         {
-            RefreshDesc();
+            RefreshUI();
         }
 
         private void RefreshUI()

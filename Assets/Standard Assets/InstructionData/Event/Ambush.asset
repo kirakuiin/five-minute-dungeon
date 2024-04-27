@@ -15,7 +15,6 @@ MonoBehaviour:
   nodes:
   - {fileID: 659062863517927162}
   subject: 1
-  choiceRules: 1
 --- !u!114 &659062863517927162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,7 +28,7 @@ MonoBehaviour:
   m_Name: Reveal Follow Enemy Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 184, y: 328}
+  position: {x: 104, y: 344}
   ports:
     keys: []
     values: []

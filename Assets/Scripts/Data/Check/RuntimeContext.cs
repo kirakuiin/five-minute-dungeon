@@ -173,7 +173,7 @@ namespace Data.Check
         /// 获得敌方选择器。
         /// </summary>
         /// <returns></returns>
-        public IEnemySelector GetEnemySelector(EnemyCardType type);
+        public IEnemySelector GetEnemySelector();
 
         /// <summary>
         /// 获得资源选择器。

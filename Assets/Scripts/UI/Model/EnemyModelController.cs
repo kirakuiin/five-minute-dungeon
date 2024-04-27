@@ -22,13 +22,18 @@ namespace UI.Model
 
         [SerializeField] private GamePlayState state;
         
-        private static readonly HashSet<int> AllIdx = new() {0, 1};
+        private static readonly HashSet<int> AllIdx = new() {0, 1, 2};
         
         private readonly Dictionary<ulong, NetworkObject> _models = new();
 
         private readonly Dictionary<ulong, int> _occupiedIdx = new();
 
         private readonly DisposableGroup _disposableGroup = new();
+
+        /// <summary>
+        /// 获得全部敌方模型。
+        /// </summary>
+        public IEnumerable<GameObject> EnemiesModel => _models.Select(obj => obj.Value.gameObject);
         
         private ILevelRuntimeInfo LevelInfo => GamePlayContext.Instance.GetLevelRuntimeInfo();
         
@@ -74,6 +79,7 @@ namespace UI.Model
                 obj.transform.SetParent(posList[idx], false);
                 _occupiedIdx[enemyID] = idx;
             }
+            obj.GetComponent<EnemyModel>().Init(enemyID, enemyCard);
         }
         
         private NetworkObject CreateMonsterModel(ulong enemyID, EnemyCard card)
@@ -103,7 +109,5 @@ namespace UI.Model
             _models[@event.enemyID].Despawn();
             _models.Remove(@event.enemyID);
         }
-        
-
     }
 }

@@ -34,6 +34,8 @@ namespace UI.Gameplay
 
         [SerializeField] private ResourceSelectorController resSelectUI;
 
+        [SerializeField] private EnemySelectorController enemySelectUI;
+
         private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
 
         private readonly DisposableGroup _disposable = new();
@@ -76,6 +78,7 @@ namespace UI.Gameplay
             handUI.Init();
             levelUI.Init();
             resSelectUI.Init();
+            enemySelectUI.Init();
         }
 
         private void SetDrawPileText()

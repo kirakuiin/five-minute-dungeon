@@ -39,7 +39,7 @@ namespace Gameplay.Core.Interactive
             return await resourceSelector.GetSelectRes();
         }
 
-        public IEnemySelector GetEnemySelector(EnemyCardType type)
+        public IEnemySelector GetEnemySelector()
         {
             return enemySelector;
         }

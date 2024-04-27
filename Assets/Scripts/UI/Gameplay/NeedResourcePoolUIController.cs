@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Data;
 using Data.Check;
 using GameLib.Common;
@@ -93,6 +92,7 @@ namespace UI.Gameplay
                 var icon = CreateIcon(resource);
                 _icons[resource].Add(icon);
             }
+            SetResourceIconGrey();
         }
 
         protected override void CleanAll()
