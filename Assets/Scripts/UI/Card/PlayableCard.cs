@@ -69,6 +69,7 @@ namespace UI.Card
         {
             RemoveCard();
             Controller.Discard(new []{_card});
+            Controller.FillHands();
         }
         
         private void RemoveCard()

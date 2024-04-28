@@ -116,11 +116,20 @@ namespace Gameplay.Core.State
                     await action.graph.Execution(Context, action.clientID);
                     OnActionDone?.Invoke(action);
                     _runningQueue.TryDequeue(out var _);
+                    UpdatePlayerHands();
                 }
                 else
                 {
                     await Task.Delay(ExecuteInterval);
                 }
+            }
+        }
+        
+        private void UpdatePlayerHands()
+        {
+            foreach (var clientID in Context.GetAllClientIDs())
+            {
+                Context.GetPlayerController(clientID).FillHands();
             }
         }
 

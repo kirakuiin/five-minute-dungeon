@@ -70,25 +70,6 @@ namespace Gameplay.Core
         {
             if (msg.state != GamePlayStateEnum.InitDone) return;
             _checker = new PlayableChecker();
-            Context.GetPlayerRuntimeInfo().GetHands().OnCardChanged += OnCardChange;
-            Context.GetPlayerRuntimeInfo().GetDraws().OnCardChanged += @event =>
-            {
-                if (@event.type == CardChangeType.AddCard)
-                {
-                    OnCardChange(@event);
-                }
-            };
-        }
-
-        private void OnCardChange(CardChangeEvent e)
-        {
-            var handSize = Context.GetPlayerRuntimeInfo().GetHands().Count;
-            var diff = Context.InitHandNum - handSize;
-            if (diff > 0)
-            {
-                var controller = Context.GetPlayerController();
-                controller.Draw(diff);
-            }
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using Data.Check;
 using Data.Instruction;
 using GameLib.Common;
 using Gameplay.Core.Interactive;
+using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -148,7 +149,17 @@ namespace Gameplay.Core
         {
             CleanDrawPileClientRpc();
         }
-        
+
+        public void FillHands()
+        {
+            var diff = GamePlayContext.Instance.InitHandNum - _hands.Count;
+            diff = math.min(diff, _draws.Count);
+            if (diff > 0)
+            {
+                Draw(diff);
+            }
+        }
+
         [Rpc(SendTo.ClientsAndHost)]
         private void CleanDrawPileClientRpc()
         {

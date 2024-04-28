@@ -23,8 +23,10 @@ namespace Data.Instruction.Nodes
         {
             from = GetInputValue<List<ulong>>(nameof(from));
             to = GetInputValue<List<ulong>>(nameof(to));
+            var targetID = to.First();
             foreach (var player in context.GetPlayerControllers(from))
             {
+                if (player.ClientID == targetID) continue;
                 player.GiveHand(to.First());
             }
             await Task.CompletedTask;

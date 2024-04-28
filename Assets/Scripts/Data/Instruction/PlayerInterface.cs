@@ -76,6 +76,11 @@ namespace Data.Instruction
         /// 清理抽牌堆。
         /// </summary>
         public void CleanDrawPile();
+
+        /// <summary>
+        /// 补满手牌。
+        /// </summary>
+        public void FillHands();
         
         /// <summary>
         /// 获得玩家交互处理器。
