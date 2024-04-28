@@ -84,12 +84,4 @@
         /// <returns></returns>
         public static bool IsPlayArea(string tag) => PlayArea == tag;
     }
-
-    public static class EnemyIDDefine
-    {
-        /// <summary>
-        /// 无效敌方ID。
-        /// </summary>
-        public const ulong Invalid = 99999;
-    }
 }

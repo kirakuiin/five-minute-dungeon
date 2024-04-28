@@ -139,6 +139,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.Server)]
         private void CastSkillServerRpc(Skill skill, RpcParams param=default)
         {
+            if (!CanICastSkill(skill)) return;
             _curState.ExecuteAction(
                 new GameAction
                 {
@@ -161,6 +162,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.Server)]
         private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
+            if (!CanIPlayThisCard(card)) return;
             Context.GetTimeController().Continue();
             _curState.ExecuteAction(
                 new GameAction

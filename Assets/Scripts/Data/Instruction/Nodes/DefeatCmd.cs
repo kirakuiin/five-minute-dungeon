@@ -17,10 +17,7 @@ namespace Data.Instruction.Nodes
         {
             enemyID = GetInputValue<ulong>(nameof(enemyID));
             var controller = context.GetLevelController();
-            if (enemyID != EnemyIDDefine.Invalid)
-            {
-                controller.DestroyEnemyCard(enemyID);
-            }
+            controller.DestroyEnemyCard(enemyID);
             await Task.CompletedTask;
         }
     }

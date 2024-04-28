@@ -1,6 +1,4 @@
 ﻿using System;
-using Common;
-using Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,11 +7,9 @@ namespace UI.Model
     [RequireComponent(typeof(EnemyModel))]
     public class EnemyModelSelector: MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private EventTrigger _trigger;
-
+        [SerializeField] private GameObject indicator;
+        
         private Action<ulong> _onSelectCallback;
-
-        private EnemyCardType _needType;
 
         private void Awake()
         {
@@ -23,13 +19,11 @@ namespace UI.Model
         /// <summary>
         /// 是否进入选择模式
         /// </summary>
-        /// <param name="type"></param>
         /// <param name="callback"></param>
-        public void EnterSelectMode(EnemyCardType type, Action<ulong> callback)
+        public void EnterSelectMode(Action<ulong> callback)
         {
             enabled = true;
             _onSelectCallback = callback;
-            _needType = type;
         }
 
         /// <summary>
@@ -38,23 +32,23 @@ namespace UI.Model
         public void ExitSelectMode()
         {
             enabled = false;
+            indicator.SetActive(false);
         }
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Debug.Log("鼠标进入");
+            indicator.SetActive(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Debug.Log("鼠标离开");
+            indicator.SetActive(false);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             var model = GetComponent<EnemyModel>();
-            // 处理选择怪物时，怪物被其他方式击毙导致没有合法目标的情况。
-            _onSelectCallback?.Invoke((model.Card.type & _needType) > 0 ? model.EnemyID : EnemyIDDefine.Invalid);
+            _onSelectCallback?.Invoke(model.EnemyID);
         }
     }
 }

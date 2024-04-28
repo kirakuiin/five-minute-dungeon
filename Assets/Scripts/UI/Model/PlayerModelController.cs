@@ -68,6 +68,7 @@ namespace UI.Model
             var classType = GamePlayContext.Instance.GetPlayerRuntimeInfo(clientID).PlayerClass;
             var prefab = DataService.Instance.GetClassData(classType).classPrefab;
             var obj = Instantiate(prefab);
+            obj.GetComponent<PlayerModel>().Init(clientID);
             _models[clientID] = obj;
             return obj;
         }

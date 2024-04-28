@@ -39,8 +39,7 @@ namespace Data.Instruction.Nodes
             enemyID = candidates.Count switch
             {
                 1 => candidates[0],
-                > 1 => await handler.SelectEnemy(enemyType),
-                _ => EnemyIDDefine.Invalid
+                _ => await handler.SelectEnemy(enemyType),
             };
         }
     }
