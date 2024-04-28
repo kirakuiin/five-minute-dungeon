@@ -69,6 +69,11 @@ namespace Data.Instruction
         public void DestroyEnemyCard(ulong enemyID);
 
         /// <summary>
+        /// 根据资源情况推进关卡。
+        /// </summary>
+        public void ProcessLevel();
+
+        /// <summary>
         /// 揭示接下来的n个关卡。
         /// </summary>
         /// <param name="num"></param>

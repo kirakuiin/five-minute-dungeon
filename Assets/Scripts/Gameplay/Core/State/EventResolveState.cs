@@ -30,8 +30,8 @@ namespace Gameplay.Core.State
         {
             UpdateStatus(GameServiceStatus.Create(State));
             _countdown = GameRule.EventCancelWaitTime;
-            OnActionDone += OnDone;
             OnActionBegin += OnBegin;
+            OnActionDone += OnDone;
             _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
             Context.GetTimeRuntimeInfo().OnTimeUpdated += OnTimeUpdate;
             StartActionCycle();
@@ -87,7 +87,7 @@ namespace Gameplay.Core.State
             foreach (var pair in _levelRuntime.GetAllEnemiesInfo())
             {
                 var enemyInfo = pair.Value;
-                if (!enemyInfo.IsEventCard()) return;
+                if (!enemyInfo.IsEventCard()) continue;
                 var action = new EventAction()
                 {
                     clientID = NetworkManager.Singleton.LocalClientId,

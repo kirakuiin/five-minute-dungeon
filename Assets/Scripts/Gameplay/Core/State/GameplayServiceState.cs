@@ -115,14 +115,20 @@ namespace Gameplay.Core.State
                     OnActionBegin?.Invoke(action);
                     await action.graph.Execution(Context, action.clientID);
                     OnActionDone?.Invoke(action);
+                    AfterActionResolve();
                     _runningQueue.TryDequeue(out var _);
-                    UpdatePlayerHands();
                 }
                 else
                 {
                     await Task.Delay(ExecuteInterval);
                 }
             }
+        }
+
+        private void AfterActionResolve()
+        {
+            UpdatePlayerHands();
+            ProcessLevel();
         }
         
         private void UpdatePlayerHands()
@@ -131,6 +137,11 @@ namespace Gameplay.Core.State
             {
                 Context.GetPlayerController(clientID).FillHands();
             }
+        }
+
+        private void ProcessLevel()
+        {
+            Context.GetLevelController().ProcessLevel();
         }
 
         /// <summary>

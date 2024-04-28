@@ -80,7 +80,6 @@ namespace Gameplay.Core
         public void AddResource(Resource type, int num = 1)
         {
             AddResourceClientRpc(type, num);
-            ProcessLevelResource();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
@@ -90,7 +89,7 @@ namespace Gameplay.Core
             OnResourceAdded?.Invoke(type, num);
         }
 
-        private void ProcessLevelResource()
+        public void ProcessLevel()
         {
             if (!IsPlayedResourceGeThanNeeded()) return;
             foreach (var enemyID in _enemyInfos.Keys.ToList())
@@ -110,16 +109,11 @@ namespace Gameplay.Core
 
         public void DestroyEnemyCard(ulong enemyID)
         {
-            DestroyEnemyClientRpc(enemyID);
-            var noEnemy = GetAllEnemiesInfo().Count == 0;
-            if (noEnemy)
+            if (GetAllEnemiesInfo().Count == 1)
             {
                 ClearResourcePoolClientRpc();
             }
-            else
-            {
-                ProcessLevelResource();
-            }
+            DestroyEnemyClientRpc(enemyID);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
