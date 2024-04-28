@@ -126,7 +126,13 @@ namespace Gameplay.Core
         {
             var targetPlayer = GamePlayContext.Instance.GetPlayerController(targetPlayerID);
             targetPlayer.AddHand(HandCards);
-            Discard(HandCards);
+            RemoveHandClientRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void RemoveHandClientRpc()
+        {
+            _hands.RemoveCard(_hands.Count);
         }
 
         public void AddHand(IEnumerable<Card> cardList)
@@ -163,7 +169,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.ClientsAndHost)]
         private void CleanDrawPileClientRpc()
         {
-            _draws.RemoveCard(Int32.MaxValue);
+            _draws.RemoveCard(_draws.Count);
         }
 
         [Rpc(SendTo.ClientsAndHost)]

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UnityEngine;
 using XNode;
 
 namespace Data.Instruction.Nodes
@@ -38,24 +36,26 @@ namespace Data.Instruction.Nodes
             playerList = target switch
             {
                 PlayerTarget.Self => new List<ulong>() { player.ClientID },
-                PlayerTarget.SpecificPlayer => await GetSpecificPlayer(context, player),
+                PlayerTarget.SpecificPlayer => await GetPlayerList(context, player, true),
                 PlayerTarget.AllPlayer => context.GetAllClientIDs().ToList(),
                 PlayerTarget.AllExceptSelf => context.GetAllClientIDs().Except(new List<ulong>() {tempContext.ClientID}).ToList(),
-                PlayerTarget.AnotherPlayer => await GetAnotherPlayer(context, player),
+                PlayerTarget.AnotherPlayer => await GetPlayerList(context, player, false),
                 _ => playerList
             };
         }
 
-        private async Task<List<ulong>> GetSpecificPlayer(ICmdContext context, IPlayerController player)
+        private async Task<List<ulong>> GetPlayerList(ICmdContext context, IPlayerController player, bool canSelectSelf)
         {
-            //TODO(nico): 玩家数小于要求数时直接返回结果。
-            return await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, true);
-        }
-        
-        private async Task<List<ulong>> GetAnotherPlayer(ICmdContext context, IPlayerController player)
-        {
-            //TODO(nico): 玩家数小于要求数时直接返回结果。
-            return await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, false);
+            var allClientIDs = context.GetAllClientIDs().ToList();
+            if (!canSelectSelf)
+            {
+                allClientIDs.Remove(player.ClientID);
+            }
+            if (allClientIDs.Count <= selectPlayerNum)
+            {
+                return allClientIDs;
+            }
+            return await player.GetInteractiveHandler().SelectPlayers(selectPlayerNum, canSelectSelf);
         }
     }
 }
