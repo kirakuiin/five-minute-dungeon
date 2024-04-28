@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,8 @@ namespace UI.Model
 
         private Action<ulong> _onSelectCallback;
 
+        private EnemyCardType _needType;
+
         private void Awake()
         {
             enabled = false;
@@ -20,11 +23,13 @@ namespace UI.Model
         /// <summary>
         /// 是否进入选择模式
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="callback"></param>
-        public void EnterSelectMode(Action<ulong> callback)
+        public void EnterSelectMode(EnemyCardType type, Action<ulong> callback)
         {
             enabled = true;
             _onSelectCallback = callback;
+            _needType = type;
         }
 
         /// <summary>
@@ -48,7 +53,8 @@ namespace UI.Model
         public void OnPointerClick(PointerEventData eventData)
         {
             var model = GetComponent<EnemyModel>();
-            _onSelectCallback?.Invoke(model.EnemyID);
+            // 处理选择怪物时，怪物被其他方式击毙导致没有合法目标的情况。
+            _onSelectCallback?.Invoke((model.Card.type & _needType) > 0 ? model.EnemyID : EnemyIDDefine.Invalid);
         }
     }
 }

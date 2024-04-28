@@ -17,7 +17,9 @@ namespace Gameplay.Core.Interactive
         /// 通知选择玩家对象。
         /// </summary>
         public event Action<int, bool> OnPlayerSelecting;
-        
+
+        public event Action OnSelectDone;
+
         private bool _isSelect;
 
         private List<ulong> _playerList;
@@ -29,6 +31,7 @@ namespace Gameplay.Core.Interactive
         public void SelectPlayer(IEnumerable<ulong> playerList)
         {
             SelectPlayerServerRpc(playerList.ToArray());
+            OnSelectDone?.Invoke();
         }
 
         [Rpc(SendTo.Server)]

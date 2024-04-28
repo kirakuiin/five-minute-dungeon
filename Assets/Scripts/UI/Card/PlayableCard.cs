@@ -90,14 +90,19 @@ namespace UI.Card
 
         public void EnterSelectMode()
         {
-            GetComponent<DraggableUI>().enabled = false;
+            SetDraggable(false);
             GetComponent<HandCardSelector>().EnableIt();
         }
 
         public void ExitSelectMode()
         {
-            GetComponent<DraggableUI>().enabled = true;
+            SetDraggable(true);
             GetComponent<HandCardSelector>().DisableIt();
+        }
+
+        public void SetDraggable(bool isDraggable)
+        {
+            GetComponent<DraggableUI>().enabled = isDraggable;
         }
     }
 }

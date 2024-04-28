@@ -15,16 +15,19 @@ namespace UI.Model
 
         [SerializeField] private GamePlayState state;
         
-        private readonly Dictionary<ulong, NetworkObject> _models = new();
+        private readonly Dictionary<ulong, GameObject> _models = new();
         
         private readonly DisposableGroup _disposableGroup = new();
 
         private int _curPosIdx;
 
+        /// <summary>
+        /// 玩家模型。
+        /// </summary>
+        public IEnumerable<GameObject> PlayersModel => _models.Values;
 
         private void Start()
         {
-            if (!NetworkManager.Singleton.IsServer) return;
             InitListen();
         }
 
@@ -60,11 +63,11 @@ namespace UI.Model
             }
         }
         
-        private NetworkObject CreateClassModel(ulong clientID)
+        private GameObject CreateClassModel(ulong clientID)
         {
             var classType = GamePlayContext.Instance.GetPlayerRuntimeInfo(clientID).PlayerClass;
             var prefab = DataService.Instance.GetClassData(classType).classPrefab;
-            var obj = NetworkObject.InstantiateAndSpawn(prefab, NetworkManager.Singleton, clientID);
+            var obj = Instantiate(prefab);
             _models[clientID] = obj;
             return obj;
         }

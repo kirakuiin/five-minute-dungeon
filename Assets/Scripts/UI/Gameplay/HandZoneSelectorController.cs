@@ -2,7 +2,6 @@
 using Data.Check;
 using Gameplay.Core;
 using TMPro;
-using UI.Card;
 using Unity.Mathematics;
 using UnityEngine;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common;
 using XNode;
 
 namespace Data.Instruction.Nodes
@@ -35,18 +36,12 @@ namespace Data.Instruction.Nodes
         {
             var player = context.GetPlayerController(tempContext.ClientID);
             var handler = player.GetInteractiveHandler();
-            if (candidates.Count == 1)
+            enemyID = candidates.Count switch
             {
-                enemyID = candidates[0];
-            }
-            else if (candidates.Count > 1)
-            {
-                enemyID = await handler.SelectEnemy(enemyType);
-            }
-            else
-            {
-                throw new InstructionException($"找不到合法的敌方对象[{enemyType}]");
-            }
+                1 => candidates[0],
+                > 1 => await handler.SelectEnemy(enemyType),
+                _ => EnemyIDDefine.Invalid
+            };
         }
     }
 }

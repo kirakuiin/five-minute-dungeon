@@ -41,6 +41,11 @@ namespace Data.Check
         public event Action<EnemyCardType> OnEnemySelecting;
 
         /// <summary>
+        /// 选择完毕触发。
+        /// </summary>
+        public event Action OnSelectDone;
+
+        /// <summary>
         /// 选择敌方单位。
         /// </summary>
         /// <param name="enemyID"></param>
@@ -56,6 +61,11 @@ namespace Data.Check
         /// 开始选择玩家时触发。
         /// </summary>
         public event Action<int, bool> OnPlayerSelecting;
+        
+        /// <summary>
+        /// 选择完毕触发。
+        /// </summary>
+        public event Action OnSelectDone;
 
         /// <summary>
         /// 选择玩家。

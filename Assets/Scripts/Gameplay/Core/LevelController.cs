@@ -110,7 +110,6 @@ namespace Gameplay.Core
 
         public void DestroyEnemyCard(ulong enemyID)
         {
-            if (!_enemyInfos.ContainsKey(enemyID)) return;
             DestroyEnemyClientRpc(enemyID);
             var noEnemy = GetAllEnemiesInfo().Count == 0;
             if (noEnemy)

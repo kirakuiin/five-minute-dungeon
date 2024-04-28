@@ -18,6 +18,8 @@ namespace Gameplay.Core.Interactive
         /// </summary>
         public event Action<EnemyCardType> OnEnemySelecting;
 
+        public event Action OnSelectDone;
+
         private ulong _enemyID;
 
         private bool _isSelect;
@@ -29,6 +31,7 @@ namespace Gameplay.Core.Interactive
         public void SelectEnemy(ulong enemyID)
         {
             SelectEnemyServerRpc(enemyID);
+            OnSelectDone?.Invoke();
         }
 
         [Rpc(SendTo.Server)]

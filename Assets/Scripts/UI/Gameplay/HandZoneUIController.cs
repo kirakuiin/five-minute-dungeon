@@ -5,6 +5,7 @@ using Data;
 using Data.Check;
 using GameLib.Common;
 using GameLib.Common.DataStructure;
+using GameLib.Common.Extension;
 using GameLib.UI.SectorLayout;
 using Gameplay.Core;
 using UI.Card;
@@ -41,6 +42,25 @@ namespace UI.Gameplay
         private void InitListen()
         {
             RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
+            RuntimeInfo.GetRuntimeInteractive().GetEnemySelector().OnEnemySelecting += OnEnemySelecting;
+            RuntimeInfo.GetRuntimeInteractive().GetPlayerSelector().OnPlayerSelecting += OnPlayerSelecting;
+            RuntimeInfo.GetRuntimeInteractive().GetEnemySelector().OnSelectDone += OnSelectDone;
+            RuntimeInfo.GetRuntimeInteractive().GetPlayerSelector().OnSelectDone += OnSelectDone;
+        }
+
+        private void OnEnemySelecting(EnemyCardType type)
+        {
+            _cardList.Apply(obj => obj.GetComponent<PlayableCard>().SetDraggable(false));
+        }
+
+        private void OnPlayerSelecting(int num, bool canSelf)
+        {
+            _cardList.Apply(obj => obj.GetComponent<PlayableCard>().SetDraggable(false));
+        }
+
+        private void OnSelectDone()
+        {
+            _cardList.Apply(obj => obj.GetComponent<PlayableCard>().SetDraggable(true));
         }
 
         private void OnCardChanged(CardChangeEvent e)

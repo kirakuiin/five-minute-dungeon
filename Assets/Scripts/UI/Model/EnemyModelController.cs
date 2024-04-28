@@ -6,7 +6,6 @@ using GameLib.Common;
 using Gameplay.Core;
 using Gameplay.GameState;
 using Gameplay.Message;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace UI.Model
@@ -24,7 +23,7 @@ namespace UI.Model
         
         private static readonly HashSet<int> AllIdx = new() {0, 1, 2};
         
-        private readonly Dictionary<ulong, NetworkObject> _models = new();
+        private readonly Dictionary<ulong, GameObject> _models = new();
 
         private readonly Dictionary<ulong, int> _occupiedIdx = new();
 
@@ -33,13 +32,12 @@ namespace UI.Model
         /// <summary>
         /// 获得全部敌方模型。
         /// </summary>
-        public IEnumerable<GameObject> EnemiesModel => _models.Select(obj => obj.Value.gameObject);
+        public IEnumerable<GameObject> EnemiesModel => _models.Select(obj => obj.Value);
         
         private ILevelRuntimeInfo LevelInfo => GamePlayContext.Instance.GetLevelRuntimeInfo();
         
         private void Start()
         {
-            if (!NetworkManager.Singleton.IsServer) return;
             InitListen();
         }
 
@@ -79,13 +77,15 @@ namespace UI.Model
                 obj.transform.SetParent(posList[idx], false);
                 _occupiedIdx[enemyID] = idx;
             }
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
             obj.GetComponent<EnemyModel>().Init(enemyID, enemyCard);
         }
         
-        private NetworkObject CreateMonsterModel(ulong enemyID, EnemyCard card)
+        private GameObject CreateMonsterModel(ulong enemyID, EnemyCard card)
         { 
             var prefab = DataService.Instance.GetEnemyCardData(card).prefab;
-            var obj = NetworkObject.InstantiateAndSpawn(prefab, NetworkManager.Singleton, NetworkManager.Singleton.LocalClientId);
+            var obj = GameObjectPool.Instance.Get(prefab);
             _models[enemyID] = obj;
             return obj;
         }
@@ -106,7 +106,8 @@ namespace UI.Model
             {
                 _occupiedIdx.Remove(@event.enemyID);
             }
-            _models[@event.enemyID].Despawn();
+            var prefab = DataService.Instance.GetEnemyCardData(@event.enemyCard).prefab;
+            GameObjectPool.Instance.ReturnWithReParent(_models[@event.enemyID], prefab);
             _models.Remove(@event.enemyID);
         }
     }

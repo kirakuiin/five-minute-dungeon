@@ -28,9 +28,10 @@
         /// </summary>
         public static readonly ushort Port = 23132;
 
+        /// <summary>
+        /// ping最大延迟时间
+        /// </summary>
         public static readonly int Timeout = 5;
-
-        public static readonly int InteractiveTimeout = 60;
     }
 
     /// <summary>
@@ -47,7 +48,6 @@
         /// 房间界面
         /// </summary>
         public static readonly string LobbyUI = "LobbyUI";
-        
         
         /// <summary>
         /// 游戏玩法界面
@@ -83,5 +83,13 @@
         /// <param name="tag"></param>
         /// <returns></returns>
         public static bool IsPlayArea(string tag) => PlayArea == tag;
+    }
+
+    public static class EnemyIDDefine
+    {
+        /// <summary>
+        /// 无效敌方ID。
+        /// </summary>
+        public const ulong Invalid = 99999;
     }
 }

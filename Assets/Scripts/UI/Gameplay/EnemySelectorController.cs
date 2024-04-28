@@ -29,7 +29,7 @@ namespace UI.Gameplay
         private void OnEnemySelecting(EnemyCardType type)
         {
             modelController.EnemiesModel.Apply(
-                model => model.GetComponent<EnemyModelSelector>().EnterSelectMode(SetSelectEnemy)
+                model => model.GetComponent<EnemyModelSelector>().EnterSelectMode(type, SetSelectEnemy)
             );
             CameraControl.Instance.ActiveEnemyCamera();
         }
