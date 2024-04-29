@@ -1,15 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Gameplay.Core;
 using Gameplay.Core.State;
+using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Gameplay
+namespace UI.Model
 {
     /// <summary>
     /// 事件结算倒计时。
     /// </summary>
-    public class EventResolveCountdownUIController : MonoBehaviour
+    public class EventResolveCountdown : InitComponent
     {
         [SerializeField] private Slider slider;
 
@@ -18,10 +20,9 @@ namespace UI.Gameplay
         private bool _isFlow = true;
 
         private Coroutine _coroutine;
-        
+
         private void Start()
         {
-            gameObject.SetActive(false);
             slider.minValue = 0;
             slider.maxValue = GameRule.EventCancelWaitTime;
         }
@@ -29,8 +30,9 @@ namespace UI.Gameplay
         /// <summary>
         /// 初始化。
         /// </summary>
-        public void Init()
+        public override void Init()
         {
+            slider.gameObject.SetActive(false);
             InitListen();
         }
 
@@ -41,23 +43,28 @@ namespace UI.Gameplay
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
         }
 
+        private void OnDisable()
+        {
+            GamePlayService.Instance.OnStateChanged -= OnStateChanged;
+            GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeUpdated -= OnTimeUpdated;
+            GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow -= OnTimeIsFlow;
+        }
+
         private void OnStateChanged(GameServiceStatus status)
         {
             ResetCoroutine();
             UpdateVariable(status);
             if (!_isAllowUpdate)
             {
-                gameObject.SetActive(false);
+                slider.gameObject.SetActive(false);
             }
         }
 
         private void ResetCoroutine()
         {
-            if (_coroutine != null)
-            {
-                StopCoroutine(_coroutine);
-                _coroutine = null;
-            }
+            if (_coroutine == null) return;
+            StopCoroutine(_coroutine);
+            _coroutine = null;
         }
 
         private void UpdateVariable(GameServiceStatus status)
@@ -76,7 +83,7 @@ namespace UI.Gameplay
             {
                 if (_coroutine is null)
                 {
-                    gameObject.SetActive(true);
+                    slider.gameObject.SetActive(true);
                 }
                 _coroutine ??= StartCoroutine(UpdateSlider());
             }

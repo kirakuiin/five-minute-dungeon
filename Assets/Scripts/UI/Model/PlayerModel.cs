@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using GameLib.Common.Extension;
+using UI.Common;
+using UnityEngine;
 
 namespace UI.Model
 {
     public class PlayerModel : MonoBehaviour
     {
+        [SerializeField] private List<InitComponent> compList;
+        
         /// <summary>
         /// 玩家ID
         /// </summary>
@@ -16,7 +21,7 @@ namespace UI.Model
         public void Init(ulong playerID)
         {
             PlayerID = playerID;
-            GetComponent<PlayerModelUIController>().Init();
+            compList.Apply(comp => comp.Init());
         }
     }
 }

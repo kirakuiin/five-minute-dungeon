@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 
   needValueList: 
-  desc: "\u6307\u5B9A\u4E00\u79CD\u8D44\u6E90\uFF0C\u6240\u6709\u73A9\u5BB6\u5FC5\u987B\u5C06\u624B\u724C\u4E2D\u6240\u6709\u5305\u542B\u6B64\u8D44\u6E90\u7684\u8D44\u6E90\u5361\u4E22\u5F03\u3002<sprite
-    name=\"event\">"
+  desc: "\u4E0A\u9501\u7684\u95E8<sprite name=\"event\">"
   prefab: {fileID: 853653278030674462, guid: 03f08a2886e69984d949ea2d27834a61, type: 3}
   card: 0
   enemyCardType: 8
   action: {fileID: 11400000, guid: 45dd1f777de4f6e438373e165d6700c5, type: 2}
+  resolveText: "\u6307\u5B9A\u4E00\u79CD\u8D44\u6E90\uFF0C\u6240\u6709\u73A9\u5BB6\u5FC5\u987B\u5C06\u624B\u724C\u4E2D\u6240\u6709\u5305\u542B\u6B64\u8D44\u6E90\u7684\u8D44\u6E90\u5361\u4E22\u5F03\u3002"

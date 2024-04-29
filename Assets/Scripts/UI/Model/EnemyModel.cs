@@ -1,4 +1,7 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
+using GameLib.Common.Extension;
+using UI.Common;
 using UnityEngine;
 
 namespace UI.Model
@@ -11,6 +14,9 @@ namespace UI.Model
         public EnemyCard Card { private set; get; }
 
         public ulong EnemyID { private set; get; }
+
+        [SerializeField]
+        private List<InitComponent> compList;
         
         /// <summary>
         /// 初始化。
@@ -21,6 +27,7 @@ namespace UI.Model
         {
             EnemyID = enemyID;
             Card = card;
+            compList.Apply(comp => comp.Init());
         }
     }
 }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needTypeList: 
   needValueList: 
-  desc: "\u6240\u6709\u73A9\u5BB6\u4E22\u5F03\u4E09\u5F20\u624B\u724C\u3002<sprite
-    name=\"event\">"
+  desc: "\u9677\u9631\u95E8<sprite name=\"event\">"
   prefab: {fileID: 853653278030674462, guid: 03f08a2886e69984d949ea2d27834a61, type: 3}
   card: 1
   enemyCardType: 8
   action: {fileID: 11400000, guid: d6eff7ef92a2f6b46a67cd85f50a1430, type: 2}
+  resolveText: "\u6240\u6709\u73A9\u5BB6\u4E22\u5F03\u4E09\u5F20\u624B\u724C\u3002"

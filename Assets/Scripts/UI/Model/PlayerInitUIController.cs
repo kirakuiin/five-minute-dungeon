@@ -3,6 +3,7 @@ using Data.Check;
 using Gameplay.Camera;
 using Gameplay.Core;
 using TMPro;
+using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace UI.Model
     /// <summary>
     /// 玩家模型UI
     /// </summary>
-    public class PlayerModelUIController : MonoBehaviour
+    public class PlayerInitUIController : InitComponent
     {
         private static readonly int DrawNum = Shader.PropertyToID("_DrawNum");
         private static readonly int HandNum = Shader.PropertyToID("_HandNum");
@@ -26,7 +27,7 @@ namespace UI.Model
 
         private IPlayerRuntimeInfo _info;
         
-        public void Init()
+        public override void Init()
         {
             _info = GamePlayContext.Instance.GetPlayerRuntimeInfo(GetComponent<PlayerModel>().PlayerID);
             InitUI();
@@ -61,7 +62,7 @@ namespace UI.Model
 
         private void LateUpdate()
         {
-            uiRoot.transform.forward = CameraControl.Instance.ActiveCamera.transform.forward;
+            uiRoot.transform.rotation = CameraControl.Instance.ActiveCamera.transform.rotation;
         }
     }
 }

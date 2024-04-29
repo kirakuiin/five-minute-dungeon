@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GameLib.Common.Extension;
 using UnityEngine;
@@ -21,7 +22,12 @@ namespace Data.Instruction.Nodes
         public override async Task Execute(ICmdContext context, TempContext tmpContext)
         {
             var player = context.GetPlayerController(tmpContext.ClientID);
-            playerList = await player.GetInteractiveHandler().SelectPlayers(1, true);
+            var allPlayerIDs = context.GetAllClientIDs().ToList();
+            playerList = allPlayerIDs.Count switch
+            {
+                1 => allPlayerIDs,
+                _ => await player.GetInteractiveHandler().SelectPlayers(1, true),
+            };
             await UseMostChoicePlayer(tmpContext);
         }
 

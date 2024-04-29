@@ -15,5 +15,8 @@ namespace Data
 
         [Tooltip("行动")]
         public InstructionGraph action;
+
+        [Tooltip("结算文本")]
+        public string resolveText;
     }
 }

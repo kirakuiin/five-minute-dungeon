@@ -23,8 +23,6 @@ namespace UI.Gameplay
 
         [SerializeField] private CountdownUIController countdown;
 
-        [SerializeField] private EventResolveCountdownUIController eventResolve;
-
         private ILevelRuntimeInfo _levelInfo;
 
         /// <summary>
@@ -37,7 +35,6 @@ namespace UI.Gameplay
             needZone.Init();
             playedZone.Init();
             countdown.Init();
-            eventResolve.Init();
             RefreshUI();
         }
 
@@ -77,8 +74,12 @@ namespace UI.Gameplay
             StringBuilder content = new();
             foreach (var enemy in _levelInfo.GetAllEnemiesInfo().Values)
             {
+                if (!enemy.IsEventCard()) continue;
                 var data = DataService.Instance.GetEnemyCardData(enemy);
-                content.Append($"{data.desc}\n");
+                if (data is ChallengeCardData e)
+                {
+                    content.Append($"结算效果: {e.resolveText}\n");
+                }
             }
 
             var str = content.ToString();
