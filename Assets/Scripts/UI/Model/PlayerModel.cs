@@ -16,6 +16,7 @@ namespace UI.Model
         public void Init(ulong playerID)
         {
             PlayerID = playerID;
+            GetComponent<PlayerModelUIController>().Init();
         }
     }
 }

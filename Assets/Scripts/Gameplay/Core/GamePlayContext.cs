@@ -147,17 +147,17 @@ namespace Gameplay.Core
         /// </summary>
         public void InitPile()
         {
-            var classes = (from clientID in NetworkManager.ConnectedClientsIds
+            var data = (from clientID in NetworkManager.ConnectedClientsIds
                 // ReSharper disable once PossibleInvalidOperationException
-                select SessionManager<PlayerSessionData>.Instance.GetPlayerData(clientID).Value.PlayerClass).ToList();
+                select SessionManager<PlayerSessionData>.Instance.GetPlayerData(clientID).Value).ToList();
             
-            var enumerator = new DeckGenerator(classes).GetDeckEnumerator();
+            var enumerator = new DeckGenerator(data.Select(obj => obj.PlayerClass)).GetDeckEnumerator();
             
             for(var i = 0; i < NetworkManager.ConnectedClientsIds.Count; ++i)
             {
                 enumerator.MoveNext();
                 var controller = _playerControllers[NetworkManager.ConnectedClientsIds[i]];
-                controller.Init(enumerator.Current, classes[i]);
+                controller.Init(enumerator.Current, data[i].PlayerClass, data[i].PlayerName);
             }
         }
 

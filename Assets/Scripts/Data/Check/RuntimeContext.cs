@@ -45,6 +45,11 @@ namespace Data.Check
         public Class PlayerClass { get; }
         
         /// <summary>
+        /// 玩家名称。
+        /// </summary>
+        public string PlayerName { get; }
+        
+        /// <summary>
         /// 玩家手牌。
         /// </summary>
         /// <returns></returns>
@@ -61,6 +66,11 @@ namespace Data.Check
         /// </summary>
         /// <returns></returns>
         public ICardCollectionsInfo GetDiscards();
+        
+        /// <summary>
+        /// 打出卡牌数。
+        /// </summary>
+        public int PlayCardNum { get; }
         
         /// <summary>
         /// 获得运行时交互器。

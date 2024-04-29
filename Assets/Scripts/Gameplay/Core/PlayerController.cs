@@ -21,6 +21,8 @@ namespace Gameplay.Core
         private readonly HandsData _hands = new();
         private readonly DrawsData _draws = new();
         private readonly DiscardsData _discards = new();
+        
+        public int PlayCardNum { private set; get; }
 
         private void OnTransformParentChanged()
         {
@@ -32,17 +34,20 @@ namespace Gameplay.Core
         public IReadOnlyList<Card> HandCards => _hands.ToList();
 
         public Class PlayerClass { private set; get; }
+        
+        public string PlayerName { private set; get; }
 
-        public void Init(IEnumerable<Card> cards, Class type)
+        public void Init(IEnumerable<Card> cards, Class type, string playerName)
         {
             AddDraw(cards);
-            InitClientRpc(type);
+            InitClientRpc(type, playerName);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
-        private void InitClientRpc(Class type)
+        private void InitClientRpc(Class type, string playerName)
         {
             PlayerClass = type;
+            PlayerName = playerName;
             LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPile);
         }
 
@@ -54,6 +59,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.ClientsAndHost)]
         private void PlayClientRpc(Card card)
         {
+            PlayCardNum += 1;
             _hands.RemoveCard(new [] {card});
         }
 

@@ -59,6 +59,7 @@ namespace UI.Model
             {
                 var obj = CreateClassModel(clientID);
                 obj.transform.SetParent(posList[_curPosIdx], false);
+                obj.transform.localPosition = Vector3.zero;
                 _curPosIdx += 1;
             }
         }
