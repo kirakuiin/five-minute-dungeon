@@ -24,6 +24,8 @@ namespace Gameplay.Core
         
         public int PlayCardNum { private set; get; }
 
+        public bool IsHaveCards => _hands.Count + _draws.Count > 0;
+
         private void OnTransformParentChanged()
         {
             LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPlayerController);

@@ -37,7 +37,7 @@
         /// <summary>
         /// 游戏时间。
         /// </summary>
-        public static int CountdownTime => 300;
+        public static int CountdownTime => 10;
 
         /// <summary>
         /// 事件取消等待时间。

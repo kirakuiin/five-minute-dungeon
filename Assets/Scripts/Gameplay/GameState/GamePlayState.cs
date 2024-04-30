@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Common;
 using Data;
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
@@ -101,6 +102,16 @@ namespace Gameplay.GameState
             {
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
             }
+        }
+        
+        /// <summary>
+        /// 进入结算界面。
+        /// </summary>
+        public void GoToPostGame()
+        {
+            current = GamePlayStateMsg.Create(GamePlayStateEnum.End);
+            GameplayState.Publish(current);
+            SceneLoader.Instance.LoadSceneByNet(SceneDefines.PostGame);
         }
     }
 }

@@ -71,6 +71,11 @@ namespace Data.Check
         /// 打出卡牌数。
         /// </summary>
         public int PlayCardNum { get; }
+
+        /// <summary>
+        /// 是否还有卡牌？
+        /// </summary>
+        public bool IsHaveCards { get; }
         
         /// <summary>
         /// 获得运行时交互器。

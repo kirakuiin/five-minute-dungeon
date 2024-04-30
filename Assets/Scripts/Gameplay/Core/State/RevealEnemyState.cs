@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Gameplay.Data;
+using Gameplay.Progress;
 
 namespace Gameplay.Core.State
 {

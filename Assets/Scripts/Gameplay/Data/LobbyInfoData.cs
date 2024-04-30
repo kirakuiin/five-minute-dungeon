@@ -174,20 +174,32 @@ namespace Gameplay.Data
 
         private void InitPlayerInfo()
         {
-            var clientID = NetworkManager.Singleton.LocalClientId;
-            _playerInfos[clientID] = new PlayerInfo(clientID, PlayerSetting.Instance.PlayerName);
+            foreach (var clientID in NetworkManager.ConnectedClientsIds)
+            {
+                _playerInfos[clientID] = new PlayerInfo(clientID, PlayerSetting.Instance.PlayerName);
+                InvokePlayerJoinedClientRpc(_playerInfos[clientID]);
+            }
             InvokeLobbyChangeOnServer();
-            InvokePlayerJoinedClientRpc(_playerInfos[clientID]);
         }
         
         private void InitListening()
         {
-            var manager = NetworkManager.Singleton;
-            manager.OnClientConnectedCallback += OnClientConnectedCallback;
-            manager.OnClientDisconnectCallback += OnClientDisconnectCallback;
+            NetworkManager.OnConnectionEvent += OnConnectionEvent;
         }
 
-        private void OnClientConnectedCallback(ulong clientID)
+        private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
+        {
+            if (data.EventType == ConnectionEvent.ClientConnected)
+            {
+                ClientConnected(data.ClientId);
+            }
+            else if (data.EventType == ConnectionEvent.ClientDisconnected)
+            {
+                ClientDisconnect(data.ClientId);
+            }
+        }
+
+        private void ClientConnected(ulong clientID)
         {
             _playerInfos[clientID] = new PlayerInfo(clientID);
             InvokeLobbyChangeOnServer();
@@ -215,7 +227,7 @@ namespace Gameplay.Data
             OnPlayerJoined?.Invoke(info);
         }
 
-        private void OnClientDisconnectCallback(ulong clientID)
+        private void ClientDisconnect(ulong clientID)
         {
             if (!_playerInfos.ContainsKey(clientID)) return;
             _playerInfos.Remove(clientID);
@@ -238,8 +250,7 @@ namespace Gameplay.Data
         {
             if (IsServer)
             {
-                NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
-                NetworkManager.OnClientDisconnectCallback -= OnClientDisconnectCallback;
+                NetworkManager.OnConnectionEvent -= OnConnectionEvent;
             }
             base.OnNetworkDespawn();
         }

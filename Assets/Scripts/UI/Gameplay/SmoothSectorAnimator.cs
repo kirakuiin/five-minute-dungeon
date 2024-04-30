@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
@@ -35,6 +36,11 @@ namespace UI.Gameplay
                 trans.DOKill();
             }
             _playingObjs.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            Stop();
         }
     }
 }

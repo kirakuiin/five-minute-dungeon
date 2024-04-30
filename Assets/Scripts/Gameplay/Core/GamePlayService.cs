@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using GameLib.Common;
@@ -55,12 +56,6 @@ namespace Gameplay.Core
             OnStateChanged?.Invoke(status);
         }
 
-        private void Update()
-        {
-            if (!IsServer) return;
-            _curState?.Update();
-        }
-
         private void Start()
         {
             _disposable.Add(gamePlay.GameplayState.Subscribe(OnInitState));
@@ -79,6 +74,26 @@ namespace Gameplay.Core
         {
             if (!IsServer) return;
             await ChangeState<BeginState>();
+            InvokeRepeating(nameof(CheckExit), 0, 0.5f);
+        }
+        
+        private async void CheckExit()
+        {
+            var haveTime = Context.GetTimeRuntimeInfo().RemainTime > 0;
+            var haveCards = Context.GetAllClientIDs().Select(id => Context.GetPlayerRuntimeInfo(id).IsHaveCards)
+                .Any(haveCards => haveCards);
+            if (haveTime && haveCards) return;
+            await ChangeState<EndState>();
+        }
+
+        /// <summary>
+        /// 关闭服务。
+        /// </summary>
+        public void StopService()
+        {
+            if (!IsServer) return;
+            CancelInvoke();
+            gamePlay.GoToPostGame();
         }
 
         public async Task ChangeState<T>() where T : GameplayServiceState, new()

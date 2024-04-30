@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 using Data.Instruction;
 using GameLib.Common.Extension;
@@ -14,7 +15,7 @@ namespace Gameplay.Core.State
     {
         protected GamePlayContext Context => GamePlayContext.Instance;
         
-        private GamePlayService Service { set; get; }
+        protected GamePlayService Service { private set; get; }
         
         /// <summary>
         /// 状态枚举。
@@ -47,10 +48,6 @@ namespace Gameplay.Core.State
         }
 
         public virtual void ExecuteAction(GameAction action)
-        {
-        }
-
-        public virtual void Update()
         {
         }
     }

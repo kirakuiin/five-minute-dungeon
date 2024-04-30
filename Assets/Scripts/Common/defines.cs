@@ -42,17 +42,22 @@
         /// <summary>
         /// 主界面
         /// </summary>
-        public static readonly string MainUI = "MainUI";
-        
+        public const string MainUI = "MainUI";
+
         /// <summary>
         /// 房间界面
         /// </summary>
-        public static readonly string LobbyUI = "LobbyUI";
-        
+        public const string LobbyUI = "LobbyUI";
+
         /// <summary>
         /// 游戏玩法界面
         /// </summary>
-        public static readonly string GamePlay = "GamePlay";
+        public const string GamePlay = "GamePlay";
+
+        /// <summary>
+        /// 游戏结算界面
+        /// </summary>
+        public const string PostGame = "PostGame";
     }
 
     /// <summary>
