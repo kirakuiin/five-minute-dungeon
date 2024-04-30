@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Data.Check;
 using Data.Instruction;
 using UnityEngine;
