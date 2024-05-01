@@ -83,6 +83,7 @@ namespace Gameplay.Core
             var haveCards = Context.GetAllClientIDs().Select(id => Context.GetPlayerRuntimeInfo(id).IsHaveCards)
                 .Any(haveCards => haveCards);
             if (haveTime && haveCards) return;
+            CancelInvoke();
             await ChangeState<EndState>();
         }
 
@@ -92,7 +93,6 @@ namespace Gameplay.Core
         public void StopService()
         {
             if (!IsServer) return;
-            CancelInvoke();
             gamePlay.GoToPostGame();
         }
 

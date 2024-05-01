@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Data;
+using Unity.Netcode;
 
 namespace Gameplay.Data
 {
     /// <summary>
     /// 一次团队挑战的结果。
     /// </summary>
-    public struct ChallengeResultData
+    public struct ChallengeResultData : INetworkSerializeByMemcpy
     {
         /// <summary>
         /// 是否胜利？
@@ -31,7 +32,7 @@ namespace Gameplay.Data
         /// <summary>
         /// 小队成员。
         /// </summary>
-        public List<Class> squadList;
+        public Class[] squadList;
     }
 
     /// <summary>

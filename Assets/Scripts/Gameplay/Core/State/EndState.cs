@@ -9,13 +9,15 @@ namespace Gameplay.Core.State
     public class EndState : GameplayServiceState
     {
         public override ServiceState State => ServiceState.End;
+
+        private const int EndDelay = 500;
         
-        public override Task Enter()
+        public override async Task Enter()
         {
             UpdateStatus(GameServiceStatus.Create(State));
             GameProgress.Instance.GenerateChallengeResult();
+            await Task.Delay(EndDelay);
             Service.StopService();
-            return Task.CompletedTask;
         }
     }
 }

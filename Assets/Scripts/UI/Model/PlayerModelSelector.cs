@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.Common;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +10,7 @@ namespace UI.Model
     /// 玩家模型控制器。
     /// </summary>
     [RequireComponent(typeof(PlayerModel))]
-    public class PlayerModelSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class PlayerModelSelector : InitComponent, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private GameObject indicator;
         
@@ -72,6 +73,10 @@ namespace UI.Model
             _isSelect = !_isSelect;
             selectFlag.SetActive(_isSelect);
             _onSelectCallback?.Invoke(GetComponent<PlayerModel>().PlayerID, _isSelect);
+        }
+
+        public override void Init()
+        {
         }
     }
 }

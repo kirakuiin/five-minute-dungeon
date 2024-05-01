@@ -29,5 +29,13 @@ namespace UI.Model
             Card = card;
             compList.Apply(comp => comp.Init());
         }
+
+        /// <summary>
+        /// 仅以模型的方式初始化。
+        /// </summary>
+        public void InitAsPureModel()
+        {
+            compList.Apply(obj => obj.enabled = false);
+        }
     }
 }

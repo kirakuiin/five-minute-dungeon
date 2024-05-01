@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Data;
 using GameLib.Common;
-using GameLib.Network.NGO;
 using Gameplay.Core;
 using Gameplay.Data;
 
@@ -11,7 +9,7 @@ namespace Gameplay.Progress
     /// <summary>
     /// 管理游戏进度信息。
     /// </summary>
-    public class GameProgress : MonoSingleton<GameProgress>
+    public class GameProgress : PersistentMonoSingleton<GameProgress>
     {
         /// <summary>
         /// 当前挑战boss
@@ -28,15 +26,6 @@ namespace Gameplay.Progress
         }
 
         /// <summary>
-        /// 获取下一个Boss。
-        /// </summary>
-        /// <returns></returns>
-        public Boss GetNextBoss()
-        {
-            return CurrentBoss + 1;
-        }
-
-        /// <summary>
         /// boss的挑战进度。
         /// </summary>
         public float BossPercent => (float)((int)CurrentBoss + 1) / ((int)Boss.FinalForm + 1);
@@ -47,6 +36,11 @@ namespace Gameplay.Progress
         public void ChallengeNextBoss()
         {
             CurrentBoss = GetNextBoss();
+        }
+        
+        private Boss GetNextBoss()
+        {
+            return CurrentBoss + 1;
         }
 
         /// <summary>
@@ -70,9 +64,24 @@ namespace Gameplay.Progress
             {
                 data.reason = timeInfo.RemainTime <= 0 ? FailureReason.Timeout : FailureReason.CardExhausted;
             }
-            data.squadList = new List<Class>(context.GetAllClientIDs().Select(id => context.GetPlayerRuntimeInfo(id).PlayerClass));
+            data.squadList = context.GetAllClientIDs().Select(id => context.GetPlayerRuntimeInfo(id).PlayerClass).ToArray();
 
             ChallengeResult = data;
+        }
+
+        /// <summary>
+        /// 更新挑战结果。
+        /// </summary>
+        /// <param name="data"></param>
+        public void UpdateResult(ChallengeResultData data)
+        {
+            ChallengeResult = data;
+            CurrentBoss = data.boss;
+        }
+
+        public void Reset()
+        {
+            CurrentBoss = Boss.BabyBarbarian;
         }
     }
 }

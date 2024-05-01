@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Common;
 using GameLib.Common.Behaviour;
-using Unity.Netcode;
-using UnityEngine.SceneManagement;
+using GameLib.Network.NGO;
+using GameLib.Network.NGO.ConnectionManagement;
 
 namespace Gameplay.GameState
 {
@@ -12,16 +12,19 @@ namespace Gameplay.GameState
     {
         public override GameState State => GameState.PostGame;
         
-        private void Awake()
+        public void GoBackToMain()
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted; 
-            }
+            ConnectionManager.Instance.UserRequestShutdown();
         }
 
-        private void OnLoadEventCompleted(string sceneName, LoadSceneMode mode, List<ulong> clientID, List<ulong> timeouts)
+        public void GoBackToLobby()
         {
+            SceneLoader.Instance.LoadSceneByNet(SceneDefines.LobbyUI);
+        }
+
+        public void GoBackToGamePlay()
+        {
+            SceneLoader.Instance.LoadSceneByNet(SceneDefines.GamePlay);
         }
     }
 }

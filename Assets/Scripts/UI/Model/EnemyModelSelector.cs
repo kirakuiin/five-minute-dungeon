@@ -1,11 +1,12 @@
 ﻿using System;
+using UI.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace UI.Model
 {
     [RequireComponent(typeof(EnemyModel))]
-    public class EnemyModelSelector: MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class EnemyModelSelector: InitComponent, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private GameObject indicator;
         
@@ -49,6 +50,10 @@ namespace UI.Model
         {
             var model = GetComponent<EnemyModel>();
             _onSelectCallback?.Invoke(model.EnemyID);
+        }
+
+        public override void Init()
+        {
         }
     }
 }

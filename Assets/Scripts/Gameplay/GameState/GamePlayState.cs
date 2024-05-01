@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Common;
-using Data;
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
 using GameLib.Network.NGO.Channel;
 using Gameplay.Core;
 using Gameplay.Message;
+using Gameplay.Progress;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -64,7 +64,7 @@ namespace Gameplay.GameState
 
         private void InitContext()
         {
-            GamePlayContext.Instance.InitLevel(Boss.BabyBarbarian);
+            GamePlayContext.Instance.InitLevel(GameProgress.Instance.CurrentBoss);
         }
 
         private void InitController()

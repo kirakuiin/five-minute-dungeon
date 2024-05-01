@@ -30,6 +30,7 @@ namespace UI.Model
         public override void Init()
         {
             _info = GamePlayContext.Instance.GetPlayerRuntimeInfo(GetComponent<PlayerModel>().PlayerID);
+            uiRoot.gameObject.SetActive(true);
             InitUI();
             InitListen();
             RefreshHpBar();

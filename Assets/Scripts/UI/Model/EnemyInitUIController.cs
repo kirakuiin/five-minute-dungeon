@@ -17,6 +17,7 @@ namespace UI.Model
         
         public override void Init()
         {
+            uiRoot.gameObject.SetActive(true);
             InitUI();
         }
 

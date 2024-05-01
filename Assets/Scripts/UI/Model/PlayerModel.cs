@@ -23,5 +23,13 @@ namespace UI.Model
             PlayerID = playerID;
             compList.Apply(comp => comp.Init());
         }
+
+        /// <summary>
+        /// 仅以模型的方式初始化。
+        /// </summary>
+        public void InitAsPureModel()
+        {
+            compList.Apply(obj => obj.enabled = false);
+        }
     }
 }
