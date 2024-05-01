@@ -21,7 +21,7 @@ namespace Gameplay.GameState
         [SerializeField] private GamePlayService service;
             
         public override GameState State => GameState.InGame;
-        
+
         /// <summary>
         /// 广播游戏中状态变化。
         /// </summary>

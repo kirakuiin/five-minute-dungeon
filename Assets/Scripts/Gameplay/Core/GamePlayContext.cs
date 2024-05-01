@@ -34,6 +34,18 @@ namespace Gameplay.Core
         {
             base.Awake();
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
+            if (NetworkManager.IsServer)
+            {
+                NetworkManager.Singleton.SceneManager.OnUnload += OnUnload;
+            }
+        }
+
+        private void OnUnload(ulong clientId, string sceneName, AsyncOperation operation)
+        {
+            foreach (var controller in _playerControllers.Values)
+            {
+                controller.GetComponent<NetworkObject>().Despawn();
+            }
         }
 
         private void OnLoadEventCompleted(string sceneName, LoadSceneMode mode, List<ulong> clientID, List<ulong> timeouts)
@@ -175,9 +187,11 @@ namespace Gameplay.Core
 
         public override void OnNetworkDespawn()
         {
-            if (NetworkManager)
+            if (!NetworkManager) return;
+            NetworkManager.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
+            if (NetworkManager.IsServer)
             {
-                NetworkManager.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
+                NetworkManager.Singleton.SceneManager.OnUnload -= OnUnload;
             }
         }
     }

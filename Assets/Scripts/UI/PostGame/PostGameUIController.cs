@@ -30,7 +30,7 @@ namespace UI.PostGame
 
         [SerializeField] private List<Transform> playerPosList;
 
-        [SerializeField] private Transform BossPos;
+        [SerializeField] private Transform bossPos;
         
         private static ChallengeResultData Result => GameProgress.Instance.ChallengeResult;
 
@@ -108,7 +108,7 @@ namespace UI.PostGame
         private void InitEnemyModel()
         {
             var prefab = DataService.Instance.GetBossData(GameProgress.Instance.CurrentBoss).prefab;
-            var obj = Instantiate(prefab, BossPos);
+            var obj = Instantiate(prefab, bossPos);
             obj.GetComponent<EnemyModel>().InitAsPureModel();
             if (Result.isWin)
             {
