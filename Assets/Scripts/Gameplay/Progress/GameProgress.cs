@@ -64,7 +64,7 @@ namespace Gameplay.Progress
             {
                 data.reason = timeInfo.RemainTime <= 0 ? FailureReason.Timeout : FailureReason.CardExhausted;
             }
-            data.squadList = context.GetAllClientIDs().Select(id => context.GetPlayerRuntimeInfo(id).PlayerClass).ToArray();
+            data.squadList = context.GetAllClientIDs().Select(id => context.GetPlayerRuntimeInfo(id).PlayerClass).ToList();
 
             ChallengeResult = data;
         }

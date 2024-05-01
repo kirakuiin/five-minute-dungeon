@@ -62,7 +62,7 @@ namespace UI.Lobby
         {
             if (IsServer)
             {
-                _curInfo.Value = LobbyInfoData.Instance.PlayerInfos[NetworkManager.LocalClientId];
+                _curInfo.Value = LobbyInfoData.Instance.PlayerInfos[OwnerClientId];
             }
         }
 

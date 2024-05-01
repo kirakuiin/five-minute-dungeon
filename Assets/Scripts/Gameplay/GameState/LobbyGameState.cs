@@ -53,30 +53,10 @@ namespace Gameplay.GameState
         /// </summary>
         public void GoToGamePlay()
         {
-            StartSessionManager();
+            SessionManager<PlayerSessionData>.Instance.StartSession();
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.GamePlay);
         }
 
-        private void StartSessionManager()
-        {
-            var manager = SessionManager<PlayerSessionData>.Instance;
-            foreach (var pair in LobbyInfoData.Instance.PlayerInfos)
-            {
-                var data = manager.GetPlayerData(pair.Key);
-                if (data.HasValue)
-                {
-                    var newData = data.Value;
-                    newData.PlayerName = pair.Value.playerName;
-                    newData.PlayerClass = pair.Value.selectedClass;
-                    manager.UpdatePlayerData(newData.ClientID, newData);
-                }
-                else
-                {
-                    Debug.LogError($"会话管理器内存在无效数据(ID={pair.Key}");
-                }
-            }
-            manager.StartSession();
-        }
 
         protected override void Exit()
         {

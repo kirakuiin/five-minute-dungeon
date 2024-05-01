@@ -2,6 +2,7 @@
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
 using GameLib.Network.NGO.ConnectionManagement;
+using Gameplay.Data;
 
 namespace Gameplay.GameState
 {
@@ -19,11 +20,14 @@ namespace Gameplay.GameState
 
         public void GoBackToLobby()
         {
+            SessionManager<PlayerSessionData>.Instance.StopSession();
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.LobbyUI);
         }
 
         public void GoBackToGamePlay()
         {
+            SessionManager<PlayerSessionData>.Instance.StopSession();
+            SessionManager<PlayerSessionData>.Instance.StartSession();
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.GamePlay);
         }
     }

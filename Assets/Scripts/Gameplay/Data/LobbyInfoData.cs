@@ -51,11 +51,11 @@ namespace Gameplay.Data
         /// </summary>
         public bool isReady;
 
-        public PlayerInfo(ulong clientID, string playerName="")
+        public PlayerInfo(ulong clientID, string playerName="", Class playerClass=Class.Barbarian)
         {
             this.clientID = clientID;
             this.playerName = playerName;
-            selectedClass = Class.Barbarian;
+            selectedClass = playerClass;
             isReady = false;
         }
 
@@ -80,7 +80,7 @@ namespace Gameplay.Data
             return $"{playerName}({clientID})[职业={selectedClass}]目前{(isReady ? "就绪" : "配置中")}";
         }
     }
-    
+
     /// <summary>
     /// 管理当前房间地数据
     /// </summary>
@@ -90,11 +90,13 @@ namespace Gameplay.Data
 
         private readonly Dictionary<ulong, PlayerInfo> _playerInfos = new();
 
+        private SessionManager<PlayerSessionData> Session => SessionManager<PlayerSessionData>.Instance;
+
         /// <summary>
         /// 返回玩家信息列表。
         /// </summary>
         public IReadOnlyDictionary<ulong, PlayerInfo> PlayerInfos => _playerInfos;
-        
+
         /// <summary>
         /// 获得房间名。
         /// </summary>
@@ -161,7 +163,7 @@ namespace Gameplay.Data
         public override void OnNetworkSpawn()
         {
             if (!IsServer) return;
-            
+
             InitLobbyName();
             InitPlayerInfo();
             InitListening();
@@ -176,12 +178,39 @@ namespace Gameplay.Data
         {
             foreach (var clientID in NetworkManager.ConnectedClientsIds)
             {
-                _playerInfos[clientID] = new PlayerInfo(clientID, PlayerSetting.Instance.PlayerName);
-                InvokePlayerJoinedClientRpc(_playerInfos[clientID]);
+                var data = Session.GetPlayerData(clientID);
+                if (data.HasValue)
+                {
+                    if (data.Value.HaveBeenPlayed)
+                    {
+                        CreatePlayerInfo(clientID, data.Value.PlayerName, data.Value.PlayerClass);
+                    }
+                    else
+                    {
+                        CreatePlayerInfo(clientID, PlayerSetting.Instance.PlayerName);
+                    }
+                }
             }
             InvokeLobbyChangeOnServer();
         }
         
+        private void CreatePlayerInfo(ulong clientID, string initialName="", Class initialClass=Class.Barbarian)
+        {
+            _playerInfos[clientID] = new PlayerInfo(clientID, initialName, initialClass);
+            UpdateSessionData(clientID);
+            InvokePlayerJoinedClientRpc(_playerInfos[clientID]);
+        }
+
+        private void UpdateSessionData(ulong clientID)
+        {
+            var prevData = Session.GetPlayerData(clientID);
+            if (!prevData.HasValue) return;
+            var newData = prevData.Value;
+            newData.PlayerName = _playerInfos[clientID].playerName;
+            newData.PlayerClass = _playerInfos[clientID].selectedClass;
+            Session.UpdatePlayerData(clientID, newData);
+        }
+
         private void InitListening()
         {
             NetworkManager.OnConnectionEvent += OnConnectionEvent;
@@ -201,9 +230,8 @@ namespace Gameplay.Data
 
         private void ClientConnected(ulong clientID)
         {
-            _playerInfos[clientID] = new PlayerInfo(clientID);
+            CreatePlayerInfo(clientID);
             InvokeLobbyChangeOnServer();
-            InvokePlayerJoinedClientRpc(_playerInfos[clientID]);
             InvokeReadyInfo();
         }
 
@@ -281,6 +309,7 @@ namespace Gameplay.Data
             if (!_playerInfos[clientID].Equals(curInfo))
             {
                 _playerInfos[clientID] = curInfo;
+                UpdateSessionData(clientID);
                 InvokePlayerInfoChangedClientRpc(curInfo);
             }
         }

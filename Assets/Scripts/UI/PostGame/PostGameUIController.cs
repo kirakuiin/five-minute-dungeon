@@ -91,9 +91,9 @@ namespace UI.PostGame
             foreach (var playerClass in Result.squadList)
             {
                 var prefab = DataService.Instance.GetClassData(playerClass).classPrefab;
-                var obj = Instantiate(prefab, playerPosList[i]);
-                i += 1;
+                var obj = Instantiate(prefab, playerPosList[i++]);
                 obj.GetComponent<PlayerModel>().InitAsPureModel();
+                obj.transform.localPosition = Vector3.zero;
                 if (Result.isWin)
                 {
                     obj.GetComponent<ModelAnimController>().PlayWin();
@@ -110,6 +110,7 @@ namespace UI.PostGame
             var prefab = DataService.Instance.GetBossData(GameProgress.Instance.CurrentBoss).prefab;
             var obj = Instantiate(prefab, bossPos);
             obj.GetComponent<EnemyModel>().InitAsPureModel();
+            obj.transform.localPosition = Vector3.zero;
             if (Result.isWin)
             {
                 obj.GetComponent<ModelAnimController>().PlayLose();

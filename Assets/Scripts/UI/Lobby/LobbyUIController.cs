@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameLib.Network.NGO;
 using Gameplay.Data;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI.Lobby
 {
@@ -14,9 +16,14 @@ namespace UI.Lobby
 
         private readonly Dictionary<ulong, NetworkObject> _createdPanels = new();
 
-        public override void OnNetworkSpawn()
+        private void Awake()
         {
-            if (!IsServer) return;
+            if (!NetworkManager.IsServer) return;
+            NetworkManager.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
+        }
+
+        private void OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+        {
             LobbyInfoData.Instance.OnPlayerInfoChanged += OnPlayerInfoChanged;
             LobbyInfoData.Instance.OnPlayerJoined += OnPlayerJoined;
             LobbyInfoData.Instance.OnPlayerLeft += OnPlayerLeft;
@@ -61,9 +68,11 @@ namespace UI.Lobby
             }
         }
 
-        public override void OnNetworkDespawn()
+        public override void OnDestroy()
         {
-            if (!IsServer) return;
+            base.OnDestroy();
+            if (!NetworkManager.IsServer) return;
+            NetworkManager.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
             LobbyInfoData.Instance.OnPlayerInfoChanged -= OnPlayerInfoChanged;
             LobbyInfoData.Instance.OnPlayerJoined -= OnPlayerJoined;
             LobbyInfoData.Instance.OnPlayerLeft -= OnPlayerLeft;

@@ -24,8 +24,14 @@ namespace Gameplay.Data
         /// </summary>
         public Class PlayerClass { set; get; }
         
+        /// <summary>
+        /// 是否已经游玩过一局？
+        /// </summary>
+        public bool HaveBeenPlayed { set; get; }
+        
         public void Reinitialize()
         {
+            HaveBeenPlayed = true;
         }
     }
 }
