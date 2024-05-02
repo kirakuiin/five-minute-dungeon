@@ -38,7 +38,7 @@ namespace Gameplay.Core
         /// <summary>
         /// 当前状态。
         /// </summary>
-        private GameServiceStatus CurrentStatus { set; get; }
+        public GameServiceStatus CurrentStatus { set; get; }
 
         /// <summary>
         /// 发布消息。(内部使用)

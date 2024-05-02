@@ -22,6 +22,10 @@ namespace Gameplay.Core.State
         {
             _levelRuntime = Context.GetLevelRuntimeInfo();
             _levelController = Context.GetLevelController();
+            OnActionBegin += OnBegin;
+            OnActionDone += OnDone;
+            _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
+            Context.GetTimeRuntimeInfo().OnTimeUpdated += OnTimeUpdate;
         }
 
         public override ServiceState State => ServiceState.EventResolve;
@@ -30,16 +34,13 @@ namespace Gameplay.Core.State
         {
             UpdateStatus(GameServiceStatus.Create(State));
             _countdown = GameRule.EventCancelWaitTime;
-            OnActionBegin += OnBegin;
-            OnActionDone += OnDone;
-            _levelRuntime.OnEnemyDestroyed += OnEnemyDestroyed;
-            Context.GetTimeRuntimeInfo().OnTimeUpdated += OnTimeUpdate;
             StartActionCycle();
             await Task.CompletedTask;
         }
         
         private void OnBegin(GameAction action)
         {
+            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
             if (action is EventAction)
             {
                 UpdateStatus(GameServiceStatus.Create(State, ServiceStage.Resolving));
@@ -48,6 +49,7 @@ namespace Gameplay.Core.State
 
         private async void OnDone(GameAction action)
         {
+            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
             if (action is EventAction e)
             {
                 _levelController.DestroyEnemyCard(e.enemyID);
@@ -58,6 +60,7 @@ namespace Gameplay.Core.State
         
         private async void OnEnemyDestroyed(EnemyChangeEvent e)
         {
+            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
             if (_levelRuntime.GetAllEnemiesInfo().Count == 0)
             {
                 await ChangeState<RevealEnemyState>();
@@ -67,14 +70,11 @@ namespace Gameplay.Core.State
         public override async Task Exit()
         {
             await StopActionCycle();
-            _levelRuntime.OnEnemyDestroyed -= OnEnemyDestroyed;
-            Context.GetTimeRuntimeInfo().OnTimeUpdated -= OnTimeUpdate;
-            OnActionDone -= OnDone;
-            OnActionBegin -= OnBegin;
         }
 
         private void OnTimeUpdate(int t)
         {
+            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
             if (_countdown == 0)
             {
                 ExecuteEvent();
