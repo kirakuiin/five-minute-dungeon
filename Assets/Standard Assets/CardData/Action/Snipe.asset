@@ -21,3 +21,5 @@ MonoBehaviour:
     name=\"person\">\u3002"
   action: {fileID: 11400000, guid: 0a5d281a89d6e7a428e3925c4423f365, type: 2}
   check: {fileID: 11400000, guid: b9184892aefe2ee428183e16f650b50c, type: 2}
+  cardHint: "<color=green><b>\u4EBA\u7C7B</b></color><sprite name=\"person\">: \u5E26\u6709<sprite
+    name=\"person\">\u7B26\u53F7\u7684\u5355\u4F4D\u3002"

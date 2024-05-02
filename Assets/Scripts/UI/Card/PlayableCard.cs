@@ -1,7 +1,12 @@
-﻿using Data.Instruction;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Data;
+using Data.Instruction;
 using DG.Tweening;
+using GameLib.Common.Extension;
 using GameLib.UI;
 using Gameplay.Core;
+using UI.Common;
 using UI.Gameplay;
 using UnityEngine;
 
@@ -10,18 +15,20 @@ namespace UI.Card
     /// <summary>
     /// 代表可以打出的手牌。
     /// </summary>
-    public class PlayableCard : MonoBehaviour
+    public class PlayableCard : MonoBehaviour, ICardData
     {
+        [SerializeField] private List<InitComponent> initComp;
+        
         private HandZoneUIController _handZone;
 
         private HandZoneSelectorController _selector;
-
-        private Data.Card _card;
-
+        
         private IPlayerController Controller => GamePlayContext.Instance.GetPlayerController();
 
         private GamePlayService Service => GamePlayService.Instance;
 
+        public CardData CardData { get; private set; }
+        
         /// <summary>
         /// 初始化。
         /// </summary>
@@ -29,9 +36,8 @@ namespace UI.Card
         {
             _handZone = zone;
             _selector = selector;
-            _card = card;
-            GetComponent<CardRuntimeData>().Init(card);
-            GetComponent<CardAppearanceSetter>().Init();
+            CardData = DataService.Instance.GetPlayerCardData(card);
+            initComp.Apply(obj => obj.Init());
         }
 
         public void ReturnToOriginPos()
@@ -44,10 +50,10 @@ namespace UI.Card
         /// </summary>
         public void PlayCard()
         {
-            if (Service.CanIPlayThisCard(_card))
+            if (Service.CanIPlayThisCard(CardData.card))
             {
                 RemoveCard();
-                Service.PlayCard(_card);
+                Service.PlayCard(CardData.card);
             }
             else
             {
@@ -68,7 +74,7 @@ namespace UI.Card
         public void DiscardCard()
         {
             RemoveCard();
-            Controller.Discard(new []{_card});
+            Controller.Discard(new []{CardData.card});
             Controller.FillHands();
         }
         
@@ -81,11 +87,11 @@ namespace UI.Card
         {
             if (isSelected)
             {
-                _selector.SelectCard(_card);
+                _selector.SelectCard(CardData.card);
             }
             else
             {
-                _selector.UnSelect(_card);
+                _selector.UnSelect(CardData.card);
             }
         }
 

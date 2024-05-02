@@ -21,3 +21,4 @@ MonoBehaviour:
     \u6240\u6709\u73A9\u5BB6\u62BD<br>      \u4E00\u5F20\u724C\u3002"
   action: {fileID: 11400000, guid: 8a508db0bc499134d86d065a88a2302a, type: 2}
   check: {fileID: 11400000, guid: 57769fd426f4d554cb662bd4e921d3d1, type: 2}
+  cardHint: "<b><color=blue>\u6682\u505C\u65F6\u95F4</color></b>: \u505C\u6B62\u5012\u8BA1\u65F6\u76F4\u5230\u4EFB\u4E00\u73A9\u5BB6\u51FA\u724C\u3002"

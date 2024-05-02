@@ -23,7 +23,7 @@ namespace UI.Card
             var obj = GameObjectPool.Instance.Get(cardPrefab);
             obj.transform.position = cardObj.transform.position;
             obj.transform.SetParent(parent);
-            obj.GetComponent<DiscardCardObj>().Init(cardPrefab, cardObj.GetComponent<CardRuntimeData>().Card);
+            obj.GetComponent<DiscardCardObj>().Init(cardPrefab, cardObj.GetComponent<ICardData>().Card);
             obj.GetComponent<DiscardCardObj>().MoveToTarget(destination);
         }
     }

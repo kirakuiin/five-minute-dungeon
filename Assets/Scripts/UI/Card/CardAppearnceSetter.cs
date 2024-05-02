@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Data;
+using UI.Common;
 
 namespace UI.Card
 {
     /// <summary>
     /// 设置卡牌外观。
     /// </summary>
-    [RequireComponent(typeof(CardRuntimeData))]
-    public class CardAppearanceSetter : MonoBehaviour
+    [RequireComponent(typeof(ICardData))]
+    public class CardAppearanceSetter : InitComponent
     {
         [SerializeField]
         private Image cardFrontUI;
@@ -29,14 +30,14 @@ namespace UI.Card
         [SerializeField]
         private GameObject selectImg;
 
-        private CardRuntimeData _data;
+        private ICardData _data;
 
         /// <summary>
         /// 初始化卡牌。
         /// </summary>
-        public void Init()
+        public override void Init()
         {
-            _data = GetComponent<CardRuntimeData>();
+            _data = GetComponent<ICardData>();
             InitUI();
         }
 

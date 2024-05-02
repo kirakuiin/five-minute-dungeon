@@ -13,7 +13,10 @@ namespace Popup
     {
         private readonly Dictionary<IPopupDialog, GameObject> _cache = new();
         
-        private Transform DialogRoot { set; get; }
+        /// <summary>
+        /// 页面父节点。
+        /// </summary>
+        public Transform DialogRoot { set; get; }
 
         protected override void OnInitialized()
         {

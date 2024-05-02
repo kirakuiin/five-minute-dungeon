@@ -66,7 +66,7 @@ namespace UI.Gameplay
         private void OnCardChanged(CardChangeEvent e)
         {
             var curCard = new Counter<Data.Card>(_cardList.Select(
-                cardObj => cardObj.GetComponent<CardRuntimeData>().Card));
+                cardObj => cardObj.GetComponent<ICardData>().Card));
             var diff = new Counter<Data.Card>(RuntimeInfo.GetHands());
             diff.Subtract(curCard);
             SetSectorIntervalByHandCount(RuntimeInfo.GetHands().Count);
@@ -104,7 +104,7 @@ namespace UI.Gameplay
         private void RemoveCardsByType(Data.Card card, long num)
         {
             var cardObjList = _cardList.Where(
-                obj => obj.GetComponent<CardRuntimeData>().Card == card).Select(
+                obj => obj.GetComponent<ICardData>().Card == card).Select(
                 obj => obj).ToList();
 
             for (var i = 0; i < num; ++i)

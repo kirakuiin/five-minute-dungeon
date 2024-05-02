@@ -21,3 +21,5 @@ MonoBehaviour:
     name=\"event\">\u3002"
   action: {fileID: 11400000, guid: e1fc47689f3dad442828a837ca0be39b, type: 2}
   check: {fileID: 11400000, guid: 3d3b9ebc92292ba46a65264f76e99c0a, type: 2}
+  cardHint: "<color=#08B9EC><b>\u4E8B\u4EF6</b></color><sprite name=\"event\">: \u5E26\u6709<sprite
+    name=\"event\">\u7B26\u53F7\u7684\u5355\u4F4D\u3002"

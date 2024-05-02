@@ -33,5 +33,8 @@ namespace Data
 
         [Tooltip("执行检查")]
         public CheckGraph check;
+
+        [Tooltip("卡牌提示")]
+        public string cardHint;
     }
 }

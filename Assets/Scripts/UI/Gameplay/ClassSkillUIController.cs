@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.Check;
+using GameLib.Common.Extension;
 using Gameplay.Core;
 using Gameplay.Core.State;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace UI.Gameplay
         [SerializeField] private Image skillIconUI;
 
         [SerializeField] private Button castBtn;
+
+        [SerializeField] private HintUIController hint;
         
         public void Init()
         {
@@ -58,6 +61,7 @@ namespace UI.Gameplay
         {
             skillIconUI.sprite = _classData.skillData.skillIcon;
             skillIconUI.color = _classData.classColor;
+            hint.hintText = $"释放<b>{_classData.skillData.skillName.ToRichText(_classData.classColor)}";
         }
 
         public void CastSkill()

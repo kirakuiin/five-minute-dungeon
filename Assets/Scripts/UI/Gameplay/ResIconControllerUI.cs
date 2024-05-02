@@ -36,6 +36,7 @@ namespace UI.Gameplay
             {
                 animator.enabled = false;
                 image.sprite = DataService.Instance.GetResourceData(type).icon;
+                image.color = Color.white;
             }
         }
         

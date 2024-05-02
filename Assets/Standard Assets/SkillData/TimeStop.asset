@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill: 0
   skillName: "\u65F6\u505C"
-  skillDesc: "\u4E22\u5F03\u4E09\u5F20\u624B\u724C: \u6682\u505C\u65F6\u95F4\u76F4\u5230\u4EFB\u4E00\u73A9\u5BB6\u51FA\u724C\u3002"
+  skillDesc: "\u4E22\u5F03\u4E09\u5F20\u624B\u724C:<br><b><color=blue>\u6682\u505C\u65F6\u95F4</color></b>\u3002"
   skillIcon: {fileID: 21300000, guid: 52d343f508043294d9b133b439ba9a6a, type: 3}
   action: {fileID: 11400000, guid: 1c7df33827aa7df4781b846a9a1b3caa, type: 2}
   check: {fileID: 11400000, guid: 96a1ad5e36a72de43ba2f145fcfa1753, type: 2}

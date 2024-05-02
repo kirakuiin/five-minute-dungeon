@@ -20,3 +20,7 @@ MonoBehaviour:
   cardDescription: "       \u7B97\u4F5C\u4EFB\u4E00<br>         <b><color=#F600AB>\u8D44\u6E90</b>\u3002"
   action: {fileID: 11400000, guid: 3b12054073b473d4b9a969a8559921a0, type: 2}
   check: {fileID: 11400000, guid: 41b854143c766b44ab7c9adaf78e4432, type: 2}
+  cardHint: "<b><color=#F600AB>\u8D44\u6E90</b></color>: \u51FB\u8D25\u654C\u4EBA\u6240\u9700\u7684\u57FA\u672C\u5355\u4F4D\u3002<br>  
+    <sprite=\"resource_icon\", name=\"sword\"><sprite=\"resource_icon\", name=\"arrow\"><sprite=\"resource_icon\",
+    name=\"scroll\"><sprite=\"resource_icon\", name=\"jump\"><sprite=\"resource_icon\",
+    name=\"shield\">"
