@@ -17,7 +17,7 @@ MonoBehaviour:
   cardFront: {fileID: -324591926, guid: 8bac92593ed4f2840b79b0696d771bf2, type: 3}
   textOffset: -0.1
   cardName: "\u72D9\u51FB"
-  cardDescription: "\u51FB\u8D25\u4E00\u4E2A<color=orange>\u4EBA\u7C7B</color><sprite
+  cardDescription: "      \u51FB\u8D25\u4E00\u4E2A<br>       <color=green><b>\u4EBA\u7C7B</b></color><sprite
     name=\"person\">\u3002"
   action: {fileID: 11400000, guid: 0a5d281a89d6e7a428e3925c4423f365, type: 2}
   check: {fileID: 11400000, guid: b9184892aefe2ee428183e16f650b50c, type: 2}
