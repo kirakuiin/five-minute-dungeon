@@ -1,4 +1,5 @@
 ﻿using GameLib.Network.NGO.ConnectionManagement;
+using Gameplay.Progress;
 using Popup;
 using Save;
 using TMPro;
@@ -30,6 +31,11 @@ namespace UI.Menu
         {
             PlayerSetting.Instance.LobbyName = lobbyName.text;
             PlayerSetting.Instance.LobbyPassword = password.text;
+        }
+
+        public void ResetProgress()
+        {
+            GameProgress.Instance.Reset();
         }
     }
 }
