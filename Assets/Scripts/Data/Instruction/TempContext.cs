@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,27 +9,31 @@ namespace Data.Instruction
     /// </summary>
     public class TempContext
     {
-        private TempContextGroup _parent;
-        
-        public TempContext(ulong clientID, TempContextGroup group=null)
+        public TempContext(ulong subjectID, ulong clientID, TempContextGroup group=null)
         {
+            SubjectID = subjectID;
             ClientID = clientID;
-            _parent = group;
+            Group = group;
         }
 
         /// <summary>
         /// 上下文所在的组。
         /// </summary>
-        public TempContextGroup Group => _parent;
-        
+        public TempContextGroup Group { get; }
+
         /// <summary>
         /// 玩家ID。
         /// </summary>
         public ulong ClientID { private set; get; }
+        
+        /// <summary>
+        /// 行动的发起者ID
+        /// </summary>
+        public ulong SubjectID { private set; get; }
 
         public override string ToString()
         {
-            return $"SubjectID={ClientID}";
+            return $"SubjectID={SubjectID}";
         }
     }
 
@@ -45,16 +48,16 @@ namespace Data.Instruction
 
         private readonly DecisionMaker<ulong> _playerDecision;
 
-        public bool IsMakeDecision { private set; get; } = false;
+        public bool IsMakeDecision { private set; get; }
         
-        public TempContextGroup(IEnumerable<ulong> clientsIDList)
+        public TempContextGroup(ulong subjectID, IEnumerable<ulong> clientsIDList)
         {
             var playerList = clientsIDList.ToList();
             _resourceDecision = new DecisionMaker<Resource>(playerList.Count, OnChoiceResource);
             _playerDecision = new DecisionMaker<ulong>(playerList.Count(), OnChoicePlayer);
-            foreach (var id in playerList)
+            foreach (var clientID in playerList)
             {
-                _contexts.Add(new TempContext(id, this));
+                _contexts.Add(new TempContext(subjectID, clientID, this));
             }
         }
 

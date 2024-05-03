@@ -136,11 +136,13 @@ namespace Gameplay.Core
         private void CastSkillServerRpc(Skill skill, RpcParams param=default)
         {
             if (!CanICastSkill(skill)) return;
+            var clientID = param.Receive.SenderClientId;
             _curState.ExecuteAction(
                 new GameAction
                 {
                     graph = DataService.Instance.GetSkillData(skill).action,
-                    clientID = param.Receive.SenderClientId,
+                    clientID = clientID,
+                    subjectID = clientID,
                 }
             );
         }
@@ -159,12 +161,14 @@ namespace Gameplay.Core
         private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
             if (!CanIPlayThisCard(card)) return;
+            var clientID = param.Receive.SenderClientId;
             Context.GetTimeController().Continue();
             _curState.ExecuteAction(
                 new GameAction
                 {
                     graph = DataService.Instance.GetPlayerCardData(card).action,
-                    clientID = param.Receive.SenderClientId,
+                    subjectID = clientID,
+                    clientID = clientID,
                 }
             );
         }

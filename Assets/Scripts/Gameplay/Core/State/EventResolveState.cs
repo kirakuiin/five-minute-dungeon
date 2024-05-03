@@ -3,7 +3,6 @@ using Data;
 using Data.Check;
 using Data.Instruction;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace Gameplay.Core.State
 {
@@ -52,7 +51,7 @@ namespace Gameplay.Core.State
             if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
             if (action is EventAction e)
             {
-                _levelController.DestroyEnemyCard(e.enemyID);
+                _levelController.DestroyEnemyCard(e.subjectID);
                 UpdateStatus(GameServiceStatus.Create(State));
                 await ChangeState<RevealEnemyState>();
             }
@@ -92,7 +91,7 @@ namespace Gameplay.Core.State
                 {
                     clientID = NetworkManager.Singleton.LocalClientId,
                     graph = DataService.Instance.GetChallengeCardData((Challenge)pair.Value.value).action,
-                    enemyID = pair.Key,
+                    subjectID = pair.Key,
                 };
                 ExecuteAction(action);
             }

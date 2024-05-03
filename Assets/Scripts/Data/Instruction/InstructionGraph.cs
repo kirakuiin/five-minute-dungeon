@@ -18,24 +18,25 @@ namespace Data.Instruction
         /// 执行蓝图指令。
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="subjectID"></param>
-        public async Task Execution(ICmdContext context, ulong subjectID)
+        /// <param name="subjectID">蓝图释放主体ID</param>
+        /// <param name="clientID">执行指令的客户端ID</param>
+        public async Task Execution(ICmdContext context, ulong subjectID, ulong clientID)
         {
             Debug.Log($"执行蓝图{name}, 主体ID({subjectID})");
             if (subject == InstructionSubject.AllPlayer)
             {
-                await ExecuteForAllClient(context);
+                await ExecuteForAllClient(subjectID, context);
             }
             else
             {
-                await InnerExecution(context, new TempContext(subjectID));
+                await InnerExecution(context, new TempContext(subjectID, clientID));
             }
         }
 
-        private async Task ExecuteForAllClient(ICmdContext context)
+        private async Task ExecuteForAllClient(ulong subjectId, ICmdContext context)
         {
             var taskPool = new List<Task>();
-            var contexts = new TempContextGroup(context.GetAllClientIDs());
+            var contexts = new TempContextGroup(subjectId, context.GetAllClientIDs());
 
             foreach (var tempContext in contexts)
             {

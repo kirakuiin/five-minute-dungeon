@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
 using Data.Instruction;
 using GameLib.Common.Extension;
@@ -60,6 +59,8 @@ namespace Gameplay.Core.State
         public InstructionGraph graph;
         
         public ulong clientID;
+
+        public ulong subjectID;
     }
 
     /// <summary>
@@ -67,10 +68,6 @@ namespace Gameplay.Core.State
     /// </summary>
     public class EventAction : GameAction
     {
-        /// <summary>
-        /// 供事件专用的ID
-        /// </summary>
-        public ulong enemyID;
     }
     
     /// <summary>
@@ -110,7 +107,7 @@ namespace Gameplay.Core.State
                 {
                     _runningQueue.Enqueue(action);
                     OnActionBegin?.Invoke(action);
-                    await action.graph.Execution(Context, action.clientID);
+                    await action.graph.Execution(Context, action.subjectID, action.clientID);
                     OnActionDone?.Invoke(action);
                     AfterActionResolve();
                     _runningQueue.TryDequeue(out var _);

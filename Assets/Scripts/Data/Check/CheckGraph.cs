@@ -4,6 +4,9 @@ using XNode;
 
 namespace Data.Check
 {
+    /// <summary>
+    /// 检查玩家是否可以执行某个操作。
+    /// </summary>
     [CreateAssetMenu(fileName = "CheckGraph", menuName = "检查图", order = 1)]
     public class CheckGraph : NodeGraph
     {
@@ -11,11 +14,11 @@ namespace Data.Check
         /// 执行蓝图指令。
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="subjectID"></param>
-        public bool Execution(IRuntimeContext context, ulong subjectID)
+        /// <param name="clientID"></param>
+        public bool Execution(IRuntimeContext context, ulong clientID)
         {
-            Debug.Log($"执行蓝图{name}, 主体ID({subjectID})");
-            var tempContext = new TempContext(subjectID);
+            Debug.Log($"执行蓝图{name}, 客户端ID({clientID})");
+            var tempContext = new TempContext(clientID, clientID);
             var result = true;
             foreach (var node in nodes)
             {
