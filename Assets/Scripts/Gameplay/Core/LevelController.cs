@@ -109,7 +109,7 @@ namespace Gameplay.Core
 
         public void DestroyEnemyCard(ulong enemyID)
         {
-            if (GetAllEnemiesInfo().Count == 1)
+            if (GetAllEnemiesInfo().Count == 1 && _enemyInfos.ContainsKey(enemyID))
             {
                 ClearResourcePoolClientRpc();
             }
@@ -133,7 +133,7 @@ namespace Gameplay.Core
 
         public bool IsReachBoss() => _enemyProvider.IsReachBoss();
         
-        public bool IsComplete() => CurProgress >= TotalLevelNum;
+        public bool IsComplete() => _enemyProvider.IsReachBoss() && _enemyInfos.Count == 0;
 
         public void RevealNextLevel(int num)
         {

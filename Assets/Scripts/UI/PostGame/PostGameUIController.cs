@@ -181,7 +181,6 @@ namespace UI.PostGame
 
         public void ReturnToMain()
         {
-            GameProgress.Instance.Reset();
             state.GoBackToMain();
         }
 

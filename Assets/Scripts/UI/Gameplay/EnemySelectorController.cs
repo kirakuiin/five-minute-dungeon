@@ -24,6 +24,7 @@ namespace UI.Gameplay
         {
             Selector = GamePlayContext.Instance.GetPlayerRuntimeInfo().GetRuntimeInteractive().GetEnemySelector();
             Selector.OnEnemySelecting += OnEnemySelecting;
+            Selector.OnSelectDone += OnSelectDone;
         }
 
         private void OnEnemySelecting(EnemyCardType type)
@@ -34,11 +35,15 @@ namespace UI.Gameplay
             CameraControl.Instance.ActiveEnemyCamera();
         }
 
+        private void OnSelectDone()
+        {
+            CameraControl.Instance.ActiveMain();
+        }
+
         private void SetSelectEnemy(ulong enemyID)
         {
             modelController.EnemiesModel.Apply(obj => obj.GetComponent<EnemyModelSelector>().ExitSelectMode());
             Selector.SelectEnemy(enemyID);
-            CameraControl.Instance.ActiveMain();
         }
     }
 }
