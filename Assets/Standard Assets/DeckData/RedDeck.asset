@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fec139032d47628fe5318bf456c326, type: 3}
   m_Name: RedDeck
   m_EditorClassIdentifier: 
-  deckType: 3
-  deckBack: {fileID: 21300000, guid: e4690f5e00f1b914ab7f151af8e52145, type: 3}
   needTypeList:
-  - {fileID: 11400000, guid: f5aba39fbf70ebc44ad01ddf7611c22c, type: 2}
-  - {fileID: 11400000, guid: 16e30da3747b83d4f8c646d0ce97b027, type: 2}
-  - {fileID: 11400000, guid: 38ea7a3a792f5294db773438457a67a1, type: 2}
-  - {fileID: 11400000, guid: bb5c33f2c56199842a566e9dd270b2ab, type: 2}
-  - {fileID: 11400000, guid: e3c157a9611bd4d42b35e1a29b06e455, type: 2}
   - {fileID: 11400000, guid: bbc39a518ee56814c839cc724c14875c, type: 2}
+  - {fileID: 11400000, guid: bb5c33f2c56199842a566e9dd270b2ab, type: 2}
+  - {fileID: 11400000, guid: 38ea7a3a792f5294db773438457a67a1, type: 2}
   - {fileID: 11400000, guid: f9009595545d35343b8011faa7438dab, type: 2}
+  - {fileID: 11400000, guid: e3c157a9611bd4d42b35e1a29b06e455, type: 2}
+  - {fileID: 11400000, guid: 16e30da3747b83d4f8c646d0ce97b027, type: 2}
+  - {fileID: 11400000, guid: f5aba39fbf70ebc44ad01ddf7611c22c, type: 2}
   - {fileID: 11400000, guid: bddb0be23c259f043aa70090d0e319b3, type: 2}
   - {fileID: 11400000, guid: 8681797445e920549a57fbb58172b097, type: 2}
   - {fileID: 11400000, guid: 61e1d3d939f7d9041ae981fc4ae735c0, type: 2}
   - {fileID: 11400000, guid: d383a31428ace6247bb82c933f2522c8, type: 2}
   - {fileID: 11400000, guid: 1f3ec11d50faf5642b7659c35ae149f4, type: 2}
-  needValueList: 020000000200000005000000060000000300000007000000050000000200000002000000020000000200000002000000
+  needValueList: 070000000600000005000000050000000300000002000000020000000200000002000000020000000200000002000000
+  deckType: 3
+  deckBack: {fileID: 21300000, guid: e4690f5e00f1b914ab7f151af8e52145, type: 3}
+  playerModifier:
+  - {fileID: 11400000, guid: 0ef77e333514ab84797187d76a7ce2b5, type: 2}
+  - {fileID: 11400000, guid: c734704252df09e43b2ff408e9edebec, type: 2}

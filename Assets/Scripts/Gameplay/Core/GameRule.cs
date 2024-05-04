@@ -6,16 +6,6 @@
     public static class GameRule
     {
         /// <summary>
-        /// 获取玩家初始牌组数量。
-        /// </summary>
-        /// <param name="playerNum"></param>
-        /// <returns></returns>
-        public static int GetInitDeckNum(int playerNum)
-        {
-            return playerNum > 2 ? 40 : 80;
-        }
-
-        /// <summary>
         /// 获得玩家的初始手牌数量。
         /// </summary>
         /// <param name="playerNum"></param>
@@ -42,6 +32,6 @@
         /// <summary>
         /// 事件取消等待时间。
         /// </summary>
-        public static int EventCancelWaitTime => 5;
+        public static int EventCancelWaitTime => 3;
     }
 }

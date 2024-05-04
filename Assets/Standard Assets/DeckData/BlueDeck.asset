@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fec139032d47628fe5318bf456c326, type: 3}
   m_Name: BlueDeck
   m_EditorClassIdentifier: 
-  deckType: 0
-  deckBack: {fileID: 21300000, guid: 9375a31828ff0b84fb445737ea793c2b, type: 3}
   needTypeList:
-  - {fileID: 11400000, guid: efa7dbc0c55be1f4f8fd5c94feee9614, type: 2}
-  - {fileID: 11400000, guid: 279e428ccf3699d41a2f8298210fd13f, type: 2}
-  - {fileID: 11400000, guid: c54a060205bfa0e4a970d0c9335ed4a0, type: 2}
+  - {fileID: 11400000, guid: e3c157a9611bd4d42b35e1a29b06e455, type: 2}
   - {fileID: 11400000, guid: 38ea7a3a792f5294db773438457a67a1, type: 2}
   - {fileID: 11400000, guid: bb5c33f2c56199842a566e9dd270b2ab, type: 2}
-  - {fileID: 11400000, guid: e3c157a9611bd4d42b35e1a29b06e455, type: 2}
   - {fileID: 11400000, guid: bbc39a518ee56814c839cc724c14875c, type: 2}
+  - {fileID: 11400000, guid: efa7dbc0c55be1f4f8fd5c94feee9614, type: 2}
+  - {fileID: 11400000, guid: c54a060205bfa0e4a970d0c9335ed4a0, type: 2}
   - {fileID: 11400000, guid: f9009595545d35343b8011faa7438dab, type: 2}
   - {fileID: 11400000, guid: ee4cc61eac90a27479a1580e90176175, type: 2}
-  needValueList: 040000000100000003000000070000000600000009000000050000000300000002000000
+  - {fileID: 11400000, guid: 279e428ccf3699d41a2f8298210fd13f, type: 2}
+  needValueList: 090000000700000006000000050000000400000003000000030000000200000001000000
+  deckType: 0
+  deckBack: {fileID: 21300000, guid: 9375a31828ff0b84fb445737ea793c2b, type: 3}
+  playerModifier:
+  - {fileID: 11400000, guid: b088c0a0d3c92c34e804e534cca042ce, type: 2}
+  - {fileID: 11400000, guid: c734704252df09e43b2ff408e9edebec, type: 2}

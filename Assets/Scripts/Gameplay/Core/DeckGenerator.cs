@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
 using GameLib.Common.Extension;
+using Unity.Mathematics;
+using Random = System.Random;
 
 namespace Gameplay.Core
 {
@@ -25,16 +26,38 @@ namespace Gameplay.Core
 
         private void Generate()
         {
+            var playerCount = _classes.Count;
             foreach (var cls in _classes)
             {
                 var deck = GetDeckByClass(cls);
                 _decks.Add(new List<Card>(GenerateCardsByDeck(deck)));
+                ApplyModifier(_decks.Last(), cls, playerCount);
             }
-            if (_classes.Count <= 2)
-            {
-                AddAdditionalDeck();
-            }
+            AddAdditionalDeck(playerCount);
             ShuffleAll();
+        }
+
+        private void ApplyModifier(ICollection<Card> deck, Class cls, int playerCount)
+        {
+            foreach (var modifier in DataService.Instance.GetDeckData(GetDeckByClass(cls)).playerModifier)
+            {
+                if (modifier.playerNum != playerCount) continue;
+                foreach (var card in modifier.needTypeList)
+                {
+                    var cardNum = modifier.Get(card);
+                    for (var i = 0; i < math.abs(cardNum); ++i)
+                    {
+                        if (cardNum > 0)
+                        {
+                            deck.Add(card);
+                        }
+                        else
+                        {
+                            deck.Remove(card);
+                        }
+                    }
+                }
+            }
         }
 
         private void ShuffleAll()
@@ -46,8 +69,9 @@ namespace Gameplay.Core
             }
         }
 
-        private void AddAdditionalDeck()
+        private void AddAdditionalDeck(int playerCount)
         {
+            if (playerCount > 2) return;
             var curDecks = new HashSet<Deck>(from cls in _classes
                 select GetDeckByClass(cls));
             var random = new Random();
