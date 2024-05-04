@@ -23,25 +23,20 @@ namespace UI.Gameplay
         {
             hintObj = GameObjectPool.Instance.Get(hintPrefab);
             hintObj.transform.SetParent(PopupManager.Instance.DialogRoot);
+            var hintUI = hintObj.GetComponent<HintUI>();
             if (RectTransformUtility.ScreenPointToWorldPointInRectangle(GetComponent<RectTransform>(),
                     eventData.position, null, out var pos))
             {
-                hintObj.GetComponent<HintUI>().ShowInScreen(hintText, pos);
+                hintUI.ShowInScreen(hintText, pos);
             }
 
-            StartCoroutine(AutoDisappear());
-        }
-
-        private IEnumerator AutoDisappear()
-        {
-            yield return new WaitForSeconds(continueTime);
-            CloseHint();
+            hintUI.CallAfterSeconds(continueTime,
+                obj => GameObjectPool.Instance.ReturnWithReParent(obj, hintPrefab));
         }
 
         private void CloseHint()
         {
             if (hintObj is null) return;
-            StopAllCoroutines();
             GameObjectPool.Instance.ReturnWithReParent(hintObj, hintPrefab);
             hintObj = null;
         }

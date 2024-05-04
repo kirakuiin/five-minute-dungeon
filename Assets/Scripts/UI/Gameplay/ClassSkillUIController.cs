@@ -67,6 +67,8 @@ namespace UI.Gameplay
         private void UpdateSkillBtnState()
         {
             var isResolve = _state is SkillState.Resolve;
+            
+            //TODO: 这里会导致指针事件失效，要换一种实现模式。
             cancelBtn.gameObject.SetActive(isResolve);
             castBtn.gameObject.SetActive(!isResolve);
             
@@ -98,6 +100,7 @@ namespace UI.Gameplay
         public void CancelSkill()
         {
             RuntimeInfo.GetRuntimeInteractive().GetHandSelector().CancelSelectHand();
+            RuntimeInfo.GetRuntimeInteractive().GetEnemySelector().CancelSelectEnemy();
         }
     }
 }

@@ -133,7 +133,7 @@ namespace Gameplay.Core
 
         public bool IsReachBoss() => _enemyProvider.IsReachBoss();
         
-        public bool IsComplete() => _enemyProvider.IsReachBoss() && _enemyInfos.Count == 0;
+        public bool IsComplete() => _enemyProvider.CurProgress >= _enemyProvider.TotalLevelNum && _enemyInfos.Count == 0;
 
         public void RevealNextLevel(int num)
         {

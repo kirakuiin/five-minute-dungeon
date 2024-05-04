@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using Popup;
 using TMPro;
@@ -76,6 +78,22 @@ namespace UI.Common
         {
             GetComponent<RectTransform>().pivot = alignMode;
             transform.position = pos;
+        }
+
+        /// <summary>
+        /// 过一段时间后回调。
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <param name="cb"></param>
+        public void CallAfterSeconds(float seconds, Action<GameObject> cb)
+        {
+            StartCoroutine(ExecuteDelegate(seconds, cb));
+        }
+
+        private IEnumerator ExecuteDelegate(float seconds, Action<GameObject> cb)
+        {
+            yield return new WaitForSeconds(seconds);
+            cb(gameObject);
         }
 
         public override void Show()

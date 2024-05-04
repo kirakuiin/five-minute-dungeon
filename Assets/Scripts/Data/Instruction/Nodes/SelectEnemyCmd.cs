@@ -36,16 +36,19 @@ namespace Data.Instruction.Nodes
         {
             var player = context.GetPlayerController(tempContext.ClientID);
             var handler = player.GetInteractiveHandler();
-            if (candidates.Count == 1)
+            switch (candidates.Count)
             {
-                enemyID = candidates[0];
-                return true;
-            }
-            else
-            {
-                var result = await handler.SelectEnemy(enemyType);
-                enemyID = result.elem;
-                return !result.isCancel;
+                case 1:
+                    enemyID = candidates[0];
+                    return true;
+                case > 1:
+                {
+                    var result = await handler.SelectEnemy(enemyType);
+                    enemyID = result.elem;
+                    return !result.isCancel;
+                }
+                default:
+                    return false;
             }
         }
     }
