@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Data.Instruction
@@ -107,18 +108,68 @@ namespace Data.Instruction
         /// </summary>
         /// <param name="num">选择数量</param>
         /// <returns></returns>
-        public Task<List<Card>> SelectHandCards(int num);
+        public Task<CancelableList<Card>> SelectHandCards(int num);
 
         /// <summary>
         /// 通知玩家选择敌方单位。
         /// </summary>
         /// <returns></returns>
-        public Task<ulong> SelectEnemy(EnemyCardType type);
+        public Task<Cancelable<ulong>> SelectEnemy(EnemyCardType type);
 
         /// <summary>
         /// 通知玩家选择一种类型的资源。
         /// </summary>
         /// <returns></returns>
         public Task<Resource> SelectResource();
+    }
+
+    [Serializable]
+    public struct CancelableList<T> where T : unmanaged
+    {
+        public bool isCancel;
+        public List<T> array;
+
+        public static CancelableList<T> Create(IEnumerable<T> list)
+        {
+            return new CancelableList<T>()
+            {
+                array = new List<T>(list),
+                isCancel = false,
+            };
+        }
+
+        public static CancelableList<T> CreateCancel()
+        {
+            return new CancelableList<T>()
+            {
+                array = default,
+                isCancel = true,
+            };
+        }
+    }
+
+    [Serializable]
+    public struct Cancelable<T> where T : unmanaged
+    {
+        public bool isCancel;
+        public T elem;
+        
+        public static Cancelable<T> Create(T elem)
+        {
+            return new Cancelable<T>()
+            {
+                elem = elem,
+                isCancel = false,
+            };
+        }
+
+        public static Cancelable<T> CreateCancel()
+        {
+            return new Cancelable<T>()
+            {
+                elem = default,
+                isCancel = true,
+            };
+        }
     }
 }

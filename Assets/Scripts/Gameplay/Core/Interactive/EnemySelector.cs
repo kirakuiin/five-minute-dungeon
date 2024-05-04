@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Common;
 using Data;
 using Data.Check;
+using Data.Instruction;
 using GameLib.Common.Extension;
 using Unity.Netcode;
 
@@ -20,7 +20,7 @@ namespace Gameplay.Core.Interactive
 
         public event Action OnSelectDone;
 
-        private ulong _enemyID;
+        private Cancelable<ulong> _enemyID;
 
         private bool _isSelect;
 
@@ -37,7 +37,23 @@ namespace Gameplay.Core.Interactive
         [Rpc(SendTo.Server)]
         private void SelectEnemyServerRpc(ulong enemyID)
         {
-            _enemyID = enemyID;
+            _enemyID = Cancelable<ulong>.Create(enemyID);
+            _isSelect = true;
+        }
+        
+        /// <summary>
+        /// 取消选择。
+        /// </summary>
+        public void CancelSelectEnemy()
+        {
+            CancelSelectEnemyRpc();
+            OnSelectDone?.Invoke();
+        }
+
+        [Rpc(SendTo.Server)]
+        private void CancelSelectEnemyRpc()
+        {
+            _enemyID = Cancelable<ulong>.CreateCancel();
             _isSelect = true;
         }
         
@@ -45,7 +61,7 @@ namespace Gameplay.Core.Interactive
         /// 异步通知开始进行选择。
         /// </summary>
         /// <returns></returns>
-        public async Task<ulong> GetSelectEnemyID(EnemyCardType type)
+        public async Task<Cancelable<ulong>> GetSelectEnemyID(EnemyCardType type)
         {
             _isSelect = false;
             GetSelectEnemyIDClientRpc(type);

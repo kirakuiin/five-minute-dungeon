@@ -18,7 +18,7 @@ namespace Data.Instruction.Nodes
         /// </summary>
         public int num;
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             playerList = GetInputValue<List<ulong>>(nameof(playerList));
             foreach (var player in context.GetPlayerControllers(playerList))
@@ -27,6 +27,7 @@ namespace Data.Instruction.Nodes
             }
 
             await Task.CompletedTask;
+            return true;
         }
     }
 }

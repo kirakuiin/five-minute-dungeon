@@ -47,7 +47,6 @@ MonoBehaviour:
       _dynamic: 0
   playerList: 
   discardList: 
-  num: 100
 --- !u!114 &-2892648604655104347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +84,6 @@ MonoBehaviour:
   playerList: 
   target: 0
   selectPlayerNum: 0
-  useChoiceRule: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +101,6 @@ MonoBehaviour:
   - {fileID: 7063524724698283215}
   - {fileID: -7552581036121158140}
   subject: 2
-  choiceRules: 1
 --- !u!114 &7063524724698283215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,4 +148,5 @@ MonoBehaviour:
       _dynamic: 0
   cardList: 
   playerList: 
+  isAutoSelect: 1
   num: 100

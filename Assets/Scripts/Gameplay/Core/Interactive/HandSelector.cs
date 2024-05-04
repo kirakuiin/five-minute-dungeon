@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using Data.Check;
+using Data.Instruction;
 using GameLib.Common.Extension;
 using Unity.Netcode;
 
@@ -19,9 +20,13 @@ namespace Gameplay.Core.Interactive
         /// </summary>
         public event Action<int> OnHandSelecting;
 
+        public event Action OnHandSelectDone;
+
         private bool _isSelect;
 
-        private List<Card> _cardList;
+        private CancelableList<Card> _cardList;
+
+        private bool _isCancel;
 
         /// <summary>
         /// 选择手牌。
@@ -30,12 +35,29 @@ namespace Gameplay.Core.Interactive
         public void SelectHand(IEnumerable<Card> cardList)
         {
             SelectHandServerRpc(cardList.ToArray());
+            OnHandSelectDone?.Invoke();
         }
 
         [Rpc(SendTo.Server)]
         private void SelectHandServerRpc(Card[] cards)
         {
-            _cardList = new(cards);
+            _cardList = CancelableList<Card>.Create(cards);
+            _isSelect = true;
+        }
+
+        /// <summary>
+        /// 取消选择手牌。
+        /// </summary>
+        public void CancelSelectHand()
+        {
+            CancelSelectHandServerRpc();
+            OnHandSelectDone?.Invoke();
+        }
+
+        [Rpc(SendTo.Server)]
+        private void CancelSelectHandServerRpc()
+        {
+            _cardList = CancelableList<Card>.CreateCancel();
             _isSelect = true;
         }
         
@@ -43,7 +65,7 @@ namespace Gameplay.Core.Interactive
         /// 异步通知开始进行选择。
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Card>> GetSelectHandCards(int num)
+        public async Task<CancelableList<Card>> GetSelectHandCards(int num)
         {
             _isSelect = false;
             GetSelectHandCardsClientRpc(num);

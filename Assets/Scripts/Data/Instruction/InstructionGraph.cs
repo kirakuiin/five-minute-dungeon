@@ -54,7 +54,12 @@ namespace Data.Instruction
             {
                 if (node is not CommandBase cmd) continue;
                 Debug.Log($"执行节点{cmd.name}");
-                await cmd.Execute(context, tmpContext);
+                var isSuccess = await cmd.Execute(context, tmpContext);
+                if (!isSuccess)
+                {
+                    Debug.Log($"取消节点{cmd.name}执行");
+                    break;
+                }
             }
 
             await Task.CompletedTask;

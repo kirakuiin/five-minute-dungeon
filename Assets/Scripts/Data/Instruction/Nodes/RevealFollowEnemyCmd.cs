@@ -12,12 +12,13 @@ namespace Data.Instruction.Nodes
         /// </summary>
         public int num;
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             var levelController = context.GetLevelController();
-            if (levelController.IsReachBoss()) return;
+            if (levelController.IsReachBoss()) return false;
             levelController.RevealNextLevel(num);
             await Task.CompletedTask;
+            return true;
         }
     }
 }

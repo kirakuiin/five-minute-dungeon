@@ -20,11 +20,12 @@ namespace Data.Instruction.Nodes
             return resource;
         }
         
-        public override async Task Execute(ICmdContext context, TempContext tmpContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
             var player = context.GetPlayerController(tmpContext.ClientID);
             resource = await player.GetInteractiveHandler().SelectResource();
             await UseMostChoiceResource(tmpContext);
+            return true;
         }
         
         private async Task UseMostChoiceResource(TempContext tmpContext)

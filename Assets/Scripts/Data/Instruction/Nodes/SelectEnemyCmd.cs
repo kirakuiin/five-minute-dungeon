@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Common;
 using XNode;
 
 namespace Data.Instruction.Nodes
@@ -23,24 +22,31 @@ namespace Data.Instruction.Nodes
             return enemyID;
         }
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             var enemies = context.GetLevelController().GetAllEnemiesInfo();
             var candidates = (from id in enemies.Keys
                 where (enemyType & enemies[id].type) > 0
                 select id).ToList();
-            await SetEnemyID(context, tempContext, candidates);
+            var result = await SetEnemyID(context, tempContext, candidates);
+            return result;
         }
 
-        private async Task SetEnemyID(ICmdContext context, TempContext tempContext, List<ulong> candidates)
+        private async Task<bool> SetEnemyID(ICmdContext context, TempContext tempContext, List<ulong> candidates)
         {
             var player = context.GetPlayerController(tempContext.ClientID);
             var handler = player.GetInteractiveHandler();
-            enemyID = candidates.Count switch
+            if (candidates.Count == 1)
             {
-                1 => candidates[0],
-                _ => await handler.SelectEnemy(enemyType),
-            };
+                enemyID = candidates[0];
+                return true;
+            }
+            else
+            {
+                var result = await handler.SelectEnemy(enemyType);
+                enemyID = result.elem;
+                return !result.isCancel;
+            }
         }
     }
 }

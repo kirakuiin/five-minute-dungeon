@@ -35,10 +35,12 @@ namespace Gameplay.Core
         /// </summary>
         public event Action<GameServiceStatus> OnStateChanged;
 
+        public event Action<ulong, SkillState> OnSkillStateChanged;
+
         /// <summary>
         /// 当前状态。
         /// </summary>
-        public GameServiceStatus CurrentStatus { set; get; }
+        public GameServiceStatus CurrentStatus { private set; get; }
 
         /// <summary>
         /// 发布消息。(内部使用)
@@ -54,6 +56,17 @@ namespace Gameplay.Core
         {
             CurrentStatus = status;
             OnStateChanged?.Invoke(status);
+        }
+        
+        public void UpdateSkillState(ulong clientID, SkillState status)
+        {
+            UpdateSkillStateRpc(clientID, status);
+        }
+        
+        [Rpc(SendTo.ClientsAndHost)]
+        private void UpdateSkillStateRpc(ulong clientID, SkillState status)
+        {
+            OnSkillStateChanged?.Invoke(clientID, status);
         }
 
         private void Start()
@@ -135,16 +148,20 @@ namespace Gameplay.Core
         [Rpc(SendTo.Server)]
         private void CastSkillServerRpc(Skill skill, RpcParams param=default)
         {
-            if (!CanICastSkill(skill)) return;
             var clientID = param.Receive.SenderClientId;
-            _curState.ExecuteAction(
-                new GameAction
-                {
-                    graph = DataService.Instance.GetSkillData(skill).action,
-                    clientID = clientID,
-                    subjectID = clientID,
-                }
-            );
+            if (!CanICastSkill(skill))
+            {
+                UpdateSkillState(clientID, SkillState.Done);
+            }
+            else
+            {
+                _curState.ExecuteAction( new SkillAction
+                    {
+                        graph = DataService.Instance.GetSkillData(skill).action,
+                        clientID = clientID,
+                        subjectID = clientID,
+                    });
+            }
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Data.Instruction.Nodes
         /// </summary>
         [Input] public Resource resource;
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             playerList = GetInputValue<List<ulong>>(nameof(playerList));
             resource = GetInputValue<Resource>(nameof(resource));
@@ -28,6 +28,7 @@ namespace Data.Instruction.Nodes
                 player.DiscardResource(resource);
             }
             await Task.CompletedTask;
+            return true;
         }
     }
 }

@@ -3,6 +3,7 @@ using Data.Check;
 using GameLib.Common.Extension;
 using Gameplay.Core;
 using Gameplay.Core.State;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,10 @@ namespace UI.Gameplay
         [SerializeField] private Button castBtn;
 
         [SerializeField] private HintUIController hint;
+
+        [SerializeField] private Button cancelBtn;
+
+        private SkillState _state = SkillState.Done;
         
         public void Init()
         {
@@ -39,6 +44,14 @@ namespace UI.Gameplay
         {
             RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
             GamePlayService.Instance.OnStateChanged += OnStateChanged;
+            GamePlayService.Instance.OnSkillStateChanged += OnSkillStateChanged;
+        }
+
+        private void OnSkillStateChanged(ulong clientID, SkillState state)
+        {
+            if (clientID != NetworkManager.Singleton.LocalClientId) return;
+            _state = state;
+            UpdateSkillBtnState();
         }
 
         private void OnStateChanged(GameServiceStatus status)
@@ -53,8 +66,19 @@ namespace UI.Gameplay
 
         private void UpdateSkillBtnState()
         {
-            castBtn.interactable = Service.CanICastSkill(_skill);
-            skillIconUI.color = castBtn.interactable ? _classData.classColor : Color.grey;
+            var isResolve = _state is SkillState.Resolve;
+            cancelBtn.gameObject.SetActive(isResolve);
+            castBtn.gameObject.SetActive(!isResolve);
+            
+            var result = Service.CanICastSkill(_skill);
+            result = result && _state is SkillState.Done;
+            SetCastBtnState(result);
+        }
+
+        private void SetCastBtnState(bool isShow)
+        {
+            castBtn.interactable = isShow;
+            skillIconUI.color = isShow ? _classData.classColor : Color.grey;
         }
 
         private void InitUI()
@@ -67,6 +91,13 @@ namespace UI.Gameplay
         public void CastSkill()
         {
             Service.CastSkill(_skill);
+            _state = SkillState.Waiting;
+            UpdateSkillBtnState();
+        }
+
+        public void CancelSkill()
+        {
+            RuntimeInfo.GetRuntimeInteractive().GetHandSelector().CancelSelectHand();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Data.Instruction.Nodes
             return playerList;
         }
 
-        public override async Task Execute(ICmdContext context, TempContext tmpContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
             var player = context.GetPlayerController(tmpContext.ClientID);
             var allPlayerIDs = context.GetAllClientIDs().ToList();
@@ -29,6 +29,7 @@ namespace Data.Instruction.Nodes
                 _ => await player.GetInteractiveHandler().SelectPlayers(1, true),
             };
             await UseMostChoicePlayer(tmpContext);
+            return true;
         }
 
         private async Task UseMostChoicePlayer(TempContext tmpContext)

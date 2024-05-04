@@ -69,6 +69,13 @@ namespace Gameplay.Core.State
     public class EventAction : GameAction
     {
     }
+
+    /// <summary>
+    /// 技能专属行动。
+    /// </summary>
+    public class SkillAction : GameAction
+    {
+    }
     
     /// <summary>
     /// 可以执行行动的类。
@@ -106,9 +113,9 @@ namespace Gameplay.Core.State
                 if (_actionQueue.TryDequeue(out var action))
                 {
                     _runningQueue.Enqueue(action);
-                    OnActionBegin?.Invoke(action);
+                    InvokeBegin(action);
                     await action.graph.Execution(Context, action.subjectID, action.clientID);
-                    OnActionDone?.Invoke(action);
+                    InvokeDone(action);
                     AfterActionResolve();
                     _runningQueue.TryDequeue(out var _);
                 }
@@ -116,6 +123,24 @@ namespace Gameplay.Core.State
                 {
                     await Task.Delay(ExecuteInterval);
                 }
+            }
+        }
+
+        private void InvokeBegin(GameAction action)
+        {
+            OnActionBegin?.Invoke(action);
+            if (action is SkillAction)
+            {
+                Service.UpdateSkillState(action.clientID, SkillState.Resolve);
+            }
+        }
+
+        private void InvokeDone(GameAction action)
+        {
+            OnActionDone?.Invoke(action);
+            if (action is SkillAction)
+            {
+                Service.UpdateSkillState(action.clientID, SkillState.Done);
             }
         }
 
@@ -194,5 +219,15 @@ namespace Gameplay.Core.State
         {
             return $"state: {state}, stage: {stage}";
         }
+    }
+
+    /// <summary>
+    /// 技能执行状态。
+    /// </summary>
+    public enum SkillState
+    {
+        Waiting,
+        Resolve,
+        Done,
     }
 }

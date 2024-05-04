@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Common;
 
 namespace Data.Instruction.Nodes
 {
@@ -13,12 +12,13 @@ namespace Data.Instruction.Nodes
         /// </summary>
         [Input] public ulong enemyID;
         
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             enemyID = GetInputValue<ulong>(nameof(enemyID));
             var controller = context.GetLevelController();
             controller.DestroyEnemyCard(enemyID);
             await Task.CompletedTask;
+            return true;
         }
     }
 }

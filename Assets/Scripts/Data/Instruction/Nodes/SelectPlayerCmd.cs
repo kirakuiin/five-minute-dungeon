@@ -30,7 +30,7 @@ namespace Data.Instruction.Nodes
             return playerList;
         }
         
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             var player = context.GetPlayerController(tempContext.ClientID);
             playerList = target switch
@@ -42,6 +42,7 @@ namespace Data.Instruction.Nodes
                 PlayerTarget.AnotherPlayer => await GetPlayerList(context, player, false),
                 _ => playerList
             };
+            return true;
         }
 
         private async Task<List<ulong>> GetPlayerList(ICmdContext context, IPlayerController player, bool canSelectSelf)

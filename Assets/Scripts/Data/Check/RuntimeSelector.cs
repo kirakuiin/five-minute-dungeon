@@ -50,6 +50,11 @@ namespace Data.Check
         /// </summary>
         /// <param name="enemyID"></param>
         public void SelectEnemy(ulong enemyID);
+
+        /// <summary>
+        /// 取消选择。
+        /// </summary>
+        public void CancelSelectEnemy();
     }
 
     /// <summary>
@@ -101,6 +106,13 @@ namespace Data.Check
         /// </summary>
         public event Action<int> OnHandSelecting;
 
+        /// <summary>
+        /// 选择结束触发。
+        /// </summary>
+        public event Action OnHandSelectDone;
+
         public void SelectHand(IEnumerable<Card> cards);
+
+        public void CancelSelectHand();
     }
 }

@@ -19,7 +19,7 @@ namespace Data.Instruction.Nodes
         /// </summary>
         [Input] public List<ulong> to;
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             from = GetInputValue<List<ulong>>(nameof(from));
             to = GetInputValue<List<ulong>>(nameof(to));
@@ -33,6 +33,7 @@ namespace Data.Instruction.Nodes
                 }
             }
             await Task.CompletedTask;
+            return true;
         }
     }
 }

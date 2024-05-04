@@ -94,6 +94,7 @@ MonoBehaviour:
       _dynamic: 0
   cardList: 
   playerList: 
+  isAutoSelect: 1
   num: 3
 --- !u!114 &-2892648604655104347
 MonoBehaviour:

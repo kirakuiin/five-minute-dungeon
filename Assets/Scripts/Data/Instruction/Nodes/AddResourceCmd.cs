@@ -17,11 +17,12 @@ namespace Data.Instruction.Nodes
         /// </summary>
         public int num;
 
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             var controller = context.GetLevelController();
             controller.AddResource(resource, num);
             await Task.CompletedTask;
+            return true;
         }
     }
 }

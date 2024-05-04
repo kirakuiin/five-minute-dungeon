@@ -33,6 +33,7 @@ namespace UI.Gameplay
             _handUI = uiController;
             _selector = GamePlayContext.Instance.GetPlayerRuntimeInfo().GetRuntimeInteractive().GetHandSelector();
             _selector.OnHandSelecting += OnHandSelecting;
+            _selector.OnHandSelectDone += OnHandSelectDone;
         }
 
         private void OnHandSelecting(int num)
@@ -76,7 +77,6 @@ namespace UI.Gameplay
             _selectedList.Add(card);
             if (IsSatisfy())
             {
-                ExitSelectMode();
                 _selector.SelectHand(_selectedList);
             }
         }
@@ -88,6 +88,11 @@ namespace UI.Gameplay
         public void UnSelect(Data.Card card)
         {
             _selectedList.Remove(card);
+        }
+        
+        private void OnHandSelectDone()
+        {
+            ExitSelectMode();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Data.Instruction
         /// <param name="context">执行指令所需要的外部上下文。</param>
         /// <param name="tmpContext">执行指令所需要的临时上下文。</param>
         /// <returns></returns>
-        public abstract Task Execute(ICmdContext context, TempContext tmpContext);
+        public abstract Task<bool> Execute(ICmdContext context, TempContext tmpContext);
 
         protected InstructionSubject Subject => Graph.subject;
     }

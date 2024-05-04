@@ -7,10 +7,11 @@ namespace Data.Instruction.Nodes
 	/// </summary>
 	public class TimeStopCmd : CommandBase
 	{
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             context.GetTimeController().Stop();
             await Task.CompletedTask;
+            return true;
         }
 	}
 }

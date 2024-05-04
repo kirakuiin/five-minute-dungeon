@@ -23,13 +23,13 @@ namespace Gameplay.Core.Interactive
             return await playerSelector.GetSelectPlayerList(num, canSelectSelf);
         }
 
-        public async Task<List<Card>> SelectHandCards(int num)
+        public async Task<CancelableList<Card>> SelectHandCards(int num)
         {
             return await handSelector.GetSelectHandCards(num);
         }
         
 
-        public async Task<ulong> SelectEnemy(EnemyCardType type)
+        public async Task<Cancelable<ulong>> SelectEnemy(EnemyCardType type)
         {
             return await enemySelector.GetSelectEnemyID(type);
         }

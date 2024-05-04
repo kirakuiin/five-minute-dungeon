@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using XNode;
 using System.Threading.Tasks;
 
@@ -21,6 +22,11 @@ namespace Data.Instruction.Nodes
         [Input] public List<ulong> playerList;
 
         /// <summary>
+        /// 是否强制进行自动选择
+        /// </summary>
+        public bool isAutoSelect;
+
+        /// <summary>
         /// 选择的数量。
         /// </summary>
         public int num;
@@ -30,18 +36,21 @@ namespace Data.Instruction.Nodes
             return cardList;
         }
         
-        public override async Task Execute(ICmdContext context, TempContext tempContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
             playerList = GetInputValue<List<ulong>>(nameof(playerList));
             var player = context.GetPlayerController(playerList.First());
-            if (player.HandCards.Count <= num)
+            if (player.HandCards.Count <= num && isAutoSelect)
             {
                 cardList = new List<Card>(player.HandCards);
+                return true;
             }
             else
             {
                 var handler = player.GetInteractiveHandler();
-                cardList = await handler.SelectHandCards(num);
+                var result = await handler.SelectHandCards(num);
+                cardList = result.array;
+                return !result.isCancel;
             }
         }
     }
