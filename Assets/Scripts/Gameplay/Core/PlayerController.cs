@@ -165,11 +165,17 @@ namespace Gameplay.Core
 
         public void FillHands()
         {
+            FillHandsRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void FillHandsRpc()
+        {
             var diff = GamePlayContext.Instance.InitHandNum - _hands.Count;
             diff = math.min(diff, _draws.Count);
             if (diff > 0)
             {
-                Draw(diff);
+                _hands.AddCard(_draws.RemoveCard(diff));
             }
         }
 

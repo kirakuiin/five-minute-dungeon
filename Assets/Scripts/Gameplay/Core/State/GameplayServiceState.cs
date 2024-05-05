@@ -33,7 +33,7 @@ namespace Gameplay.Core.State
 
         protected void UpdateStatus(GameServiceStatus status)
         {
-            Service.NotifyStatus(status);
+            Service.Status.NotifyStatus(status);
         }
         
         public virtual Task Enter()
@@ -131,7 +131,7 @@ namespace Gameplay.Core.State
             OnActionBegin?.Invoke(action);
             if (action is SkillAction)
             {
-                Service.UpdateSkillState(action.clientID, SkillState.Resolve);
+                Service.Status.UpdateSkillState(action.clientID, SkillState.Resolve);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Gameplay.Core.State
             OnActionDone?.Invoke(action);
             if (action is SkillAction)
             {
-                Service.UpdateSkillState(action.clientID, SkillState.Done);
+                Service.Status.UpdateSkillState(action.clientID, SkillState.Done);
             }
         }
 

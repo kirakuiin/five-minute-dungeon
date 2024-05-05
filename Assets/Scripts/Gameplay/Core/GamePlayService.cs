@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
@@ -19,10 +18,10 @@ namespace Gameplay.Core
     public class GamePlayService : NetworkSingleton<GamePlayService>
     {
         [SerializeField] private GamePlayState gamePlay;
+
+        [SerializeField] private GamePlayServiceStatus status;
         
         private GameplayServiceState _curState;
-
-        private PlayableChecker _checker;
 
         private readonly DisposableGroup _disposable = new();
         
@@ -31,43 +30,9 @@ namespace Gameplay.Core
         private GamePlayContext Context => GamePlayContext.Instance;
 
         /// <summary>
-        /// 状态改变事件。
+        /// 服务状态。
         /// </summary>
-        public event Action<GameServiceStatus> OnStateChanged;
-
-        public event Action<ulong, SkillState> OnSkillStateChanged;
-
-        /// <summary>
-        /// 当前状态。
-        /// </summary>
-        public GameServiceStatus CurrentStatus { private set; get; }
-
-        /// <summary>
-        /// 发布消息。(内部使用)
-        /// </summary>
-        /// <param name="status"></param>
-        public void NotifyStatus(GameServiceStatus status)
-        {
-            NotifyStatusClientRpc(status);
-        }
-
-        [Rpc(SendTo.ClientsAndHost)]
-        private void NotifyStatusClientRpc(GameServiceStatus status)
-        {
-            CurrentStatus = status;
-            OnStateChanged?.Invoke(status);
-        }
-        
-        public void UpdateSkillState(ulong clientID, SkillState status)
-        {
-            UpdateSkillStateRpc(clientID, status);
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void UpdateSkillStateRpc(ulong clientID, SkillState status)
-        {
-            OnSkillStateChanged?.Invoke(clientID, status);
-        }
+        public GamePlayServiceStatus Status => status;
 
         private void Start()
         {
@@ -77,7 +42,7 @@ namespace Gameplay.Core
         private void OnInitState(GamePlayStateMsg msg)
         {
             if (msg.state != GamePlayStateEnum.InitDone) return;
-            _checker = new PlayableChecker();
+            status.Init();
         }
 
         /// <summary>
@@ -149,9 +114,9 @@ namespace Gameplay.Core
         private void CastSkillServerRpc(Skill skill, RpcParams param=default)
         {
             var clientID = param.Receive.SenderClientId;
-            if (!CanICastSkill(skill))
+            if (!status.CanICastSkill(skill))
             {
-                UpdateSkillState(clientID, SkillState.Done);
+                status.UpdateSkillState(clientID, SkillState.Done);
             }
             else
             {
@@ -177,7 +142,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.Server)]
         private void PlayCardServerRpc(Card card, RpcParams param=default)
         {
-            if (!CanIPlayThisCard(card)) return;
+            if (!status.CanIPlayThisCard(card)) return;
             var clientID = param.Receive.SenderClientId;
             Context.GetTimeController().Continue();
             _curState.ExecuteAction(
@@ -188,30 +153,6 @@ namespace Gameplay.Core
                     clientID = clientID,
                 }
             );
-        }
-
-        /// <summary>
-        /// 是否可以释放法术？
-        /// </summary>
-        public bool CanICastSkill(Skill skill)
-        {
-            return IsActionPhase() && _checker.CheckSkill(skill);
-        }
-
-        private bool IsActionPhase()
-        {
-            var isRightState = CurrentStatus.state is ServiceState.EventResolve or ServiceState.ListenAction;
-            return isRightState && !CurrentStatus.IsEventResolving;
-        }
-
-        /// <summary>
-        /// 是否可以打出卡牌？
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        public bool CanIPlayThisCard(Card card)
-        {
-            return IsActionPhase() && _checker.CheckCard(card);
         }
     }
 }

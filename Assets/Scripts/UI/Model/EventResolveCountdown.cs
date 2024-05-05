@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Gameplay.Core;
 using Gameplay.Core.State;
 using UI.Common;
@@ -38,14 +37,14 @@ namespace UI.Model
 
         private void InitListen()
         {
-            GamePlayService.Instance.OnStateChanged += OnStateChanged;
+            GamePlayService.Instance.Status.OnStateChanged += OnStateChanged;
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeUpdated += OnTimeUpdated;
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
         }
 
         private void OnDisable()
         {
-            GamePlayService.Instance.OnStateChanged -= OnStateChanged;
+            GamePlayService.Instance.Status.OnStateChanged -= OnStateChanged;
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeUpdated -= OnTimeUpdated;
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow -= OnTimeIsFlow;
         }

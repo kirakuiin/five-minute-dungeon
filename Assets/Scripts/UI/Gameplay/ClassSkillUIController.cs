@@ -43,8 +43,8 @@ namespace UI.Gameplay
         private void InitListen()
         {
             RuntimeInfo.GetHands().OnCardChanged += OnCardChanged;
-            GamePlayService.Instance.OnStateChanged += OnStateChanged;
-            GamePlayService.Instance.OnSkillStateChanged += OnSkillStateChanged;
+            GamePlayService.Instance.Status.OnStateChanged += OnStateChanged;
+            GamePlayService.Instance.Status.OnSkillStateChanged += OnSkillStateChanged;
         }
 
         private void OnSkillStateChanged(ulong clientID, SkillState state)
@@ -72,7 +72,7 @@ namespace UI.Gameplay
             cancelBtn.gameObject.SetActive(isResolve);
             castBtn.gameObject.SetActive(!isResolve);
             
-            var result = Service.CanICastSkill(_skill);
+            var result = Service.Status.CanICastSkill(_skill);
             result = result && _state is SkillState.Done;
             SetCastBtnState(result);
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Data;
 using Data.Instruction;
 using DG.Tweening;
@@ -50,7 +49,7 @@ namespace UI.Card
         /// </summary>
         public void PlayCard()
         {
-            if (Service.CanIPlayThisCard(CardData.card))
+            if (Service.Status.CanIPlayThisCard(CardData.card))
             {
                 RemoveCard();
                 Service.PlayCard(CardData.card);

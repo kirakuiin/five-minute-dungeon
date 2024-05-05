@@ -39,7 +39,7 @@ namespace Gameplay.Core.State
         
         private void OnBegin(GameAction action)
         {
-            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
+            if (Service.Status.CurrentStatus.state != ServiceState.EventResolve) return;
             if (action is EventAction)
             {
                 UpdateStatus(GameServiceStatus.Create(State, ServiceStage.Resolving));
@@ -48,7 +48,7 @@ namespace Gameplay.Core.State
 
         private async void OnDone(GameAction action)
         {
-            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
+            if (Service.Status.CurrentStatus.state != ServiceState.EventResolve) return;
             if (action is EventAction e)
             {
                 _levelController.DestroyEnemyCard(e.subjectID);
@@ -59,7 +59,7 @@ namespace Gameplay.Core.State
         
         private async void OnEnemyDestroyed(EnemyChangeEvent e)
         {
-            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
+            if (Service.Status.CurrentStatus.state != ServiceState.EventResolve) return;
             if (_levelRuntime.GetAllEnemiesInfo().Count == 0)
             {
                 await ChangeState<RevealEnemyState>();
@@ -73,7 +73,7 @@ namespace Gameplay.Core.State
 
         private void OnTimeUpdate(int t)
         {
-            if (Service.CurrentStatus.state != ServiceState.EventResolve) return;
+            if (Service.Status.CurrentStatus.state != ServiceState.EventResolve) return;
             if (_countdown == 0)
             {
                 ExecuteEvent();

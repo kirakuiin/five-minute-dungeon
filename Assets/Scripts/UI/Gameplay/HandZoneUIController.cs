@@ -70,6 +70,7 @@ namespace UI.Gameplay
             var diff = new Counter<Data.Card>(RuntimeInfo.GetHands());
             diff.Subtract(curCard);
             SetSectorIntervalByHandCount(RuntimeInfo.GetHands().Count);
+            StopAllCoroutines();
             StartCoroutine(ExecuteCardChange(diff));
         }
 
