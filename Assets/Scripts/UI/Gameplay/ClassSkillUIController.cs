@@ -68,13 +68,22 @@ namespace UI.Gameplay
         {
             var isResolve = _state is SkillState.Resolve;
             
-            //TODO: 这里会导致指针事件失效，要换一种实现模式。
-            cancelBtn.gameObject.SetActive(isResolve);
-            castBtn.gameObject.SetActive(!isResolve);
+            SetCastBtnVisible(!isResolve);
+            SetCancelBtnVisible(isResolve);
             
             var result = Service.Status.CanICastSkill(_skill);
             result = result && _state is SkillState.Done;
             SetCastBtnState(result);
+        }
+
+        private void SetCastBtnVisible(bool isVisible)
+        {
+            castBtn.GetComponent<UIVisibleController>().SetVisible(isVisible);
+        }
+
+        private void SetCancelBtnVisible(bool isVisible)
+        {
+            cancelBtn.GetComponent<UIVisibleController>().SetVisible(isVisible);
         }
 
         private void SetCastBtnState(bool isShow)
