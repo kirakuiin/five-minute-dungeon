@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UI.Menu
 {
-    public class VolumeSettingController : CacheablePopupBehaviour
+    public class GameSettingController : CacheablePopupBehaviour
     {
         [SerializeField]
         private Slider masterSlider;
@@ -17,6 +17,9 @@ namespace UI.Menu
         
         [SerializeField]
         private Slider effectSlider;
+
+        [SerializeField]
+        private Toggle fullScreenToggle;
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace UI.Menu
             masterSlider.value = PlayerSetting.Instance.MasterVolume;
             musicSlider.value = PlayerSetting.Instance.MusicVolume;
             effectSlider.value = PlayerSetting.Instance.EffectVolume;
+            fullScreenToggle.isOn = PlayerSetting.Instance.IsFullScreen;
         }
 
         public void OnMasterValueChanged(float value)
@@ -46,6 +50,12 @@ namespace UI.Menu
         {
             VolumeConfigurator.Instance.SetEffectVolume(value);
             PlayerSetting.Instance.EffectVolume = value;
+        }
+
+        public void OnFullScreen(bool isOn)
+        {
+            Screen.fullScreen = isOn;
+            PlayerSetting.Instance.IsFullScreen = isOn;
         }
 
         public void OnPointerExit(BaseEventData eventData)

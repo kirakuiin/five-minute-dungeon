@@ -22,6 +22,8 @@ namespace Save
         private const string LobbyNameKey = "LobbyName";
 
         private const string LobbyPasswordKey = "LobbyPassword";
+        
+        private const string FullScreen = "IsFullScreen";
 
         private readonly string _prefix = System.Environment.CurrentDirectory;
         
@@ -86,6 +88,15 @@ namespace Save
         {
             set => PlayerPrefs.SetString(GetKey(LobbyPasswordKey), value);
             get => PlayerPrefs.GetString(GetKey(LobbyPasswordKey), DefaultPassword);
+        }
+
+        /// <summary>
+        /// 是否为全屏
+        /// </summary>
+        public bool IsFullScreen
+        {
+            set => PlayerPrefs.SetInt(GetKey(FullScreen), value ? 1 : 0);
+            get => PlayerPrefs.GetInt(GetKey(FullScreen)) == 1;
         }
     }
 }
