@@ -32,7 +32,17 @@ namespace UI.Model
         /// <summary>
         /// 获得全部敌方模型。
         /// </summary>
-        public IEnumerable<GameObject> EnemiesModel => _models.Select(obj => obj.Value);
+        public IEnumerable<GameObject> EnemiesModel => _models.Values;
+
+        /// <summary>
+        /// 根据ID获得模型。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GameObject GetModel(ulong id)
+        {
+            return _models[id];
+        }
         
         private ILevelRuntimeInfo LevelInfo => GamePlayContext.Instance.GetLevelRuntimeInfo();
         

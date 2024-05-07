@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Data.Animation;
 using GameLib.Common;
 using GameLib.Network.NGO;
 using Gameplay.Core.State;
@@ -20,7 +21,7 @@ namespace Gameplay.Core
         [SerializeField] private GamePlayState gamePlay;
 
         [SerializeField] private GamePlayServiceStatus status;
-        
+
         private GameplayServiceState _curState;
 
         private readonly DisposableGroup _disposable = new();
@@ -44,6 +45,11 @@ namespace Gameplay.Core
             if (msg.state != GamePlayStateEnum.InitDone) return;
             status.Init();
         }
+        
+        /// <summary>
+        /// 表现上下文。
+        /// </summary>
+        public IBehaveController BehaveController { private set; get; }
 
         /// <summary>
         /// 启动服务。

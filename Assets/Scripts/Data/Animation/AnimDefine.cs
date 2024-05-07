@@ -3,21 +3,12 @@ using System.Collections.Generic;
 
 namespace Data.Animation
 {
-    /// <summary>
-    /// 动画参数。
-    /// </summary>
     [Serializable]
-    public struct AnimParam
+    public struct AnimContext
     {
-        /// <summary>
-        /// 动画的释放主体。
-        /// </summary>
         public AnimTarget source;
 
-        /// <summary>
-        /// 动画的目标。
-        /// </summary>
-        public List<AnimTarget> targetList;
+        public List<AnimTarget> targets;
     }
 
     /// <summary>

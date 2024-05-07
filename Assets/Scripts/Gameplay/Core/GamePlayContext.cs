@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Data.Animation;
 using Data.Check;
 using Data.Instruction;
 using GameLib.Common;
@@ -152,6 +153,11 @@ namespace Gameplay.Core
         public ITimeController GetTimeController()
         {
             return GetComponent<ITimeController>();
+        }
+
+        public IBehaveController GetBehaveController()
+        {
+            return GetComponent<IBehaveController>();
         }
 
         /// <summary>

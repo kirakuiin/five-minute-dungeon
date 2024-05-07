@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Data.Animation;
 
 namespace Data.Instruction.Nodes
@@ -7,15 +6,18 @@ namespace Data.Instruction.Nodes
     /// <summary>
     /// 执行播放动画命令。
     /// </summary>
+    [NodeTint("#558800")]
     public class PlayAnimCmd : CommandBase
     {
-        [Input] public AnimTarget source;
+        [Input] public AnimContext animContext;
 
-        [Input] public List<AnimTarget> targetList;
+        public AnimGraph animGraph;
         
-        public override async Task Execute(ICmdContext context, TempContext tmpContext)
+        public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
-            await Task.CompletedTask;
+            animContext = GetInputValue<AnimContext>(nameof(animContext));
+            await animGraph.Execution(context.GetBehaveController(), animContext);
+            return true;
         }
     }
 }

@@ -1,5 +1,4 @@
 using Data.Instruction.Nodes;
-using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
 
@@ -25,13 +24,8 @@ namespace Editor.Instruction
         public override void OnBodyGUI()
         {
             serializedObject.Update();
-            _isShow = EditorGUILayout.Foldout(_isShow, "来源");
-            if (!_isShow)
-            {
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.source)).FindPropertyRelative("type"), new GUIContent("类型"));
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.source)).FindPropertyRelative("id"), new GUIContent("ID"));
-            }
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.targetList)), new GUIContent("目标列表"));
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.animContext)), new GUIContent("动画环境"));
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.animGraph)), new GUIContent("动画序列"));
             serializedObject.ApplyModifiedProperties();
         }
         

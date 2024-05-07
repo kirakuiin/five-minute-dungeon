@@ -25,6 +25,16 @@ namespace UI.Model
         /// 玩家模型。
         /// </summary>
         public IEnumerable<GameObject> PlayersModel => _models.Values;
+        
+        /// <summary>
+        /// 根据ID获得模型。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GameObject GetModel(ulong id)
+        {
+            return _models[id];
+        }
 
         private void Start()
         {

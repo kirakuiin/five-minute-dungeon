@@ -10,5 +10,9 @@ namespace Data
         
         [Tooltip("图标")]
         public Sprite icon;
+
+        [Tooltip("颜色")]
+        [ColorUsage(true, true)]
+        public Color color;
     }
 }

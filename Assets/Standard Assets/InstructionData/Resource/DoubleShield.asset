@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5711816231916040651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2792c1e1f54822813e2b2133fbe9c9, type: 3}
+  m_Name: Anim Context Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 376, y: 152}
+  ports:
+    keys:
+    - targetList
+    - animContext
+    values:
+    - _fieldName: targetList
+      _node: {fileID: -5711816231916040651}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: animContext
+      _node: {fileID: -5711816231916040651}
+      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: animContext
+        node: {fileID: 4795993940996869412}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  sourceType: 0
+  targetType: 2
+  targetList: 
+  animContext:
+    source:
+      id: 0
+      type: 0
+    targets: []
 --- !u!114 &-5485775984415735965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,6 +81,43 @@ MonoBehaviour:
   m_Name: DoubleShield
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: -5711816231916040651}
+  - {fileID: 4795993940996869412}
   - {fileID: -5485775984415735965}
-  subject: 1
-  choiceRules: 1
+  subject: 0
+--- !u!114 &4795993940996869412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 728, y: 168}
+  ports:
+    keys:
+    - animContext
+    values:
+    - _fieldName: animContext
+      _node: {fileID: 4795993940996869412}
+      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: animContext
+        node: {fileID: -5711816231916040651}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  animContext:
+    source:
+      id: 0
+      type: 0
+    targets: []
+  animGraph: {fileID: 11400000, guid: 55e82d0064fc96f4f9c8c9d1d0ffd2e5, type: 2}

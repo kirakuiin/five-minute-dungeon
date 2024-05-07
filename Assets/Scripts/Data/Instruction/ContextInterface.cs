@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using Data.Animation;
 
 namespace Data.Instruction
 {
@@ -38,6 +39,12 @@ namespace Data.Instruction
         /// </summary>
         /// <returns></returns>
         public ITimeController GetTimeController();
+
+        /// <summary>
+        /// 获得表现控制器。
+        /// </summary>
+        /// <returns></returns>
+        public IBehaveController GetBehaveController();
 
         /// <summary>
         /// 获得玩家控制器对象列表。
