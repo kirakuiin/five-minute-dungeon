@@ -21,7 +21,7 @@ namespace Data.Animation.Nodes
             var posInfo = controller.GetPositionInfo();
             var from = posInfo.GetAnimTargetPos(animContext.source);
             var to = posInfo.GetARandomNonEventEnemy();
-            await controller.GetFbxPlayer().PlayLaser(from, to, duration, laserColor, subColor);
+            await controller.GetVfxPlayer().PlayLaser(from, to, duration, laserColor, subColor);
         }
     }
 }

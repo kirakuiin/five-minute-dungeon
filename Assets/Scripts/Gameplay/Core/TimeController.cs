@@ -37,31 +37,40 @@ namespace Gameplay.Core
         private void OnValueChanged(int oldVal, int newVal)
         {
             OnTimeUpdated?.Invoke(newVal);
-            if (newVal == 0)
-            {
-                OnTimeout?.Invoke();
-                OnTimeIsFlow?.Invoke(false);
-            }
+            if (newVal != 0) return;
+            OnTimeout?.Invoke();
+            OnTimeIsFlow?.Invoke(false);
         }
 
         public void StartTimer(int totalCountdown)
         {
             _curRemainTime = totalCountdown;
             _timeValue.Value = totalCountdown;
-            _isRunning = true;
-            OnTimeIsFlow?.Invoke(_isRunning);
+            Continue();
         }
 
         public void Stop()
         {
             _isRunning = false;
-            OnTimeIsFlow?.Invoke(_isRunning);
+            StopRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void StopRpc()
+        {
+            OnTimeIsFlow?.Invoke(false);
         }
 
         public void Continue()
         {
             _isRunning = true;
-            OnTimeIsFlow?.Invoke(_isRunning);
+            ContinueRpc();
+        }
+        
+        [Rpc(SendTo.ClientsAndHost)]
+        private void ContinueRpc()
+        {
+            OnTimeIsFlow?.Invoke(true);
         }
 
         public int RemainTime => _timeValue.Value;

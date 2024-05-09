@@ -1,4 +1,6 @@
-﻿using Data.Animation;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Data.Animation;
 using UI.Model;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,7 +22,7 @@ namespace Behave
         [SerializeField] private PositionInfo positionInfo;
 
         [FormerlySerializedAs("fbxPlayer")] [SerializeField] private VfxPlayer vfxPlayer;
-        
+
         public IModelAnimPlayer GetModelPlayer(AnimTarget target)
         {
             var obj = target.type switch
@@ -38,7 +40,7 @@ namespace Behave
             return positionInfo;
         }
 
-        public IVfxPlayer GetFbxPlayer()
+        public IVfxPlayer GetVfxPlayer()
         {
             return vfxPlayer;
         }

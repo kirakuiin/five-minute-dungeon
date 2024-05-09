@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Data;
+using Data.Animation;
 using Data.Check;
 using GameLib.Common;
+using GameLib.Common.Extension;
 using Gameplay.Core;
 using Gameplay.GameState;
 using Gameplay.Message;
@@ -56,8 +58,15 @@ namespace UI.Model
             _disposableGroup.Add(state.GameplayState.Subscribe(OnStateChanged));
             LevelInfo.OnEnemyDestroyed += OnEnemyDestroyed;
             LevelInfo.OnEnemyAdded += OnEnemyAdded;
+            GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
         }
-        
+
+        private void OnTimeIsFlow(bool isFlow)
+        {
+            EnemiesModel.Select(obj => obj.GetComponent<IModelAnimPlayer>()).Apply(
+                model => model.SetPlay(isFlow));
+        }
+
         private void OnStateChanged(GamePlayStateMsg msg)
         {
             if (msg.state == GamePlayStateEnum.InitDone)

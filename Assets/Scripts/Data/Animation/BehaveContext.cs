@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Data.Animation
@@ -25,7 +26,7 @@ namespace Data.Animation
         /// 获得特效播放器。
         /// </summary>
         /// <returns></returns>
-        public IVfxPlayer GetFbxPlayer();
+        public IVfxPlayer GetVfxPlayer();
     }
 
     /// <summary>
@@ -67,6 +68,11 @@ namespace Data.Animation
         /// 播放空闲动作。
         /// </summary>
         public void PlayIdle();
+
+        /// <summary>
+        /// 控制动画播放。
+        /// </summary>
+        public void SetPlay(bool isPlay);
     }
 
     /// <summary>
@@ -110,5 +116,17 @@ namespace Data.Animation
         /// </summary>
         /// <returns></returns>
         public Task PlayLaser(Vector3 from, Vector3 to, float duration, Color color, Color subColor);
+
+        /// <summary>
+        /// 控制播放时停特效。
+        /// </summary>
+        /// <param name="center"></param>
+        /// <returns></returns>
+        public Task TimeStop(Vector3 center);
+
+        /// <summary>
+        /// 继续时间流动。
+        /// </summary>
+        public void TimeContinue();
     }
 }

@@ -1,5 +1,41 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1138824260738710573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 824, y: 280}
+  ports:
+    keys:
+    - animContext
+    values:
+    - _fieldName: animContext
+      _node: {fileID: -1138824260738710573}
+      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: animContext
+        node: {fileID: 1385317429631730295}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  animContext:
+    source:
+      id: 0
+      type: 0
+    targets: []
+  animGraph: {fileID: 11400000, guid: af7b11ad02b63d441bf08e2ca871e1b3, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,8 +53,9 @@ MonoBehaviour:
   - {fileID: 8119029697199913093}
   - {fileID: 6503401894848985808}
   - {fileID: 632730878975892623}
+  - {fileID: 1385317429631730295}
+  - {fileID: -1138824260738710573}
   subject: 0
-  choiceRules: 1
 --- !u!114 &632730878975892623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,6 +73,55 @@ MonoBehaviour:
   ports:
     keys: []
     values: []
+--- !u!114 &1385317429631730295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2792c1e1f54822813e2b2133fbe9c9, type: 3}
+  m_Name: Anim Context Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 568, y: 264}
+  ports:
+    keys:
+    - targetList
+    - animContext
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 1385317429631730295}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: animContext
+      _node: {fileID: 1385317429631730295}
+      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: animContext
+        node: {fileID: -1138824260738710573}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  sourceType: 0
+  targetType: 2
+  targetList: 
+  animContext:
+    source:
+      id: 0
+      type: 0
+    targets: []
 --- !u!114 &6503401894848985808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +169,6 @@ MonoBehaviour:
       _dynamic: 0
   playerList: 
   discardList: 
-  num: 3
 --- !u!114 &8119029697199913093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +216,7 @@ MonoBehaviour:
       _dynamic: 0
   cardList: 
   playerList: 
+  isAutoSelect: 0
   num: 3
 --- !u!114 &8217124524884680342
 MonoBehaviour:
@@ -169,4 +255,3 @@ MonoBehaviour:
   playerList: 
   target: 0
   selectPlayerNum: 0
-  useChoiceRule: 0

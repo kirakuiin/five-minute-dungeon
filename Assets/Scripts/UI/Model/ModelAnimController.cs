@@ -1,4 +1,6 @@
-﻿using Data.Animation;
+﻿using System.Collections.Generic;
+using Data.Animation;
+using GameLib.Common.Extension;
 using UnityEngine;
 
 namespace UI.Model
@@ -8,45 +10,54 @@ namespace UI.Model
     /// </summary>
     public class ModelAnimController : MonoBehaviour, IModelAnimPlayer
     {
-        [SerializeField] private Animator animator;
+        [SerializeField] private List<Animator> animators;
         
         private static readonly int Lose = Animator.StringToHash("Lose");
-        
         private static readonly int Win = Animator.StringToHash("Win");
+        private static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int Hurt = Animator.StringToHash("Hurt");
+        private static readonly int Cast = Animator.StringToHash("Cast");
+        private static readonly int Dizzy = Animator.StringToHash("Dizzy");
+        private static readonly int Attack = Animator.StringToHash("Attack");
 
         public void PlayWin()
         {
-            animator.SetTrigger(Win);
+            animators.Apply(animator => animator.SetTrigger(Win));
         }
 
         public void PlayLose()
         {
-            animator.SetTrigger(Lose);
+            animators.Apply(animator => animator.SetTrigger(Lose));
         }
 
         public void PlayAttack()
         {
-            throw new System.NotImplementedException();
+            animators.Apply(animator => animator.SetTrigger(Attack));
         }
 
         public void PlayCastSkill()
         {
-            throw new System.NotImplementedException();
+            animators.Apply(animator => animator.SetTrigger(Cast));
         }
 
         public void PlayHurt()
         {
-            throw new System.NotImplementedException();
+            animators.Apply(animator => animator.SetTrigger(Hurt));
         }
 
         public void PlayDizzy()
         {
-            throw new System.NotImplementedException();
+            animators.Apply(animator => animator.SetTrigger(Dizzy));
         }
 
         public void PlayIdle()
         {
-            throw new System.NotImplementedException();
+            animators.Apply(animator => animator.SetTrigger(Idle));
+        }
+
+        public void SetPlay(bool isPlay)
+        {
+            animators.Apply(animator => animator.enabled = isPlay);
         }
     }
 }

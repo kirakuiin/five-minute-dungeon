@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
+using Data.Animation;
 using GameLib.Common;
+using GameLib.Common.Extension;
 using Gameplay.Core;
 using Gameplay.GameState;
 using Gameplay.Message;
@@ -45,6 +48,13 @@ namespace UI.Model
         {
             NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
             _disposableGroup.Add(state.GameplayState.Subscribe(OnStateChanged));
+            GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
+        }
+
+        private void OnTimeIsFlow(bool isFlow)
+        {
+            PlayersModel.Select(obj => obj.GetComponent<IModelAnimPlayer>()).Apply(
+                model => model.SetPlay(isFlow));
         }
 
         private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
