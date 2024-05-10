@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 
 namespace Data.Animation
 {
@@ -15,7 +16,7 @@ namespace Data.Animation
     /// 动画对象。
     /// </summary>
     [Serializable]
-    public struct AnimTarget
+    public struct AnimTarget : INetworkSerializeByMemcpy
     {
         public ulong id;
         
@@ -27,5 +28,12 @@ namespace Data.Animation
         Player=0,
         Enemy=1,
         Dungeon=2,
+    }
+
+    public enum StillVfxTargetType
+    {
+        Source=0,
+        Target=1,
+        EnemyCenter=2,
     }
 }

@@ -20,8 +20,6 @@ namespace Behave
         [SerializeField]
         private PlayerModelController playerModelController;
 
-        private readonly Vector3 prefabHeight = new Vector3(0, 2, 0);
-        
         public Vector3 GetAnimTargetPos(AnimTarget target)
         {
             var obj = target.type switch
@@ -31,7 +29,7 @@ namespace Behave
                 _ => null,
             };
             Assert.IsNotNull(obj, $"{target.type}不能为{AnimTargetType.Dungeon}");
-            return obj.transform.position + prefabHeight;
+            return obj.transform.position;
         }
 
         public Vector3 GetEnemyCenter()

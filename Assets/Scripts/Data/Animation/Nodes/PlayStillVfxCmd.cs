@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Data.Animation.Nodes
+{
+    /// <summary>
+    /// 播放静止特效
+    /// </summary>
+    public class PlayStillVfxCmd : AnimationBase
+    {
+        public string vfxName;
+        
+        public float duration;
+
+        public bool needAwait;
+        
+        public StillVfxTargetType targetType;
+
+        public Vector3 offset;
+
+        public override async Task Execute(IBehaveController controller, AnimContext animContext)
+        {
+            var posInfo = controller.GetPositionInfo();
+            var posList = targetType switch
+            {
+                StillVfxTargetType.Source => new List<Vector3> {posInfo.GetAnimTargetPos(animContext.source)},
+                StillVfxTargetType.Target => animContext.targets.Select(target => posInfo.GetAnimTargetPos(target)).ToList(),
+                StillVfxTargetType.EnemyCenter => new List<Vector3> {posInfo.GetEnemyCenter()},
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            await Task.WhenAll(posList.Select(pos =>
+                controller.GetVfxPlayer().PlayStillVfx(vfxName, pos+offset, duration, needAwait)));
+        }
+    }
+}

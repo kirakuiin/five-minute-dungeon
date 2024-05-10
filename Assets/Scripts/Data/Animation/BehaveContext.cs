@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Data.Animation
@@ -73,6 +72,17 @@ namespace Data.Animation
         /// 控制动画播放。
         /// </summary>
         public void SetPlay(bool isPlay);
+
+        /// <summary>
+        /// 移动到某个位置。
+        /// </summary>
+        /// <param name="position"></param>
+        public void MoveTo(Vector3 position);
+
+        /// <summary>
+        /// 返回原位。
+        /// </summary>
+        public void MoveBack();
     }
 
     /// <summary>
@@ -120,13 +130,29 @@ namespace Data.Animation
         /// <summary>
         /// 控制播放时停特效。
         /// </summary>
-        /// <param name="center"></param>
+        /// <param name="target"></param>
         /// <returns></returns>
-        public Task TimeStop(Vector3 center);
+        public Task TimeStop(Vector3 target);
 
         /// <summary>
-        /// 继续时间流动。
+        /// 播放投射物。
+        /// <returns></returns>
         /// </summary>
-        public void TimeContinue();
+        /// <param name="projectileName"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        public Task PlayProjectile(string projectileName, Vector3 from, Vector3 to, float duration);
+
+        /// <summary>
+        /// 播放静止特效。
+        /// </summary>
+        /// <param name="vfxName"></param>
+        /// <param name="target"></param>
+        /// <param name="duration"></param>
+        /// <param name="needAwait"></param>
+        /// <returns></returns>
+        public Task PlayStillVfx(string vfxName, Vector3 target, float duration, bool needAwait);
     }
 }

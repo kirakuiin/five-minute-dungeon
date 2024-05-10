@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8514955784537009958
+--- !u!114 &-9014032633014816438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Play Anim Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 424, y: 296}
+  position: {x: 648, y: 152}
   ports:
     keys:
     - animContext
     values:
     - _fieldName: animContext
-      _node: {fileID: -8514955784537009958}
+      _node: {fileID: -9014032633014816438}
       _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: animContext
-        node: {fileID: -1161260619315921608}
+        node: {fileID: -7810560850653450007}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -34,46 +34,11 @@ MonoBehaviour:
     source:
       id: 0
       type: 0
-    targets: []
-  animGraph: {fileID: 11400000, guid: 256be17a12fe47a4f9524832193c42f6, type: 2}
---- !u!114 &-7396201481865802930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f3efa2e71f246d788e2c95f8d1b9e96, type: 3}
-  m_Name: Select Player Cmd
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -8, y: 104}
-  ports:
-    keys:
-    - playerList
-    values:
-    - _fieldName: playerList
-      _node: {fileID: -7396201481865802930}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: playerList
-        node: {fileID: -112518038867445561}
-        reroutePoints: []
-      - fieldName: targetList
-        node: {fileID: -1161260619315921608}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  playerList: 
-  target: 1
-  selectPlayerNum: 1
---- !u!114 &-1161260619315921608
+    targets:
+    - id: 5
+      type: 1
+  animGraph: {fileID: 11400000, guid: a2330e5086268b642b7201e50de8b780, type: 2}
+--- !u!114 &-7810560850653450007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,28 +51,16 @@ MonoBehaviour:
   m_Name: Anim Context Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 184, y: 312}
+  position: {x: 360, y: 88}
   ports:
     keys:
     - targetList
-    - dynamicTargetList
     - animContext
+    - dynamicTargetList
+    - dynamicTargetList 0
     values:
     - _fieldName: targetList
-      _node: {fileID: -1161260619315921608}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: playerList
-        node: {fileID: -7396201481865802930}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: dynamicTargetList
-      _node: {fileID: -1161260619315921608}
+      _node: {fileID: -7810560850653450007}
       _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
         Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
         Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -117,28 +70,52 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: animContext
-      _node: {fileID: -1161260619315921608}
+      _node: {fileID: -7810560850653450007}
       _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: animContext
-        node: {fileID: -8514955784537009958}
+        node: {fileID: -9014032633014816438}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: -7810560850653450007}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList 0
+      _node: {fileID: -7810560850653450007}
+      _typeQualifiedName: System.UInt64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: enemyID
+        node: {fileID: 245569658972302154}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   sourceType: 0
-  targetType: 0
-  isDynamicTarget: 0
-  targetList: 
-  dynamicTargetList: 
+  targetType: 1
+  isDynamicTarget: 1
+  targetList: 0000000000000000
+  dynamicTargetList: 0000000000000000
   animContext:
     source:
       id: 0
       type: 0
-    targets: []
---- !u!114 &-112518038867445561
+    targets:
+    - id: 5
+      type: 1
+--- !u!114 &-3560992071790608945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,30 +124,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87bb2a5e70b641b282b1cced19a60f99, type: 3}
-  m_Name: Discard To Draw Cmd
+  m_Script: {fileID: 11500000, guid: 22aa18f0509d4fd39935b3f2a3618399, type: 3}
+  m_Name: Defeat
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 376, y: 152}
+  position: {x: 360, y: -56}
   ports:
     keys:
-    - playerList
+    - enemyID
     values:
-    - _fieldName: playerList
-      _node: {fileID: -112518038867445561}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+    - _fieldName: enemyID
+      _node: {fileID: -3560992071790608945}
+      _typeQualifiedName: System.UInt64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: playerList
-        node: {fileID: -7396201481865802930}
+      - fieldName: enemyID
+        node: {fileID: 245569658972302154}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  playerList: 
-  num: 100
+  enemyID: 5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,11 +156,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc1d6827143b95f459a5771c8a1e84f4, type: 3}
-  m_Name: Heal
+  m_Name: Fireball
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -7396201481865802930}
-  - {fileID: -112518038867445561}
-  - {fileID: -1161260619315921608}
-  - {fileID: -8514955784537009958}
+  - {fileID: 245569658972302154}
+  - {fileID: -7810560850653450007}
+  - {fileID: -9014032633014816438}
+  - {fileID: -3560992071790608945}
   subject: 0
+--- !u!114 &245569658972302154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d900d55e4804400ba25e94009cbd49e, type: 3}
+  m_Name: Select Enemy
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: -56}
+  ports:
+    keys:
+    - enemyID
+    values:
+    - _fieldName: enemyID
+      _node: {fileID: 245569658972302154}
+      _typeQualifiedName: System.UInt64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: enemyID
+        node: {fileID: -3560992071790608945}
+        reroutePoints: []
+      - fieldName: dynamicTargetList 0
+        node: {fileID: -7810560850653450007}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  enemyID: 5
+  enemyType: 4

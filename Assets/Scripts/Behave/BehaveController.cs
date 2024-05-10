@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data.Animation;
 using UI.Model;
@@ -13,26 +14,16 @@ namespace Behave
     /// </summary>
     public class BehaveController : MonoBehaviour, IBehaveController
     {
-        [SerializeField]
-        private EnemyModelController enemiesController;
-
-        [SerializeField]
-        private PlayerModelController playerModelController;
+        [SerializeField] private ModelAnimPlayer modelPlayer;
 
         [SerializeField] private PositionInfo positionInfo;
 
-        [FormerlySerializedAs("fbxPlayer")] [SerializeField] private VfxPlayer vfxPlayer;
+        [SerializeField] private VfxPlayer vfxPlayer;
 
         public IModelAnimPlayer GetModelPlayer(AnimTarget target)
         {
-            var obj = target.type switch
-            {
-                AnimTargetType.Enemy => enemiesController.GetModel(target.id),
-                AnimTargetType.Player => playerModelController.GetModel(target.id),
-                _ => null,
-            };
-            Assert.IsNotNull(obj, $"{target.type}不能为{AnimTargetType.Dungeon}");
-            return obj.GetComponent<IModelAnimPlayer>();
+            modelPlayer.SetAnimTarget(target);
+            return modelPlayer;
         }
 
         public IPositionInfo GetPositionInfo()

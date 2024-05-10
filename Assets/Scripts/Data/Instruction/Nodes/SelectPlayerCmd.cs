@@ -42,7 +42,7 @@ namespace Data.Instruction.Nodes
                 PlayerTarget.AnotherPlayer => await GetPlayerList(context, player, false),
                 _ => playerList
             };
-            return true;
+            return playerList.Count != 0;
         }
 
         private async Task<List<ulong>> GetPlayerList(ICmdContext context, IPlayerController player, bool canSelectSelf)

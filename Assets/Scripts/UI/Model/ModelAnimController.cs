@@ -11,6 +11,10 @@ namespace UI.Model
     public class ModelAnimController : MonoBehaviour, IModelAnimPlayer
     {
         [SerializeField] private List<Animator> animators;
+
+        [SerializeField] private Transform body;
+
+        private Vector3? originPos;
         
         private static readonly int Lose = Animator.StringToHash("Lose");
         private static readonly int Win = Animator.StringToHash("Win");
@@ -58,6 +62,20 @@ namespace UI.Model
         public void SetPlay(bool isPlay)
         {
             animators.Apply(animator => animator.enabled = isPlay);
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            originPos ??= body.position;
+            body.position = position;
+        }
+
+        public void MoveBack()
+        {
+            if (originPos != null)
+            {
+                body.position = originPos.Value;
+            }
         }
     }
 }

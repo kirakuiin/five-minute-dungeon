@@ -27,59 +27,68 @@ namespace Data
         
         private readonly Dictionary<Resource, ResourceData> _resourceData = new();
 
-        private int _initNum = 0;
+        private VfxData _vfxData;
 
-        private const int NeedInitNum = 8;
+        private int _initNum;
+
+        private const int NeedInitNum = 9;
 
         protected override void OnInitialized()
         {
             _initNum = 0;
             Addressables.LoadAssetsAsync<ClassData>("ClassData", OnClassLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("职业加载完毕");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<DoorCardData>("DoorData", OnDoorCardLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("门卡加载完毕");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<ChallengeCardData>("ChallengeData", OnChallengeDataLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("挑战卡加载完毕");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<CardData>("PlayerCardData", OnPlayerCardLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("玩家卡加载完毕");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<DeckData>("DeckData", OnDeckDataLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("牌组加载完毕。");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<SkillData>("SkillData", OnSkillDataLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("技能加载完毕。");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<BossData>("BossData", OnBossLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("boss加载完毕。");
                     _initNum += 1;
                 };
             Addressables.LoadAssetsAsync<ResourceData>("ResourceData", OnResourceLoadDone).Completed
-                += handle =>
+                += _ =>
                 {
                     Debug.Log("resource加载完毕。");
+                    _initNum += 1;
+                };
+            Addressables.LoadAssetAsync<VfxData>("VfxData").Completed
+                += handle =>
+                {
+                    _vfxData = handle.Result;
+                    Debug.Log("vfx加载完毕。");
                     _initNum += 1;
                 };
         }
@@ -248,6 +257,11 @@ namespace Data
         public ResourceData GetResourceData(Resource res)
         {
             return _resourceData[res];
+        }
+
+        public VfxInfo GetVfxData(string name)
+        {
+            return _vfxData.Get(name);
         }
     }
 }

@@ -15,15 +15,22 @@ namespace Data.Instruction.Nodes
         public AnimTargetType sourceType;
 
         public AnimTargetType targetType;
+
+        public bool isDynamicTarget;
         
         [Input] public List<ulong> targetList;
+
+        [Input(dynamicPortList = true)] public List<ulong> dynamicTargetList;
         
         [Output] public AnimContext animContext;
 
         public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
-            targetList = GetInputValue<List<ulong>>(nameof(targetList));
-            targetList ??= new List<ulong>();
+            var finalTargetList = isDynamicTarget
+                ? GetDynamicValue()
+                : GetInputValue<List<ulong>>(nameof(targetList));
+            finalTargetList ??= new List<ulong>();
+            
             animContext = new AnimContext()
             {
                 source = new AnimTarget
@@ -31,10 +38,16 @@ namespace Data.Instruction.Nodes
                     id = tmpContext.SubjectID,
                     type = sourceType,
                 },
-                targets = targetList.Select(id => new AnimTarget() {id = id, type = targetType}).ToList()
+                targets = finalTargetList.Select(id => new AnimTarget() {id = id, type = targetType}).ToList()
             };
             await Task.CompletedTask;
             return true;
+        }
+
+        private List<ulong> GetDynamicValue()
+        {
+            return Enumerable.Range(0, dynamicTargetList.Count).Select(
+                idx => GetInputValue<ulong>($"{nameof(dynamicTargetList)} {idx}")).ToList();
         }
 
         public override object GetValue(NodePort port)

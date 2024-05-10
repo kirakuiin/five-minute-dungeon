@@ -13,6 +13,8 @@ namespace Data.Animation.Nodes
         [Input] public Color subColor;
 
         public float duration = 0.5f;
+
+        private static readonly Vector3 PosOffset = new Vector3(0, 1, 0);
         
         public override async Task Execute(IBehaveController controller, AnimContext animContext)
         {
@@ -21,7 +23,7 @@ namespace Data.Animation.Nodes
             var posInfo = controller.GetPositionInfo();
             var from = posInfo.GetAnimTargetPos(animContext.source);
             var to = posInfo.GetARandomNonEventEnemy();
-            await controller.GetVfxPlayer().PlayLaser(from, to, duration, laserColor, subColor);
+            await controller.GetVfxPlayer().PlayLaser(from+PosOffset, to+PosOffset, duration, laserColor, subColor);
         }
     }
 }
