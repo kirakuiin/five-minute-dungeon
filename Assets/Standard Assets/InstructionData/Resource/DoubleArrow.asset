@@ -32,59 +32,9 @@ MonoBehaviour:
   m_Name: DoubleArrow
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 1964055875606920854}
   - {fileID: 2428720000658739376}
   - {fileID: -5485775984415735965}
   subject: 0
---- !u!114 &1964055875606920854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe2792c1e1f54822813e2b2133fbe9c9, type: 3}
-  m_Name: Anim Context Cmd
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 312, y: 168}
-  ports:
-    keys:
-    - targetList
-    - animContext
-    values:
-    - _fieldName: targetList
-      _node: {fileID: 1964055875606920854}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: animContext
-      _node: {fileID: 1964055875606920854}
-      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: animContext
-        node: {fileID: 2428720000658739376}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  sourceType: 0
-  targetType: 2
-  targetList: 
-  animContext:
-    source:
-      id: 1
-      type: 0
-    targets: []
 --- !u!114 &2428720000658739376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,23 +51,32 @@ MonoBehaviour:
   position: {x: 664, y: 184}
   ports:
     keys:
-    - animContext
+    - targetList
+    - dynamicTargetList
     values:
-    - _fieldName: animContext
+    - _fieldName: targetList
       _node: {fileID: 2428720000658739376}
-      _typeQualifiedName: Data.Animation.AnimContext, Data, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: animContext
-        node: {fileID: 1964055875606920854}
-        reroutePoints: []
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
       _direction: 0
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  animContext:
-    source:
-      id: 0
-      type: 0
-    targets: []
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 2428720000658739376}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 0
+  targetType: 2
+  isDynamicTarget: 0
   animGraph: {fileID: 11400000, guid: 13513e061045a7649bfda07eb3c409b2, type: 2}

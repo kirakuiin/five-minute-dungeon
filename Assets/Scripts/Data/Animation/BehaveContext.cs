@@ -76,13 +76,13 @@ namespace Data.Animation
         /// <summary>
         /// 移动到某个位置。
         /// </summary>
-        /// <param name="position"></param>
-        public void MoveTo(Vector3 position);
+        /// <param name="param"></param>
+        public void ChangeTo(ModelChangeParam param);
 
         /// <summary>
         /// 返回原位。
         /// </summary>
-        public void MoveBack();
+        public void ChangeBack();
     }
 
     /// <summary>
@@ -149,10 +149,8 @@ namespace Data.Animation
         /// 播放静止特效。
         /// </summary>
         /// <param name="vfxName"></param>
-        /// <param name="target"></param>
-        /// <param name="duration"></param>
-        /// <param name="needAwait"></param>
+        /// <param name="param"></param>
         /// <returns></returns>
-        public Task PlayStillVfx(string vfxName, Vector3 target, float duration, bool needAwait);
+        public Task PlayStillVfx(string vfxName, StillVfxParam param);
     }
 }

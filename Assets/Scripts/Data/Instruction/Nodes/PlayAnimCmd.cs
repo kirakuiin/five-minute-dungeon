@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Data.Animation;
 
 namespace Data.Instruction.Nodes
@@ -9,15 +11,43 @@ namespace Data.Instruction.Nodes
     [NodeTint("#558800")]
     public class PlayAnimCmd : CommandBase
     {
-        [Input] public AnimContext animContext;
+        [Input] public List<ulong> targetList;
 
+        [Input(dynamicPortList = true)] public List<ulong> dynamicTargetList;
+        
+        public AnimTargetType sourceType;
+
+        public AnimTargetType targetType;
+
+        public bool isDynamicTarget;
+        
         public AnimGraph animGraph;
         
         public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
-            animContext = GetInputValue<AnimContext>(nameof(animContext));
+            var finalTargetList = isDynamicTarget
+                ? GetDynamicValue()
+                : GetInputValue<List<ulong>>(nameof(targetList));
+            finalTargetList ??= new List<ulong>();
+            
+            var animContext = new AnimContext()
+            {
+                source = new AnimTarget
+                {
+                    id = tmpContext.SubjectID,
+                    type = sourceType,
+                },
+                targets = finalTargetList.Select(id => new AnimTarget() {id = id, type = targetType}).ToList()
+            };
+            
             await animGraph.Execution(context.GetBehaveController(), animContext);
             return true;
+        }
+
+        private List<ulong> GetDynamicValue()
+        {
+            return Enumerable.Range(0, dynamicTargetList.Count).Select(
+                idx => GetInputValue<ulong>($"{nameof(dynamicTargetList)} {idx}")).ToList();
         }
     }
 }

@@ -4,19 +4,19 @@ using XNodeEditor;
 
 namespace Editor.Animation
 {
-    [CustomNodeEditor(typeof(MovePlayerBackCmd))]
-    public class MovePlayerBackCmdEditor : NodeEditor
+    [CustomNodeEditor(typeof(ChangePlayerBackCmd))]
+    public class ChangePlayerBackCmdEditor : NodeEditor
     {
-        private MovePlayerBackCmd _cmd;
+        private ChangePlayerBackCmd _cmd;
 
         public override void OnCreate()
         {
-            _cmd = target as MovePlayerBackCmd;
+            _cmd = target as ChangePlayerBackCmd;
         }
         
         public override void OnHeaderGUI()
         {
-            GUILayout.Label("角色返回原位", NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            GUILayout.Label("角色还原", NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
 
         public override void OnBodyGUI()

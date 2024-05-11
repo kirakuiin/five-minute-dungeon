@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data.Animation;
+using DG.Tweening;
 using GameLib.Common.Extension;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace UI.Model
         [SerializeField] private Transform body;
 
         private Vector3? originPos;
+
+        private Vector3? originLocalRot;
         
         private static readonly int Lose = Animator.StringToHash("Lose");
         private static readonly int Win = Animator.StringToHash("Win");
@@ -64,17 +67,29 @@ namespace UI.Model
             animators.Apply(animator => animator.enabled = isPlay);
         }
 
-        public void MoveTo(Vector3 position)
+        public void ChangeTo(ModelChangeParam param)
         {
             originPos ??= body.position;
-            body.position = position;
+            originLocalRot ??= body.localRotation.eulerAngles;
+            if (param.mode == ModelChangeMode.Instantly)
+            {
+                body.position = param.position;
+                body.localRotation = Quaternion.Euler(param.localRot);
+            }
+            else
+            {
+                body.DOMove(param.position, param.changeTime);
+                body.DOLocalRotate(param.localRot, param.changeTime);
+            }
         }
+        
 
-        public void MoveBack()
+        public void ChangeBack()
         {
-            if (originPos != null)
+            if (originPos != null && originLocalRot != null)
             {
                 body.position = originPos.Value;
+                body.localRotation = Quaternion.Euler(originLocalRot.Value);
             }
         }
     }

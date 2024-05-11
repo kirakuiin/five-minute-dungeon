@@ -14,9 +14,13 @@ namespace UI.Lobby
         [SerializeField]
         private LobbyInfoData data;
 
+        [SerializeField]
+        private GameObject resetBtn;
+
         public override void OnNetworkSpawn()
         {
             lobbyName.text = data.LobbyName;
+            resetBtn.SetActive(IsServer);
         }
     }
 }

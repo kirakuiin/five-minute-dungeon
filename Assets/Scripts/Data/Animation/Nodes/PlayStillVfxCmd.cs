@@ -15,6 +15,10 @@ namespace Data.Animation.Nodes
         
         public float duration;
 
+        public float speed = 1.0f;
+        
+        public Vector3 rotation = Vector3.zero;
+
         public bool needAwait;
         
         public StillVfxTargetType targetType;
@@ -32,7 +36,15 @@ namespace Data.Animation.Nodes
                 _ => throw new ArgumentOutOfRangeException()
             };
             await Task.WhenAll(posList.Select(pos =>
-                controller.GetVfxPlayer().PlayStillVfx(vfxName, pos+offset, duration, needAwait)));
+                controller.GetVfxPlayer().PlayStillVfx(vfxName,
+                    new StillVfxParam
+                    {
+                        target = pos + offset,
+                        duration = duration,
+                        rotation = rotation,
+                        speed = speed,
+                        needAwait = needAwait
+                    })));
         }
     }
 }

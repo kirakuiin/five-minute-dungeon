@@ -15,6 +15,7 @@ MonoBehaviour:
   nodes:
   - {fileID: 1691554416097116151}
   - {fileID: 973953468220005792}
+  - {fileID: 6440949446969365551}
 --- !u!114 &973953468220005792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,10 +33,11 @@ MonoBehaviour:
   ports:
     keys: []
     values: []
-  vfxName: CastShield
+  vfxName: HitShield
   duration: 1
+  speed: 1
   needAwait: 0
-  targetType: 0
+  targetType: 1
   offset: {x: 0, y: 0, z: 0}
 --- !u!114 &1691554416097116151
 MonoBehaviour:
@@ -56,6 +58,30 @@ MonoBehaviour:
     values: []
   vfxName: BuffRegeHand
   duration: 2
+  speed: 1
   needAwait: 0
   targetType: 1
+  offset: {x: 0, y: 0, z: 0}
+--- !u!114 &6440949446969365551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 168, y: 248}
+  ports:
+    keys: []
+    values: []
+  vfxName: CastGolden
+  duration: 1
+  speed: 1
+  needAwait: 0
+  targetType: 0
   offset: {x: 0, y: 0, z: 0}

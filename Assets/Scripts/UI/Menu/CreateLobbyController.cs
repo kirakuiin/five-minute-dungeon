@@ -32,10 +32,5 @@ namespace UI.Menu
             PlayerSetting.Instance.LobbyName = lobbyName.text;
             PlayerSetting.Instance.LobbyPassword = password.text;
         }
-
-        public void ResetProgress()
-        {
-            GameProgress.Instance.Reset();
-        }
     }
 }

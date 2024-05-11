@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using Data.Animation;
 using DG.Tweening;
 using GameLib.Common;
+using GameLib.Common.Extension;
 using Gameplay.Core;
 using Unity.Netcode;
 using UnityEngine;
@@ -121,27 +123,43 @@ namespace Behave
             return obj;
         }
         
-        public async Task PlayStillVfx(string vfxName, Vector3 target, float duration, bool needAwait)
+        public async Task PlayStillVfx(string vfxName, StillVfxParam param)
         {
-            PlayStillVfxRpc(vfxName, target, duration);
-            if (needAwait)
+            PlayStillVfxRpc(vfxName, param);
+            if (param.needAwait)
             {
-                await Task.Delay(TimeScalar.ConvertSecondToMs(duration));
+                await Task.Delay(TimeScalar.ConvertSecondToMs(param.duration));
             }
         }
         
         [Rpc(SendTo.ClientsAndHost)]
-        private void PlayStillVfxRpc(string vfxName, Vector3 target, float duration)
+        private void PlayStillVfxRpc(string vfxName, StillVfxParam param)
         {
-            StartCoroutine(PlayStillVfxCoroutine(vfxName, target, duration));
+            StartCoroutine(PlayStillVfxCoroutine(vfxName, param));
         }
 
-        private IEnumerator PlayStillVfxCoroutine(string vfxName, Vector3 target, float duration)
+        private IEnumerator PlayStillVfxCoroutine(string vfxName, StillVfxParam param)
         {
             var obj = GetVfxInstance(vfxName);
-            obj.transform.position = target;
-            yield return new WaitForSeconds(duration);
+            obj.transform.position = param.target;
+            obj.transform.rotation = Quaternion.Euler(param.rotation);
+            ApplyParamToAllChild(obj, param);
+            yield return new WaitForSeconds(param.duration);
             ReturnVfxObj(vfxName, obj);
+        }
+
+        private void ApplyParamToAllChild(GameObject particle, StillVfxParam param)
+        {
+            var main = particle.GetComponent<ParticleSystem>().main;
+            main.simulationSpeed = param.speed;
+            Enumerable.Range(0, particle.transform.childCount).Apply(
+                i =>
+                {
+                    var subParticle = particle.transform.GetChild(i).GetComponent<ParticleSystem>();
+                    if (!subParticle) return;
+                    var subMain = subParticle.main;
+                    subMain.simulationSpeed = param.speed;
+                });
         }
 
         public override void OnDestroy()

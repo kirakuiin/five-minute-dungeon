@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Data.Animation
 {
@@ -35,5 +36,36 @@ namespace Data.Animation
         Source=0,
         Target=1,
         EnemyCenter=2,
+    }
+
+    /// <summary>
+    /// 静止vfx参数。
+    /// </summary>
+    [Serializable]
+    public struct StillVfxParam : INetworkSerializeByMemcpy
+    {
+        public Vector3 target;
+        public Vector3 rotation;
+        public float duration;
+        public float speed;
+        public bool needAwait;
+    }
+
+    public enum ModelChangeMode
+    {
+        Instantly=0,
+        LinerInterpolation=1,
+    }
+
+    /// <summary>
+    /// 模型变化参数
+    /// </summary>
+    [Serializable]
+    public struct ModelChangeParam : INetworkSerializeByMemcpy
+    {
+        public Vector3 position;
+        public Vector3 localRot;
+        public float changeTime;
+        public ModelChangeMode mode;
     }
 }

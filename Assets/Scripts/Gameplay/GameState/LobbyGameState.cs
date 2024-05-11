@@ -6,6 +6,7 @@ using GameLib.Network.NGO;
 using GameLib.Network.NGO.Channel;
 using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Data;
+using Gameplay.Progress;
 using UnityEngine;
 
 namespace Gameplay.GameState
@@ -57,6 +58,10 @@ namespace Gameplay.GameState
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.GamePlay);
         }
 
+        public void ResetProgress()
+        {
+            GameProgress.Instance.Reset();
+        }
 
         protected override void Exit()
         {

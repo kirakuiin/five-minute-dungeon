@@ -3,13 +3,13 @@
 namespace Data.Animation.Nodes
 {
     /// <summary>
-    /// 将玩家移动回原位。
+    /// 将玩家还原初始状态。
     /// </summary>
-    public class MovePlayerBackCmd : AnimationBase
+    public class ChangePlayerBackCmd : AnimationBase
     {
         public override async Task Execute(IBehaveController controller, AnimContext animContext)
         {
-            controller.GetModelPlayer(animContext.source).MoveBack();
+            controller.GetModelPlayer(animContext.source).ChangeBack();
             await Task.CompletedTask;
         }
     }

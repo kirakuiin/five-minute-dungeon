@@ -18,7 +18,8 @@ MonoBehaviour:
     keys: []
     values: []
   vfxName: HitStarFall
-  duration: 1
+  duration: 0.5
+  speed: 2
   needAwait: 1
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -35,4 +36,28 @@ MonoBehaviour:
   m_Name: HolyGrenade
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 3234990477137351575}
   - {fileID: -2187245944332267726}
+--- !u!114 &3234990477137351575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -200, y: 136}
+  ports:
+    keys: []
+    values: []
+  vfxName: CastGolden
+  duration: 1
+  speed: 1
+  needAwait: 0
+  targetType: 0
+  offset: {x: 0, y: 0, z: 0}

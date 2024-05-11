@@ -125,18 +125,18 @@ namespace Behave
             _delegate.SetPlay(isPlay);
         }
 
-        public void MoveTo(Vector3 position)
+        public void ChangeTo(ModelChangeParam param)
         {
-            MoveToRpc(position);
+            MoveToRpc(param);
         }
         
         [Rpc(SendTo.ClientsAndHost)]
-        private void MoveToRpc(Vector3 position)
+        private void MoveToRpc(ModelChangeParam param)
         {
-            _delegate.MoveTo(position);
+            _delegate.ChangeTo(param);
         }
 
-        public void MoveBack()
+        public void ChangeBack()
         {
             MoveBackRpc();
         }
@@ -144,7 +144,7 @@ namespace Behave
         [Rpc(SendTo.ClientsAndHost)]
         private void MoveBackRpc()
         {
-            _delegate.MoveBack();
+            _delegate.ChangeBack();
         }
     }
 }
