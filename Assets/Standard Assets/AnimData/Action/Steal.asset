@@ -19,6 +19,8 @@ MonoBehaviour:
     values: []
   vfxName: BuffRegeHand
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 0, z: 0}
@@ -40,6 +42,9 @@ MonoBehaviour:
     keys: []
     values: []
   offset: {x: -0.5, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0}
+  changeMode: 0
+  changeTime: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +82,8 @@ MonoBehaviour:
     values: []
   vfxName: BuffDiscard
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -110,7 +117,7 @@ MonoBehaviour:
   m_Name: Delay Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 344, y: 232}
+  position: {x: 344, y: 248}
   ports:
     keys: []
     values: []

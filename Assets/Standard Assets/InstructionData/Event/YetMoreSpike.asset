@@ -45,6 +45,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   cardList: 
   playerList: 
   isAutoSelect: 1
@@ -62,9 +63,11 @@ MonoBehaviour:
   m_Name: YetMoreSpike
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 8042409437225623654}
   - {fileID: 1982441075350940018}
   - {fileID: -7666931325680502307}
   - {fileID: 5564818340384911963}
+  - {fileID: 5547486447112617869}
   subject: 2
 --- !u!114 &1982441075350940018
 MonoBehaviour:
@@ -96,11 +99,64 @@ MonoBehaviour:
       - fieldName: playerList
         node: {fileID: 5564818340384911963}
         reroutePoints: []
+      - fieldName: targetList
+        node: {fileID: 5547486447112617869}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
+--- !u!114 &5547486447112617869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 888, y: 168}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 5547486447112617869}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: playerList
+        node: {fileID: 1982441075350940018}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 5547486447112617869}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 0
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 79126cc2cec8b724092e6cb4763831dc, type: 2}
 --- !u!114 &5564818340384911963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,5 +202,52 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   discardList: 
+--- !u!114 &8042409437225623654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 184}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 8042409437225623654}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 8042409437225623654}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 38ab45cd5cca4844c838c048f51f05d3, type: 2}

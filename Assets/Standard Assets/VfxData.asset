@@ -18,6 +18,7 @@ MonoBehaviour:
   - CastStar
   - CastGolden
   - CastSlash
+  - CastExplosion
   - BuffRegeDraw
   - BuffRegeHand
   - BuffDiscard
@@ -28,6 +29,8 @@ MonoBehaviour:
   - HitArrow
   - HitRing
   - HitRainbow
+  - AuraPurple
+  - AuraBlue
   needValueList:
   - prefab: {fileID: 8780727661788297695, guid: d21e5b00fdb343444a500464d07897b8, type: 3}
     isParticleSystem: 1
@@ -39,13 +42,15 @@ MonoBehaviour:
     isParticleSystem: 1
   - prefab: {fileID: 3894563636541966133, guid: c27fac790990ed84f8ffc7736dd4b189, type: 3}
     isParticleSystem: 1
+  - prefab: {fileID: 5013878782555061258, guid: d9fa0c80412e48448acaa78def63d086, type: 3}
+    isParticleSystem: 1
   - prefab: {fileID: 5023353015567381922, guid: e747544088e0b8842a0eca8697a4f65a, type: 3}
     isParticleSystem: 1
   - prefab: {fileID: 8685162138139692958, guid: 4bd478362f68efb408a451724241045e, type: 3}
     isParticleSystem: 1
   - prefab: {fileID: 8476858034194145137, guid: 84c915043f939b8469605560770bb2d1, type: 3}
     isParticleSystem: 1
-  - prefab: {fileID: 5013878782555061258, guid: d9fa0c80412e48448acaa78def63d086, type: 3}
+  - prefab: {fileID: 7554899051286264844, guid: a6fc1e688a90e7d4caab89c0ca876bf7, type: 3}
     isParticleSystem: 1
   - prefab: {fileID: 6750108211637369354, guid: 34f3a8b34366bc5469ddbf9e468212fa, type: 3}
     isParticleSystem: 1
@@ -58,4 +63,8 @@ MonoBehaviour:
   - prefab: {fileID: 1475618779179179817, guid: 07799b25da23d9c4d97a417f6f0d0f31, type: 3}
     isParticleSystem: 1
   - prefab: {fileID: 2026266475295086964, guid: 60d829d93285f3b4793e4b7970bede20, type: 3}
+    isParticleSystem: 1
+  - prefab: {fileID: 5640737727654945505, guid: 25f8b876ef5fe95479e80f9317df3757, type: 3}
+    isParticleSystem: 1
+  - prefab: {fileID: 5243552275525340957, guid: 576ecd39b35e3334f84f41d3747245e6, type: 3}
     isParticleSystem: 1

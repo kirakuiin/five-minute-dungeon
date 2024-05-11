@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: Play Anim Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: 200}
+  position: {x: 424, y: 88}
   ports:
     keys:
     - targetList

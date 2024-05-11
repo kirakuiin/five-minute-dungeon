@@ -20,9 +20,17 @@ namespace Behave
 
         [SerializeField] private FullScreenPassRendererFeature timeStop;
         
+        [SerializeField] private FullScreenPassRendererFeature resDissolve;
+        
         private static readonly int Center = Shader.PropertyToID("_Center");
         
         private static readonly int BeginTime = Shader.PropertyToID("_BeginTime");
+        
+        private static readonly int DissolveTime = Shader.PropertyToID("_DissolveTime");
+        
+        private static readonly int ResIndex = Shader.PropertyToID("_ResIndex");
+
+        private static readonly float DisTime = 1.0f;
 
         private void Start()
         {
@@ -131,7 +139,29 @@ namespace Behave
                 await Task.Delay(TimeScalar.ConvertSecondToMs(param.duration));
             }
         }
+
+        public async Task PlayDissolveRes(Resource res)
+        {
+            PlayDissolveResRpc(res);
+            await Task.CompletedTask;
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void PlayDissolveResRpc(Resource res)
+        {
+            resDissolve.passMaterial.SetFloat(BeginTime, Time.time);
+            resDissolve.passMaterial.SetFloat(ResIndex, (int)res);
+            resDissolve.passMaterial.SetFloat(DissolveTime, DisTime);
+            resDissolve.SetActive(true);
+            StartCoroutine(StopDissolveCoroutine());
+        }
         
+        private IEnumerator StopDissolveCoroutine()
+        {
+            yield return new WaitForSeconds(DisTime);
+            resDissolve.SetActive(false);
+        }
+
         [Rpc(SendTo.ClientsAndHost)]
         private void PlayStillVfxRpc(string vfxName, StillVfxParam param)
         {
@@ -165,6 +195,7 @@ namespace Behave
         public override void OnDestroy()
         {
             timeStop.SetActive(false);
+            resDissolve.SetActive(false);
         }
     }
 }

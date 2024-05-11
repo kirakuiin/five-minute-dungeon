@@ -44,6 +44,12 @@ namespace Editor.Instruction
                 }
             }
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.animGraph)), new GUIContent("动画序列"));
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.onlyExecuteOnServer)), new GUIContent("是否仅在服务端执行"));
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.haveOtherInfo)), new GUIContent("是否有其他信息"));
+            if (_cmd.haveOtherInfo)
+            {
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_cmd.selectRes)), new GUIContent("选择资源"));
+            }
             serializedObject.ApplyModifiedProperties();
         }
         

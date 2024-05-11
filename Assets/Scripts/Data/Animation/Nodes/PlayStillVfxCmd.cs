@@ -33,6 +33,8 @@ namespace Data.Animation.Nodes
                 StillVfxTargetType.Source => new List<Vector3> {posInfo.GetAnimTargetPos(animContext.source)},
                 StillVfxTargetType.Target => animContext.targets.Select(target => posInfo.GetAnimTargetPos(target)).ToList(),
                 StillVfxTargetType.EnemyCenter => new List<Vector3> {posInfo.GetEnemyCenter()},
+                StillVfxTargetType.PlayerCenter => new List<Vector3> {posInfo.GetPlayerCenter()},
+                StillVfxTargetType.Center => new List<Vector3> {posInfo.GetEnemyCenter()/2 + posInfo.GetPlayerCenter()/2},
                 _ => throw new ArgumentOutOfRangeException()
             };
             await Task.WhenAll(posList.Select(pos =>

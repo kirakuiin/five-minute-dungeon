@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Threading.Tasks;
 using XNode;
 
 namespace Data.Instruction
@@ -10,7 +8,12 @@ namespace Data.Instruction
     /// </summary>
     public abstract class CommandBase : Node
     {
-        public InstructionGraph Graph => graph as InstructionGraph;
+        private InstructionGraph Graph => graph as InstructionGraph;
+
+        /// <summary>
+        /// 是否仅允许在服务端执行。
+        /// </summary>
+        public bool onlyExecuteOnServer = false;
 
         /// <summary>
         /// 执行指令。

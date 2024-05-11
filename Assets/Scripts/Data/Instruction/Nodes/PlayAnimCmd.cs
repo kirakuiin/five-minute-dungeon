@@ -22,6 +22,10 @@ namespace Data.Instruction.Nodes
         public bool isDynamicTarget;
         
         public AnimGraph animGraph;
+
+        public bool haveOtherInfo;
+
+        [Input] public Resource selectRes;
         
         public override async Task<bool> Execute(ICmdContext context, TempContext tmpContext)
         {
@@ -39,6 +43,10 @@ namespace Data.Instruction.Nodes
                 },
                 targets = finalTargetList.Select(id => new AnimTarget() {id = id, type = targetType}).ToList()
             };
+            if (haveOtherInfo)
+            {
+                animContext.other = new OtherAnimInfo() { selectedRes = GetInputValue<Resource>(nameof(selectRes)) };
+            }
             
             await animGraph.Execution(context.GetBehaveController(), animContext);
             return true;

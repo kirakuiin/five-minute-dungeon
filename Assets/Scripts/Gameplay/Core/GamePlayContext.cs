@@ -145,6 +145,11 @@ namespace Gameplay.Core
             return NetworkManager.ConnectedClientsIds;
         }
 
+        public ulong GetServerID()
+        {
+            return NetworkManager.ServerClientId;
+        }
+
         public ILevelController GetLevelController()
         {
             return GetComponent<ILevelController>();

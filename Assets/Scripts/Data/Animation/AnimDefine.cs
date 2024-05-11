@@ -5,12 +5,21 @@ using UnityEngine;
 
 namespace Data.Animation
 {
-    [Serializable]
     public struct AnimContext
     {
         public AnimTarget source;
 
         public List<AnimTarget> targets;
+
+        public OtherAnimInfo other;
+    }
+
+    /// <summary>
+    /// 非必要动画信息。
+    /// </summary>
+    public struct OtherAnimInfo
+    {
+        public Resource selectedRes;
     }
 
     /// <summary>
@@ -36,6 +45,8 @@ namespace Data.Animation
         Source=0,
         Target=1,
         EnemyCenter=2,
+        PlayerCenter=3,
+        Center=4,
     }
 
     /// <summary>

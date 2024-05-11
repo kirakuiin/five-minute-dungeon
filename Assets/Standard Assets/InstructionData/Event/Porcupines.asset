@@ -33,10 +33,14 @@ MonoBehaviour:
       - fieldName: playerList
         node: {fileID: -7274581787401245635}
         reroutePoints: []
+      - fieldName: targetList
+        node: {fileID: 5246739069209473972}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   target: 0
   selectPlayerNum: 0
@@ -85,6 +89,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   cardList: 
   playerList: 
   isAutoSelect: 1
@@ -102,11 +107,106 @@ MonoBehaviour:
   m_Name: Porcupines
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 442831325434420890}
   - {fileID: -8066236336089875762}
   - {fileID: 501069669013202892}
+  - {fileID: 436870016519183841}
   - {fileID: -7274581787401245635}
   - {fileID: 6618300721181653594}
+  - {fileID: 5246739069209473972}
   subject: 2
+--- !u!114 &436870016519183841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 632, y: 744}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 436870016519183841}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 436870016519183841}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: d3dd6454e11673c449964d8d789ef469, type: 2}
+--- !u!114 &442831325434420890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 680, y: 360}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 442831325434420890}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 442831325434420890}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 38ab45cd5cca4844c838c048f51f05d3, type: 2}
 --- !u!114 &501069669013202892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,8 +238,58 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   num: 3
+--- !u!114 &5246739069209473972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 856, y: 584}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 5246739069209473972}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: playerList
+        node: {fileID: -8066236336089875762}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 5246739069209473972}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 0
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 0
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 79126cc2cec8b724092e6cb4763831dc, type: 2}
 --- !u!114 &6618300721181653594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,5 +335,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   discardList: 

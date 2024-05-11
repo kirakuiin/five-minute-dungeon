@@ -45,6 +45,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   discardList: 
 --- !u!114 &-2892648604655104347
@@ -81,6 +82,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   playerList: 
   target: 0
   selectPlayerNum: 0
@@ -97,10 +99,104 @@ MonoBehaviour:
   m_Name: SuddenIllness
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 5172797358328311834}
   - {fileID: -2892648604655104347}
   - {fileID: 7063524724698283215}
   - {fileID: -7552581036121158140}
+  - {fileID: 2216174684631828635}
   subject: 2
+--- !u!114 &2216174684631828635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 744, y: 184}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 2216174684631828635}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 2216174684631828635}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 79a255c5efd605240aad7daeafb5defb, type: 2}
+--- !u!114 &5172797358328311834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 728, y: 440}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 5172797358328311834}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 5172797358328311834}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 1
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 1
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 38ab45cd5cca4844c838c048f51f05d3, type: 2}
 --- !u!114 &7063524724698283215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +242,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  onlyExecuteOnServer: 0
   cardList: 
   playerList: 
   isAutoSelect: 1

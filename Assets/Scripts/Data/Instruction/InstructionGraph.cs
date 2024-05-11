@@ -53,6 +53,7 @@ namespace Data.Instruction
             foreach (var node in nodes)
             {
                 if (node is not CommandBase cmd) continue;
+                if (cmd.onlyExecuteOnServer && tmpContext.ClientID != context.GetServerID()) continue;
                 Debug.Log($"执行节点{cmd.name}");
                 if (await cmd.Execute(context, tmpContext)) continue;
                 Debug.Log($"取消节点{cmd.name}执行");

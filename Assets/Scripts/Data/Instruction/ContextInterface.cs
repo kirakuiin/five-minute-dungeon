@@ -29,6 +29,12 @@ namespace Data.Instruction
         public IEnumerable<ulong> GetAllClientIDs();
 
         /// <summary>
+        /// 获得服务端ID。
+        /// </summary>
+        /// <returns></returns>
+        public ulong GetServerID();
+
+        /// <summary>
         /// 获得关卡控制器。
         /// </summary>
         /// <returns></returns>

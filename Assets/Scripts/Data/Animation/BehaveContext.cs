@@ -133,7 +133,7 @@ namespace Data.Animation
         /// <param name="target"></param>
         /// <returns></returns>
         public Task TimeStop(Vector3 target);
-
+        
         /// <summary>
         /// 播放投射物。
         /// <returns></returns>
@@ -152,5 +152,12 @@ namespace Data.Animation
         /// <param name="param"></param>
         /// <returns></returns>
         public Task PlayStillVfx(string vfxName, StillVfxParam param);
+
+        /// <summary>
+        /// 播放资源溶解特效。
+        /// </summary>
+        /// <param name="res"></param>
+        /// <returns></returns>
+        public Task PlayDissolveRes(Resource res);
     }
 }
