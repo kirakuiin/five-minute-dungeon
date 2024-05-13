@@ -1,68 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8078549891868494114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
-  m_Name: Play Still Vfx Cmd
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 568, y: 136}
-  ports:
-    keys: []
-    values: []
-  vfxName: HitRing
-  duration: 1
-  speed: 1
-  rotation: {x: 0, y: 0, z: 0}
-  needAwait: 0
-  targetType: 1
-  offset: {x: 0, y: 0, z: 0}
---- !u!114 &-7192930408677368807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c6b27629454e899a2180d30f813fa7, type: 3}
-  m_Name: Change Player Cmd
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 312, y: -88}
-  ports:
-    keys: []
-    values: []
-  offset: {x: 0, y: 12, z: 0}
-  localRotation: {x: 0, y: 0, z: 0}
-  changeMode: 0
-  changeTime: 0.2
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbbeb73e5d074a24a9ad6a597971f69a, type: 3}
-  m_Name: MightyLeap
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: -7192930408677368807}
-  - {fileID: 2348045760874025040}
-  - {fileID: -8078549891868494114}
-  - {fileID: 1528478117232016221}
---- !u!114 &1528478117232016221
+--- !u!114 &-7947015486916394187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,11 +13,73 @@ MonoBehaviour:
   m_Name: Change Player Back Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 312, y: 312}
+  position: {x: 904, y: 136}
   ports:
     keys: []
     values: []
---- !u!114 &2348045760874025040
+--- !u!114 &-364002877702866363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0240f475e7834cb19c023f2b1e3a58e5, type: 3}
+  m_Name: Change Enemy Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 904, y: -56}
+  ports:
+    keys: []
+    values: []
+  offset: {x: -3, y: 8, z: -7}
+  localRotation: {x: 90, y: 90, z: 90}
+  changeMode: 1
+  changeTime: 0.3
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbeb73e5d074a24a9ad6a597971f69a, type: 3}
+  m_Name: SlayExec
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 9080506586386360820}
+  - {fileID: 7975134211860601836}
+  - {fileID: -7947015486916394187}
+  - {fileID: -364002877702866363}
+--- !u!114 &7975134211860601836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 616, y: -40}
+  ports:
+    keys: []
+    values: []
+  vfxName: HitFight
+  duration: 0.7
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
+  needAwait: 0
+  targetType: 1
+  offset: {x: 0, y: 1, z: 0}
+--- !u!114 &9080506586386360820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_Name: Change Player Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 312, y: 72}
+  position: {x: 376, y: -40}
   ports:
     keys: []
     values: []
   offset: {x: 0, y: 0, z: 0}
   localRotation: {x: 0, y: 0, z: 0}
   changeMode: 1
-  changeTime: 0.4
+  changeTime: 0.2

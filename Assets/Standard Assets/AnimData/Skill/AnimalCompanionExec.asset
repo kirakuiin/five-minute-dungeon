@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7789769161601957044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 648, y: 88}
+  ports:
+    keys: []
+    values: []
+  vfxName: CastRoar
+  duration: 1
+  speed: 2
+  rotation: {x: 0, y: 0, z: 0}
+  needAwait: 0
+  targetType: 0
+  offset: {x: 2.6, y: 1, z: 0}
+--- !u!114 &-3208132027321450005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 424, y: 88}
+  ports:
+    keys: []
+    values: []
+  vfxName: ObjTiger
+  duration: 1
+  speed: 1
+  rotation: {x: 0, y: 90, z: 0}
+  needAwait: 0
+  targetType: 0
+  offset: {x: 1.5, y: 0, z: 0}
+--- !u!114 &-1830850608653027626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 872, y: 88}
+  ports:
+    keys: []
+    values: []
+  vfxName: BuffRegeHand
+  duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
+  needAwait: 0
+  targetType: 1
+  offset: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbeb73e5d074a24a9ad6a597971f69a, type: 3}
+  m_Name: AnimalCompanionExec
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -3208132027321450005}
+  - {fileID: -1830850608653027626}
+  - {fileID: -7789769161601957044}

@@ -16,7 +16,7 @@ namespace Editor.Animation
         
         public override void OnHeaderGUI()
         {
-            GUILayout.Label("溶解动画", NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            GUILayout.Label("溶解资源动画", NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
 
         public override void OnBodyGUI()

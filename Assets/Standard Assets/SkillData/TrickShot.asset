@@ -17,5 +17,5 @@ MonoBehaviour:
   skillDesc: "\u4E22\u5F03\u4E09\u5F20\u624B\u724C:<br>\u51FB\u8D25\u4E00\u4E2A<color=green><b>\u4EBA\u7C7B</b></color><sprite
     name=\"person\">\u3002"
   skillIcon: {fileID: 21300000, guid: 762dd8d17e34c8f4e80e6646689e7539, type: 3}
-  action: {fileID: 11400000, guid: 0ae45e85e091fa846859c075e1200990, type: 2}
+  action: {fileID: 11400000, guid: 5bb1d6574b5f4c64bb1059243a0dd3a8, type: 2}
   check: {fileID: 11400000, guid: e20a068109cd2c74c8cc47a9507688a3, type: 2}

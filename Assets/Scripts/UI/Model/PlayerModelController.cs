@@ -80,6 +80,7 @@ namespace UI.Model
                 var obj = CreateClassModel(clientID);
                 obj.transform.SetParent(posList[_curPosIdx], false);
                 obj.transform.localPosition = Vector3.zero;
+                obj.transform.localRotation = Quaternion.identity;
                 _curPosIdx += 1;
             }
         }

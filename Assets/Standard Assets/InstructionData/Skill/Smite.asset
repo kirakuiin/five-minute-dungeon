@@ -45,8 +45,80 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  playerList: 
-  discardList: 
+  onlyExecuteOnServer: 0
+  playerList: 0000000000000000
+  discardList: 040000001500000012000000
+--- !u!114 &-3168277677581391553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 296, y: 520}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    - selectRes
+    - dynamicTargetList 0
+    values:
+    - _fieldName: targetList
+      _node: {fileID: -3168277677581391553}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: -3168277677581391553}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: selectRes
+      _node: {fileID: -3168277677581391553}
+      _typeQualifiedName: Data.Resource, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList 0
+      _node: {fileID: -3168277677581391553}
+      _typeQualifiedName: System.UInt64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: enemyID
+        node: {fileID: 6698857952253161646}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  onlyExecuteOnServer: 0
+  targetList: 
+  dynamicTargetList: 0000000000000000
+  sourceType: 0
+  targetType: 1
+  isDynamicTarget: 1
+  animGraph: {fileID: 11400000, guid: fe96ccb0eced0b742a6e83ef9bc04c36, type: 2}
+  haveOtherInfo: 0
+  selectRes: 0
 --- !u!114 &-39697732236409679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,8 +149,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  enemyID: 0
-  enemyType: 4
+  onlyExecuteOnServer: 0
+  enemyID: 18
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,13 +161,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc1d6827143b95f459a5771c8a1e84f4, type: 3}
-  m_Name: DefeatMonster
+  m_Name: Smite
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 1452385114491208042}
   - {fileID: 7540367306782059493}
   - {fileID: -3380723503794206534}
+  - {fileID: 5969777912257736009}
   - {fileID: 6698857952253161646}
+  - {fileID: -3168277677581391553}
   - {fileID: -39697732236409679}
   subject: 0
 --- !u!114 &1452385114491208042
@@ -132,9 +206,68 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  playerList: 
+  onlyExecuteOnServer: 0
+  playerList: 0000000000000000
   target: 0
   selectPlayerNum: 1
+--- !u!114 &5969777912257736009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523bcb48caf4439387cec3a6b65dd2c3, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 712, y: 376}
+  ports:
+    keys:
+    - targetList
+    - dynamicTargetList
+    - selectRes
+    values:
+    - _fieldName: targetList
+      _node: {fileID: 5969777912257736009}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: dynamicTargetList
+      _node: {fileID: 5969777912257736009}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.UInt64, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: selectRes
+      _node: {fileID: 5969777912257736009}
+      _typeQualifiedName: Data.Resource, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 0
+  targetList: 
+  dynamicTargetList: 
+  sourceType: 0
+  targetType: 2
+  isDynamicTarget: 0
+  animGraph: {fileID: 11400000, guid: 232eb0bba5f2a6c4fa0f85e8c04ee146, type: 2}
+  haveOtherInfo: 0
+  selectRes: 0
 --- !u!114 &6698857952253161646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,11 +294,15 @@ MonoBehaviour:
       - fieldName: enemyID
         node: {fileID: -39697732236409679}
         reroutePoints: []
+      - fieldName: dynamicTargetList 0
+        node: {fileID: -3168277677581391553}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  enemyID: 0
+  onlyExecuteOnServer: 0
+  enemyID: 18
   enemyType: 4
 --- !u!114 &7540367306782059493
 MonoBehaviour:
@@ -212,6 +349,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  cardList: 
-  playerList: 
+  onlyExecuteOnServer: 0
+  cardList: 040000001500000012000000
+  playerList: 0000000000000000
+  isAutoSelect: 0
   num: 3

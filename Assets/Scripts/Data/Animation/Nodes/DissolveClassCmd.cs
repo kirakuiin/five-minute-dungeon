@@ -3,13 +3,15 @@
 namespace Data.Animation.Nodes
 {
     /// <summary>
-    /// 溶解资源指令。
+    /// 溶解角色指令。
     /// </summary>
-    public class DissolveResCmd : AnimationBase
+    public class DissolveClassCmd : AnimationBase
     {
+        public Class playerClass;
+        
         public override async Task Execute(IBehaveController controller, AnimContext animContext)
         {
-            await controller.GetVfxPlayer().PlayDissolveRes(animContext.other.selectedRes);
+            await controller.GetVfxPlayer().PlayDissolveClass(playerClass);
         }
     }
 }

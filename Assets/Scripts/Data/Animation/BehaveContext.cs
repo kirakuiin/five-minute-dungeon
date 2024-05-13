@@ -159,5 +159,12 @@ namespace Data.Animation
         /// <param name="res"></param>
         /// <returns></returns>
         public Task PlayDissolveRes(Resource res);
+
+        /// <summary>
+        /// 播放职业溶解特效。
+        /// </summary>
+        /// <param name="clsType"></param>
+        /// <returns></returns>
+        public Task PlayDissolveClass(Class clsType);
     }
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
     keys:
     - targetList
     - dynamicTargetList
+    - selectRes
     values:
     - _fieldName: targetList
       _node: {fileID: -1138824260738710573}
@@ -39,12 +40,24 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: selectRes
+      _node: {fileID: -1138824260738710573}
+      _typeQualifiedName: Data.Resource, Data, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  onlyExecuteOnServer: 0
   targetList: 
   dynamicTargetList: 
   sourceType: 0
   targetType: 2
   isDynamicTarget: 0
   animGraph: {fileID: 11400000, guid: af7b11ad02b63d441bf08e2ca871e1b3, type: 2}
+  haveOtherInfo: 0
+  selectRes: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +94,7 @@ MonoBehaviour:
   ports:
     keys: []
     values: []
+  onlyExecuteOnServer: 0
 --- !u!114 &6503401894848985808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +140,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  playerList: 
-  discardList: 
+  onlyExecuteOnServer: 0
+  playerList: 0000000000000000
+  discardList: 020000000c00000017000000
 --- !u!114 &8119029697199913093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,8 +188,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  cardList: 
-  playerList: 
+  onlyExecuteOnServer: 0
+  cardList: 020000000c00000017000000
+  playerList: 0000000000000000
   isAutoSelect: 0
   num: 3
 --- !u!114 &8217124524884680342
@@ -211,6 +227,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  playerList: 
+  onlyExecuteOnServer: 0
+  playerList: 0000000000000000
   target: 0
   selectPlayerNum: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6201256644701235197
+--- !u!114 &-1173422594438615716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Play Still Vfx Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 264, y: -56}
+  position: {x: 872, y: 104}
   ports:
     keys: []
     values: []
-  vfxName: HitFireExplosion
+  vfxName: BuffRegeHand
   duration: 1
-  speed: 3
+  speed: 1
   rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,12 +34,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbbeb73e5d074a24a9ad6a597971f69a, type: 3}
-  m_Name: Fireball
+  m_Name: InspireExec
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 6025258900571324778}
-  - {fileID: -6201256644701235197}
---- !u!114 &6025258900571324778
+  - {fileID: 5190169441035740765}
+  - {fileID: -1173422594438615716}
+--- !u!114 &5190169441035740765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,15 +48,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a54acb5f31344d0a9f0f144cb1e8403, type: 3}
-  m_Name: Play Projectile Cmd
+  m_Script: {fileID: 11500000, guid: b0fe49a54c0f4e6e925c63892ff39696, type: 3}
+  m_Name: Play Still Vfx Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 24, y: -56}
+  position: {x: 600, y: 104}
   ports:
     keys: []
     values: []
-  duration: 0.2
-  vfxName: ProjFireball
-  sourceOffset: {x: 0, y: 1, z: 0}
-  targetOffset: {x: 0, y: 1, z: 0}
+  vfxName: CastHoly
+  duration: 1.5
+  speed: 2
+  rotation: {x: 0, y: 0, z: 0}
+  needAwait: 0
+  targetType: 3
+  offset: {x: 0, y: 2.5, z: 0}

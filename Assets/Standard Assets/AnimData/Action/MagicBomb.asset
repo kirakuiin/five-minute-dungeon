@@ -34,7 +34,7 @@ MonoBehaviour:
     values: []
   vfxName: HitRainbow
   duration: 0.6
-  speed: 5
+  speed: 6
   rotation: {x: 0, y: 0, z: 0}
   needAwait: 1
   targetType: 2
