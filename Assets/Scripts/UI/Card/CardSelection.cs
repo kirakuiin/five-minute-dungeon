@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using GameLib.UI;
 using Popup;
 using UI.Common;
@@ -93,6 +94,11 @@ namespace UI.Card
         }
 
         public void OnPointerDown(PointerEventData eventData)
+        {
+            CloseHintObj();
+        }
+
+        private void OnDisable()
         {
             CloseHintObj();
         }
