@@ -33,41 +33,14 @@ namespace Data.Animation
     /// </summary>
     public interface IModelAnimPlayer
     {
+        
         /// <summary>
-        /// 播放胜利动作。
+        /// 播放动作。
         /// </summary>
-        public void PlayWin();
-
-        /// <summary>
-        /// 播放失败动作。
-        /// </summary>
-        public void PlayLose();
-
-        /// <summary>
-        /// 播放攻击动作。
-        /// </summary>
-        public void PlayAttack();
-
-        /// <summary>
-        /// 播放施法动作。
-        /// </summary>
-        public void PlayCastSkill();
-
-        /// <summary>
-        /// 播放受伤动作。
-        /// </summary>
-        public void PlayHurt();
-
-        /// <summary>
-        /// 播放眩晕动作。
-        /// </summary>
-        public void PlayDizzy();
-
-        /// <summary>
-        /// 播放空闲动作。
-        /// </summary>
-        public void PlayIdle();
-
+        /// <param name="name"></param>
+        /// <param name="speed"></param>
+        public void PlayAnim(string name, float speed);
+        
         /// <summary>
         /// 控制动画播放。
         /// </summary>
@@ -83,6 +56,23 @@ namespace Data.Animation
         /// 返回原位。
         /// </summary>
         public void ChangeBack();
+
+        /// <summary>
+        /// 播放受击动作
+        /// </summary>
+        public void PlayHurt()
+        {
+            PlayAnim(AnimNameDefine.Hurt);
+        }
+
+        /// <summary>
+        /// 播放动作。
+        /// </summary>
+        /// <param name="name"></param>
+        public void PlayAnim(string name)
+        {
+            PlayAnim(name, 1.0f);
+        }
     }
 
     /// <summary>

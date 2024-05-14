@@ -58,5 +58,25 @@ MonoBehaviour:
   m_Name: Snipe
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 3229672120131530329}
   - {fileID: -2794118778951848754}
   - {fileID: -1285650220454965521}
+--- !u!114 &3229672120131530329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 728, y: 296}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  isSource: 1

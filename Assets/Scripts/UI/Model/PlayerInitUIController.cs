@@ -1,4 +1,6 @@
-﻿using Data;
+﻿using System.Collections;
+using Data;
+using Data.Animation;
 using Data.Check;
 using Gameplay.Camera;
 using Gameplay.Core;
@@ -50,6 +52,7 @@ namespace UI.Model
         private void OnCardChanged(CardChangeEvent @event)
         {
             RefreshHpBar();
+            RefreshModelAnim();
         }
 
         private void RefreshHpBar()
@@ -59,6 +62,24 @@ namespace UI.Model
             hpBar.material.SetFloat(HandNum, hand);
             hpBar.material.SetFloat(DiscardNum, discard);
             hpBar.material.SetFloat(PlayNum, play);
+        }
+        
+        private void RefreshModelAnim()
+        {
+            if (_info.GetHands().Count == 0)
+            {
+                StartCoroutine(ChangeModelCoroutine(AnimNameDefine.Dizzy));
+            }
+            else
+            {
+                StartCoroutine(ChangeModelCoroutine(AnimNameDefine.Idle));
+            }
+        }
+
+        private IEnumerator ChangeModelCoroutine(string stateName)
+        {
+            yield return new WaitForSeconds(0.4f);
+            GetComponent<IModelAnimPlayer>().PlayAnim(stateName);
         }
 
         private void LateUpdate()

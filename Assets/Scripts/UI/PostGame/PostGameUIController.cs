@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using Data.Animation;
 using GameLib.Common.Extension;
 using Gameplay.Data;
 using Gameplay.GameState;
@@ -94,14 +95,8 @@ namespace UI.PostGame
                 var obj = Instantiate(prefab, playerPosList[i++]);
                 obj.GetComponent<PlayerModel>().InitAsPureModel();
                 obj.transform.localPosition = Vector3.zero;
-                if (Result.isWin)
-                {
-                    obj.GetComponent<ModelAnimController>().PlayWin();
-                }
-                else
-                {
-                    obj.GetComponent<ModelAnimController>().PlayLose();
-                }
+                obj.GetComponent<IModelAnimPlayer>()
+                    .PlayAnim(Result.isWin ? AnimNameDefine.Win : AnimNameDefine.Lose);
             }
         }
 
@@ -111,14 +106,8 @@ namespace UI.PostGame
             var obj = Instantiate(prefab, bossPos);
             obj.GetComponent<EnemyModel>().InitAsPureModel();
             obj.transform.localPosition = Vector3.zero;
-            if (Result.isWin)
-            {
-                obj.GetComponent<ModelAnimController>().PlayLose();
-            }
-            else
-            {
-                obj.GetComponent<ModelAnimController>().PlayWin();
-            }
+            obj.GetComponent<IModelAnimPlayer>()
+                .PlayAnim(Result.isWin ? AnimNameDefine.Lose: AnimNameDefine.Win);
         }
 
         private void InitCompleteUI()

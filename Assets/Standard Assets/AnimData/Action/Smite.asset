@@ -34,7 +34,7 @@ MonoBehaviour:
   m_Name: Move Player Back Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 200, y: 408}
+  position: {x: 200, y: 376}
   ports:
     keys: []
     values: []
@@ -51,12 +51,12 @@ MonoBehaviour:
   m_Name: Play Still Vfx Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 200, y: 152}
+  position: {x: 200, y: 88}
   ports:
     keys: []
     values: []
   vfxName: CastSlash
-  duration: 0.2
+  duration: 0.3
   speed: 1
   rotation: {x: 0, y: 0, z: 0}
   needAwait: 1
@@ -76,10 +76,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -8450718794266351715}
-  - {fileID: 4191202690317033301}
+  - {fileID: 4676172478043513028}
   - {fileID: -1876451211169559470}
   - {fileID: -2827871320122464736}
---- !u!114 &4191202690317033301
+--- !u!114 &4676172478043513028
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,12 +88,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b13e540fdb7486aafb6ffb71fb10f73, type: 3}
-  m_Name: Delay Cmd
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 200, y: 72}
+  position: {x: 440, y: 168}
   ports:
     keys: []
     values: []
-  delay: 0.1
+  animName: Hurt
+  speed: 1
+  isSource: 0

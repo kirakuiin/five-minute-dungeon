@@ -79,4 +79,20 @@ namespace Data.Animation
         public float changeTime;
         public ModelChangeMode mode;
     }
+
+    /// <summary>
+    /// 动作名称定义。
+    /// </summary>
+    public static class AnimNameDefine
+    {
+         public static readonly string Lose = "Lose";
+         public static readonly string Win = "Win";
+         public static readonly string Idle = "Idle";
+         public static readonly string Hurt = "Hurt";
+         public static readonly string Cast = "Cast";
+         public static readonly string Dizzy = "Dizzy";
+         public static readonly string Attack = "Attack";
+         public static readonly string Jump = "Jump";
+         public static readonly string Sprint = "Sprint";
+    }
 }

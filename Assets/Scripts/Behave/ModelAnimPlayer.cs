@@ -37,81 +37,15 @@ namespace Behave
             _delegate = obj.GetComponent<IModelAnimPlayer>();
         }
 
-        public void PlayWin()
+        public void PlayAnim(string animName, float speed)
         {
-            PlayWinRpc();
+            PlayAnimRpc(animName, speed);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
-        private void PlayWinRpc()
+        private void PlayAnimRpc(string animName, float speed)
         {
-            _delegate.PlayWin();
-        }
-
-        public void PlayLose()
-        {
-            PlayLoseRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayLoseRpc()
-        {
-            _delegate.PlayLose();
-        }
-
-        public void PlayAttack()
-        {
-            PlayAttackRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayAttackRpc()
-        {
-            _delegate.PlayAttack();
-        }
-
-        public void PlayCastSkill()
-        {
-            PlayCastSkillRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayCastSkillRpc()
-        {
-            _delegate.PlayCastSkill();
-        }
-
-        public void PlayHurt()
-        {
-            PlayHurtRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayHurtRpc()
-        {
-            _delegate.PlayHurt();
-        }
-
-        public void PlayDizzy()
-        {
-            PlayDizzyRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayDizzyRpc()
-        {
-            _delegate.PlayDizzy();
-        }
-
-        public void PlayIdle()
-        {
-            PlayIdleRpc();
-        }
-        
-        [Rpc(SendTo.ClientsAndHost)]
-        private void PlayIdleRpc()
-        {
-            _delegate.PlayIdle();
+            _delegate.PlayAnim(animName, speed);
         }
 
         public void SetPlay(bool isPlay)

@@ -20,9 +20,30 @@ MonoBehaviour:
   vfxName: BuffRegeHand
   duration: 2
   speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &-2078885891065677743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 440, y: 168}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  speed: 1
+  isSource: 1
 --- !u!114 &-781325425353822858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,6 +64,7 @@ MonoBehaviour:
   vfxName: CastGolden
   duration: 1
   speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 0, z: 0}
@@ -61,3 +83,4 @@ MonoBehaviour:
   nodes:
   - {fileID: -4332392566528133836}
   - {fileID: -781325425353822858}
+  - {fileID: -2078885891065677743}

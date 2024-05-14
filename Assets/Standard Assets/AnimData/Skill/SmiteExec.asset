@@ -61,8 +61,29 @@ MonoBehaviour:
   - {fileID: -2359767962551396470}
   - {fileID: -4997585611784910815}
   - {fileID: 7880509673784484304}
+  - {fileID: 593964791219494642}
   - {fileID: 1078370445471199443}
   - {fileID: 6161602734515526251}
+--- !u!114 &593964791219494642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1528, y: 40}
+  ports:
+    keys: []
+    values: []
+  animName: Hurt
+  speed: 1
+  isSource: 0
 --- !u!114 &1078370445471199443
 MonoBehaviour:
   m_ObjectHideFlags: 0

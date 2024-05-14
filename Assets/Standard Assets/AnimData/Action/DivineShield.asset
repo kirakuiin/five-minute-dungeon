@@ -36,6 +36,7 @@ MonoBehaviour:
   vfxName: HitShield
   duration: 1
   speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -59,6 +60,7 @@ MonoBehaviour:
   vfxName: BuffRegeHand
   duration: 2
   speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -82,6 +84,7 @@ MonoBehaviour:
   vfxName: CastGolden
   duration: 1
   speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 0, z: 0}

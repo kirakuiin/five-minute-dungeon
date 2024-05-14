@@ -58,6 +58,7 @@ namespace UI.Model
             _disposableGroup.Add(state.GameplayState.Subscribe(OnStateChanged));
             LevelInfo.OnEnemyDestroyed += OnEnemyDestroyed;
             LevelInfo.OnEnemyAdded += OnEnemyAdded;
+            LevelInfo.OnResourceAdded += OnResAdded;
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
         }
 
@@ -117,6 +118,11 @@ namespace UI.Model
         private void OnEnemyAdded(EnemyChangeEvent @event)
         {
             SetMonsterModel(@event.enemyID, @event.enemyCard);
+        }
+
+        private void OnResAdded(Resource res, int num)
+        {
+            EnemiesModel.Apply(model => model.GetComponent<IModelAnimPlayer>().PlayHurt());
         }
         
         private void OnEnemyDestroyed(EnemyChangeEvent @event)

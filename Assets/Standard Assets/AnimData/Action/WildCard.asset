@@ -44,7 +44,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   resList: 05000000
-  color: {r: 0.4127431, g: 4, b: 0, a: 1}
+  color: {r: 4, g: 4, b: 4, a: 1}
   subColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-3874822877698914526
 MonoBehaviour:
@@ -89,9 +89,29 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  laserColor: {r: 0.4127431, g: 4, b: 0, a: 1}
+  laserColor: {r: 4, g: 4, b: 4, a: 1}
   subColor: {r: 0, g: 0, b: 0, a: 0}
   duration: 0.4
+--- !u!114 &-1449191728461318189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 344, y: 184}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  speed: 1
+  isSource: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +127,4 @@ MonoBehaviour:
   nodes:
   - {fileID: -4092270981607719396}
   - {fileID: -3874822877698914526}
+  - {fileID: -1449191728461318189}

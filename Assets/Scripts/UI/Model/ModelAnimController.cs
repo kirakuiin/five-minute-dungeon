@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Data.Animation;
 using DG.Tweening;
 using GameLib.Common.Extension;
@@ -18,48 +19,11 @@ namespace UI.Model
         private Vector3? originPos;
 
         private Vector3? originLocalRot;
-        
-        private static readonly int Lose = Animator.StringToHash("Lose");
-        private static readonly int Win = Animator.StringToHash("Win");
-        private static readonly int Idle = Animator.StringToHash("Idle");
-        private static readonly int Hurt = Animator.StringToHash("Hurt");
-        private static readonly int Cast = Animator.StringToHash("Cast");
-        private static readonly int Dizzy = Animator.StringToHash("Dizzy");
-        private static readonly int Attack = Animator.StringToHash("Attack");
 
-        public void PlayWin()
+        public void PlayAnim(string animName, float speed)
         {
-            animators.Apply(animator => animator.SetTrigger(Win));
-        }
-
-        public void PlayLose()
-        {
-            animators.Apply(animator => animator.SetTrigger(Lose));
-        }
-
-        public void PlayAttack()
-        {
-            animators.Apply(animator => animator.SetTrigger(Attack));
-        }
-
-        public void PlayCastSkill()
-        {
-            animators.Apply(animator => animator.SetTrigger(Cast));
-        }
-
-        public void PlayHurt()
-        {
-            animators.Apply(animator => animator.SetTrigger(Hurt));
-        }
-
-        public void PlayDizzy()
-        {
-            animators.Apply(animator => animator.SetTrigger(Dizzy));
-        }
-
-        public void PlayIdle()
-        {
-            animators.Apply(animator => animator.SetTrigger(Idle));
+            animators.Apply(animator => animator.SetTrigger(Animator.StringToHash(animName)));
+            animators.Apply(animator => animator.speed = speed);
         }
 
         public void SetPlay(bool isPlay)
@@ -86,10 +50,18 @@ namespace UI.Model
 
         public void ChangeBack()
         {
-            if (originPos != null && originLocalRot != null)
+            StartCoroutine(ChangeBackCoroutine());
+        }
+
+        private IEnumerator ChangeBackCoroutine()
+        {
+            if (originPos == null || originLocalRot == null) yield break;
+            var rot = Quaternion.Euler(originLocalRot.Value);
+            while (body.position != originPos.Value || body.localRotation != rot)
             {
                 body.position = originPos.Value;
                 body.localRotation = Quaternion.Euler(originLocalRot.Value);
+                yield return null;
             }
         }
     }

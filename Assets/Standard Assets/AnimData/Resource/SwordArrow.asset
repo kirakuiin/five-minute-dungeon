@@ -92,6 +92,25 @@ MonoBehaviour:
   laserColor: {r: 4, g: 0, b: 0, a: 1}
   subColor: {r: 0.4127431, g: 4, b: 0, a: 1}
   duration: 0.4
+--- !u!114 &-3351219006903132129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 214.46188, y: 258.38718}
+  ports:
+    keys: []
+    values: []
+  animName: Attack
+  isSource: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,3 +126,4 @@ MonoBehaviour:
   nodes:
   - {fileID: -4092270981607719396}
   - {fileID: -3874822877698914526}
+  - {fileID: -3351219006903132129}

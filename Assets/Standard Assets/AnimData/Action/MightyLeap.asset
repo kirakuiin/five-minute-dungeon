@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Play Still Vfx Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 568, y: 136}
+  position: {x: 584, y: 120}
   ports:
     keys: []
     values: []
@@ -37,14 +37,34 @@ MonoBehaviour:
   m_Name: Change Player Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 312, y: -88}
+  position: {x: 296, y: -104}
   ports:
     keys: []
     values: []
-  offset: {x: 0, y: 12, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   localRotation: {x: 0, y: 0, z: 0}
-  changeMode: 0
-  changeTime: 0.2
+  changeMode: 1
+  changeTime: 0.4
+--- !u!114 &-5044298010178635726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 344, y: 408}
+  ports:
+    keys: []
+    values: []
+  animName: Idle
+  speed: 1
+  isSource: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,10 +78,11 @@ MonoBehaviour:
   m_Name: MightyLeap
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 2760213014088907116}
   - {fileID: -7192930408677368807}
-  - {fileID: 2348045760874025040}
   - {fileID: -8078549891868494114}
   - {fileID: 1528478117232016221}
+  - {fileID: -5044298010178635726}
 --- !u!114 &1528478117232016221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +100,7 @@ MonoBehaviour:
   ports:
     keys: []
     values: []
---- !u!114 &2348045760874025040
+--- !u!114 &2760213014088907116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,15 +109,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c6b27629454e899a2180d30f813fa7, type: 3}
-  m_Name: Change Player Cmd
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 312, y: 72}
+  position: {x: 536, y: -56}
   ports:
     keys: []
     values: []
-  offset: {x: 0, y: 0, z: 0}
-  localRotation: {x: 0, y: 0, z: 0}
-  changeMode: 1
-  changeTime: 0.4
+  animName: Jump
+  speed: 2.5
+  isSource: 1

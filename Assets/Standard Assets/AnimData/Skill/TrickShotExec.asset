@@ -19,8 +19,8 @@ MonoBehaviour:
     values: []
   vfxName: HitSoul
   duration: 1.5
-  speed: 2
-  rotation: {x: 0, y: 0, z: 0}
+  speed: 3
+  rotation: {x: -90, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -37,9 +37,51 @@ MonoBehaviour:
   m_Name: TrickShotExec
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 126950845129448082}
   - {fileID: 7595791655829695717}
+  - {fileID: 6276154855318336867}
   - {fileID: -5377974825321845139}
   - {fileID: 8770606678545870288}
+--- !u!114 &126950845129448082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1128, y: 296}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  speed: 1
+  isSource: 1
+--- !u!114 &6276154855318336867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1128, y: 408}
+  ports:
+    keys: []
+    values: []
+  animName: Hurt
+  speed: 1
+  isSource: 0
 --- !u!114 &7595791655829695717
 MonoBehaviour:
   m_ObjectHideFlags: 0

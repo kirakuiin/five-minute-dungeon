@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using GameLib.UI;
 using Popup;
 using UI.Common;

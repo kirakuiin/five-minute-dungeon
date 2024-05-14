@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6430941947734297615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b13e540fdb7486aafb6ffb71fb10f73, type: 3}
+  m_Name: Delay Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 616, y: 184}
+  ports:
+    keys: []
+    values: []
+  delay: 0.2
 --- !u!114 &-1912809154469623636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19,6 +37,8 @@ MonoBehaviour:
     values: []
   vfxName: HitMagic
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 1, z: 0}
@@ -41,6 +61,8 @@ MonoBehaviour:
     values: []
   vfxName: CastStar
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 1, z: 0}
@@ -57,5 +79,26 @@ MonoBehaviour:
   m_Name: Cancel
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 6626754530293902772}
   - {fileID: -640166084558599511}
   - {fileID: -1912809154469623636}
+  - {fileID: -6430941947734297615}
+--- !u!114 &6626754530293902772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 600, y: 56}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  isSource: 1

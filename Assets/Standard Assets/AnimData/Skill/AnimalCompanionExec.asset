@@ -88,3 +88,24 @@ MonoBehaviour:
   - {fileID: -3208132027321450005}
   - {fileID: -1830850608653027626}
   - {fileID: -7789769161601957044}
+  - {fileID: 9009753894329184128}
+--- !u!114 &9009753894329184128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1128, y: 152}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  speed: 1
+  isSource: 1

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MagicBomb
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 6214331899822834448}
   - {fileID: 2306221709808857950}
   - {fileID: 2033042654033416608}
 --- !u!114 &2033042654033416608
@@ -63,3 +64,23 @@ MonoBehaviour:
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 1, z: 0}
+--- !u!114 &6214331899822834448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceabc5e7a71c492094528cf67c0ea9db, type: 3}
+  m_Name: Play Anim Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 984, y: 88}
+  ports:
+    keys: []
+    values: []
+  animName: Cast
+  speed: 1
+  isSource: 1
