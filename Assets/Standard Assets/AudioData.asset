@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d40b22e6ca4eeeb28e2eec02decfec, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  config:
+  - name: Laser
+    info:
+      clip:
+      - {fileID: 8300000, guid: 8fd3611b054b77745b2c3621f395cf3a, type: 3}
+  - name: CastFire
+    info:
+      clip:
+      - {fileID: 8300000, guid: 1452b819efbc20d49a640325357701e2, type: 3}
+  - name: SmallExplosion
+    info:
+      clip:
+      - {fileID: 8300000, guid: 9b988f90b186f404aa5c5aa1ced3b9f5, type: 3}
+  - name: Huntress
+    info:
+      clip:
+      - {fileID: 8300000, guid: 6e16577d38fe684489e882e811dfa2c9, type: 3}
+      - {fileID: 8300000, guid: 075a497f73d2b3a42b72c8a2a04ff115, type: 3}
+      - {fileID: 8300000, guid: 98d8b98e8f4dddb4ca32efbf736cc76f, type: 3}

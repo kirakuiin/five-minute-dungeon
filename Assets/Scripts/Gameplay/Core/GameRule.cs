@@ -16,7 +16,7 @@
             {
                 case 1:
                 case 2:
-                    return 5;
+                    return 7;
                 case 3:
                     return 4;
                 default:
