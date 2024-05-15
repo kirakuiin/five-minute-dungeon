@@ -1,4 +1,5 @@
-﻿using Data.Animation;
+﻿using System;
+using Data.Animation;
 using UnityEngine;
 
 namespace Behave
@@ -14,6 +15,8 @@ namespace Behave
 
         [SerializeField] private VfxPlayer vfxPlayer;
 
+        [SerializeField] private AudioEffectPlayer audioPlayer;
+
         public IModelAnimPlayer GetModelPlayer(AnimTarget target)
         {
             modelPlayer.SetAnimTarget(target);
@@ -28,6 +31,11 @@ namespace Behave
         public IVfxPlayer GetVfxPlayer()
         {
             return vfxPlayer;
+        }
+
+        public IAudioEffectPlayer GetAudioPlayer()
+        {
+            return audioPlayer;
         }
     }
 }

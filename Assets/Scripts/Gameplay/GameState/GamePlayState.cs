@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using Common;
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
@@ -93,6 +94,16 @@ namespace Gameplay.GameState
             service.StartService();
             current = GamePlayStateMsg.Create(GamePlayStateEnum.Running);
             GameplayState.Publish(current);
+        }
+
+        protected override void Enter()
+        {
+            ChangeBgMusic();
+        }
+
+        private void ChangeBgMusic()
+        {
+            BgMusicPlayer.Instance.PlayBattle();
         }
 
         protected override void Exit()

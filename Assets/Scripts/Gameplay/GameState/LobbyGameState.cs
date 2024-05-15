@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Audio;
 using Common;
 using GameLib.Common;
 using GameLib.Common.Behaviour;
@@ -24,6 +25,12 @@ namespace Gameplay.GameState
         protected override void Enter()
         {
             InitEvent();
+            ChangeBgMusic();
+        }
+
+        private void ChangeBgMusic()
+        {
+            BgMusicPlayer.Instance.PlayMainUI();
         }
 
         private void InitEvent()
@@ -61,10 +68,6 @@ namespace Gameplay.GameState
         public void ResetProgress()
         {
             GameProgress.Instance.Reset();
-        }
-
-        protected override void Exit()
-        {
         }
     }
 }

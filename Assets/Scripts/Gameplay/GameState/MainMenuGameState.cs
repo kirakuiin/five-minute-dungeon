@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using GameLib.Common;
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO.Channel;
@@ -66,6 +67,12 @@ namespace Gameplay.GameState
         {
             var subscriber = ServiceLocator.Instance.Get<ISubscriber<ConnectStatus>>();
             _disposableGroup.Add(subscriber.Subscribe(OnConnectStatus));
+            ChangeBgMusic();
+        }
+
+        private void ChangeBgMusic()
+        {
+            BgMusicPlayer.Instance.PlayMainUI();
         }
 
         protected override void Exit()

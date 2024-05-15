@@ -101,4 +101,5 @@ MonoBehaviour:
     keys: []
     values: []
   animName: Cast
+  speed: 1
   isSource: 1

@@ -26,6 +26,12 @@ namespace Data.Animation
         /// </summary>
         /// <returns></returns>
         public IVfxPlayer GetVfxPlayer();
+
+        /// <summary>
+        /// 获得音效播放器。
+        /// </summary>
+        /// <returns></returns>
+        public IAudioEffectPlayer GetAudioPlayer();
     }
 
     /// <summary>
@@ -156,5 +162,24 @@ namespace Data.Animation
         /// <param name="clsType"></param>
         /// <returns></returns>
         public Task PlayDissolveClass(Class clsType);
+    }
+
+    /// <summary>
+    /// 音效播放器。
+    /// </summary>
+    public interface IAudioEffectPlayer
+    {
+        /// <summary>
+        /// 播放全局音效。
+        /// </summary>
+        /// <param name="param"></param>
+        public void PlayGlobal(AudioParam param);
+
+        /// <summary>
+        /// 在某个目标处播放音效。
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="param"></param>
+        public void PlayOnTarget(AnimTarget target, AudioParam param);
     }
 }

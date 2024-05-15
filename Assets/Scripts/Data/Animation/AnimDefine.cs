@@ -80,6 +80,13 @@ namespace Data.Animation
         public ModelChangeMode mode;
     }
 
+    [Serializable]
+    public struct AudioParam : INetworkSerializeByMemcpy
+    {
+        public string clipName;
+        public float volume;
+    }
+
     /// <summary>
     /// 动作名称定义。
     /// </summary>
@@ -94,5 +101,12 @@ namespace Data.Animation
          public static readonly string Attack = "Attack";
          public static readonly string Jump = "Jump";
          public static readonly string Sprint = "Sprint";
+    }
+
+    /// <summary>
+    /// 音效名称定义。
+    /// </summary>
+    public static class AudioEffectDefine
+    {
     }
 }

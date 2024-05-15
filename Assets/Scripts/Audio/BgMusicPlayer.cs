@@ -18,9 +18,13 @@ namespace Audio
         [SerializeField]
         private AudioClip battleClip;
         
-        [Tooltip("boss战斗背景音乐")]
+        [Tooltip("胜利背景音乐")]
         [SerializeField]
-        private AudioClip bossClip;
+        private AudioClip postWinClip;
+        
+        [Tooltip("失败背景音乐")]
+        [SerializeField]
+        private AudioClip postLostClip;
 
         [Tooltip("音乐播放器")]
         [SerializeField]
@@ -45,9 +49,9 @@ namespace Audio
         /// <summary>
         /// 播放boss背景音乐。
         /// </summary>
-        public void PlayBoss()
+        public void PlayPost(bool isWin)
         {
-            player.PlayTrack(bossClip, true);
+            player.PlayTrack(isWin ? postWinClip : postLostClip, true);
         }
     }
 }

@@ -29,9 +29,11 @@ namespace Data
 
         private VfxData _vfxData;
 
+        private AudioData _audioData;
+
         private int _initNum;
 
-        private const int NeedInitNum = 9;
+        private const int NeedInitNum = 10;
 
         protected override void OnInitialized()
         {
@@ -89,6 +91,13 @@ namespace Data
                 {
                     _vfxData = handle.Result;
                     Debug.Log("vfx加载完毕。");
+                    _initNum += 1;
+                };
+            Addressables.LoadAssetAsync<AudioData>("AudioData").Completed
+                += handle =>
+                {
+                    _audioData = handle.Result;
+                    Debug.Log("audio加载完毕。");
                     _initNum += 1;
                 };
         }
@@ -262,6 +271,11 @@ namespace Data
         public VfxInfo GetVfxData(string name)
         {
             return _vfxData.Get(name);
+        }
+
+        public AudioInfo GetAudioData(string name)
+        {
+            return _audioData.Get(name);
         }
     }
 }

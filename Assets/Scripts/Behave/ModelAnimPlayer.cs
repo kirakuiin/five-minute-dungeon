@@ -1,4 +1,5 @@
-﻿using Data.Animation;
+﻿using System.Threading.Tasks;
+using Data.Animation;
 using UI.Model;
 using Unity.Netcode;
 using UnityEngine;
@@ -79,6 +80,14 @@ namespace Behave
         private void MoveBackRpc()
         {
             _delegate.ChangeBack();
+        }
+
+        public void PlayGlobal(AudioParam param)
+        {
+        }
+
+        public void PlayOnTarget(AnimTarget target, AudioParam param)
+        {
         }
     }
 }

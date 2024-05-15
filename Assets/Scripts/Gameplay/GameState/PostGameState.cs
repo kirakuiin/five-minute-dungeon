@@ -1,8 +1,10 @@
-﻿using Common;
+﻿using Audio;
+using Common;
 using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
 using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Data;
+using Gameplay.Progress;
 
 namespace Gameplay.GameState
 {
@@ -30,5 +32,16 @@ namespace Gameplay.GameState
             SessionManager<PlayerSessionData>.Instance.StartSession();
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.GamePlay);
         }
+
+        protected override void Enter()
+        {
+            ChangeBgMusic();
+        }
+
+        private void ChangeBgMusic()
+        {
+            BgMusicPlayer.Instance.PlayPost(GameProgress.Instance.ChallengeResult.isWin);
+        }
+
     }
 }
