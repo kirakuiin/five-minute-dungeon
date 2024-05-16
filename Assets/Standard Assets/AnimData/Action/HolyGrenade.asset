@@ -37,9 +37,11 @@ MonoBehaviour:
   m_Name: HolyGrenade
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 2855451070873918675}
   - {fileID: 410711503407689468}
   - {fileID: 3234990477137351575}
   - {fileID: -2187245944332267726}
+  - {fileID: 1083768565126930908}
 --- !u!114 &410711503407689468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +60,50 @@ MonoBehaviour:
     keys: []
     values: []
   animName: Cast
+  speed: 1
   isSource: 1
+--- !u!114 &1083768565126930908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 552, y: 296}
+  ports:
+    keys: []
+    values: []
+  clipName: SmallExplosion
+  volume: 2
+  isOnSource: 0
+  isGlobal: 1
+--- !u!114 &2855451070873918675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 312, y: 344}
+  ports:
+    keys: []
+    values: []
+  clipName: Falling
+  volume: 2
+  isOnSource: 0
+  isGlobal: 0
 --- !u!114 &3234990477137351575
 MonoBehaviour:
   m_ObjectHideFlags: 0

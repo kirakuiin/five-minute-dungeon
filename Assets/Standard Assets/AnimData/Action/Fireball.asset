@@ -42,9 +42,9 @@ MonoBehaviour:
     keys: []
     values: []
   clipName: SmallExplosion
-  volume: 1
-  isOnSource: 1
-  isGlobal: 0
+  volume: 2
+  isOnSource: 0
+  isGlobal: 1
 --- !u!114 &-1851264813770609391
 MonoBehaviour:
   m_ObjectHideFlags: 0

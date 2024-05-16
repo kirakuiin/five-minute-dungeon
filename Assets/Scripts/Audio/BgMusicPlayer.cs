@@ -1,5 +1,4 @@
-﻿using GameLib.Audio;
-using UnityEngine;
+﻿using UnityEngine;
 using GameLib.Common;
 
 namespace Audio
@@ -7,7 +6,7 @@ namespace Audio
     /// <summary>
     /// 背景音乐播放器。
     /// </summary>
-    [RequireComponent(typeof(MusicPlayer))]
+    [RequireComponent(typeof(AudioSource))]
     public class BgMusicPlayer : PersistentMonoSingleton<BgMusicPlayer>
     {
         [Tooltip("主界面背景音乐")]
@@ -26,16 +25,19 @@ namespace Audio
         [SerializeField]
         private AudioClip postLostClip;
 
-        [Tooltip("音乐播放器")]
-        [SerializeField]
-        private MusicPlayer player;
+        private AudioSource _audioSource;
+
+        protected override void OnInitialized()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
 
         /// <summary>
         /// 播放主界面音乐。
         /// </summary>
         public void PlayMainUI()
         {
-            player.PlayTrack(mainUIClip, true);
+            Play(mainUIClip);
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace Audio
         /// </summary>
         public void PlayBattle()
         {
-            player.PlayTrack(battleClip, true);
+            Play(battleClip);
         }
 
         /// <summary>
@@ -51,7 +53,28 @@ namespace Audio
         /// </summary>
         public void PlayPost(bool isWin)
         {
-            player.PlayTrack(isWin ? postWinClip : postLostClip, true);
+            Play(isWin ? postWinClip : postLostClip);
+        }
+
+        private void Play(AudioClip clip)
+        {
+            if (_audioSource.isPlaying)
+            {
+                if (_audioSource.clip == clip) return;
+                _audioSource.Stop();
+                _audioSource.time = 0;
+            }
+            _audioSource.clip = clip;
+            _audioSource.loop = true;
+            _audioSource.Play();
+        }
+
+        /// <summary>
+        /// 停止播放音乐。
+        /// </summary>
+        public void Pause()
+        {
+            _audioSource.Pause();
         }
     }
 }

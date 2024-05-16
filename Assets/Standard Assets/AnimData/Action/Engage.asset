@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7259976172343405263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 200, y: 376}
+  ports:
+    keys: []
+    values: []
+  clipName: CastCry
+  volume: 3
+  isOnSource: 1
+  isGlobal: 0
 --- !u!114 &-4332392566528133836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,3 +105,4 @@ MonoBehaviour:
   - {fileID: -4332392566528133836}
   - {fileID: -781325425353822858}
   - {fileID: -2078885891065677743}
+  - {fileID: -7259976172343405263}

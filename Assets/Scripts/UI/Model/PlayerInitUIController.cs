@@ -27,7 +27,11 @@ namespace UI.Model
 
         [SerializeField] private Image hpBar;
 
+        [SerializeField] private GameObject dizzy;
+
         private IPlayerRuntimeInfo _info;
+
+        private bool isDizzy;
         
         public override void Init()
         {
@@ -66,13 +70,16 @@ namespace UI.Model
         
         private void RefreshModelAnim()
         {
-            if (_info.GetHands().Count == 0)
+            if (_info.GetHands().Count == 0 && _info.GetDraws().Count == 0)
             {
                 StartCoroutine(ChangeModelCoroutine(AnimNameDefine.Dizzy));
             }
             else
             {
-                StartCoroutine(ChangeModelCoroutine(AnimNameDefine.Idle));
+                if (isDizzy)
+                {
+                    StartCoroutine(ChangeModelCoroutine(AnimNameDefine.Idle));
+                }
             }
         }
 
@@ -80,6 +87,8 @@ namespace UI.Model
         {
             yield return new WaitForSeconds(0.4f);
             GetComponent<IModelAnimPlayer>().PlayAnim(stateName);
+            isDizzy = stateName == AnimNameDefine.Dizzy;
+            dizzy.SetActive(isDizzy);
         }
 
         private void LateUpdate()

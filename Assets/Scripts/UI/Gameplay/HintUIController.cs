@@ -18,7 +18,7 @@ namespace UI.Gameplay
         private Transform _parent;
 
         private GameObject hintObj;
-        
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             hintObj = GameObjectPool.Instance.Get(hintPrefab);
@@ -31,14 +31,20 @@ namespace UI.Gameplay
             }
 
             hintUI.CallAfterSeconds(continueTime,
-                obj => GameObjectPool.Instance.ReturnWithReParent(obj, hintPrefab));
-        }
+                obj =>
+                {
+                    if (obj.activeSelf)
+                    {
+                        GameObjectPool.Instance.ReturnWithReParent(obj, hintPrefab);
+                    }
+                }
+            );
+    }
 
         private void CloseHint()
         {
-            if (hintObj is null) return;
+            if (!hintObj.activeSelf) return;
             GameObjectPool.Instance.ReturnWithReParent(hintObj, hintPrefab);
-            hintObj = null;
         }
 
         public void OnPointerExit(PointerEventData eventData)

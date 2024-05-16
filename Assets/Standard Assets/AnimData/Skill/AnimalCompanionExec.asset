@@ -72,6 +72,27 @@ MonoBehaviour:
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &-1720279017448017187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 760, y: 328}
+  ports:
+    keys: []
+    values: []
+  clipName: CastRoar
+  volume: 1
+  isOnSource: 1
+  isGlobal: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +110,7 @@ MonoBehaviour:
   - {fileID: -1830850608653027626}
   - {fileID: -7789769161601957044}
   - {fileID: 9009753894329184128}
+  - {fileID: -1720279017448017187}
 --- !u!114 &9009753894329184128
 MonoBehaviour:
   m_ObjectHideFlags: 0

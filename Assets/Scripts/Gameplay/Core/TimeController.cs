@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using Data.Check;
 using Data.Instruction;
 using Unity.Mathematics;
@@ -59,6 +60,7 @@ namespace Gameplay.Core
         private void StopRpc()
         {
             OnTimeIsFlow?.Invoke(false);
+            BgMusicPlayer.Instance.Pause();
         }
 
         public void Continue()
@@ -71,6 +73,7 @@ namespace Gameplay.Core
         private void ContinueRpc()
         {
             OnTimeIsFlow?.Invoke(true);
+            BgMusicPlayer.Instance.PlayBattle();
         }
 
         public int RemainTime => _timeValue.Value;

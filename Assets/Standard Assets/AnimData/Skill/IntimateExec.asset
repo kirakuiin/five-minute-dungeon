@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: IntimateExec
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 4256567354789106489}
   - {fileID: -6868612621389774078}
   - {fileID: -1546168983613135982}
   - {fileID: 7944980681483810704}
@@ -81,6 +82,27 @@ MonoBehaviour:
   needAwait: 1
   targetType: 1
   offset: {x: 0, y: 1.5, z: 0}
+--- !u!114 &4256567354789106489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1396.9585, y: 363.9272}
+  ports:
+    keys: []
+    values: []
+  clipName: Die
+  volume: 1
+  isOnSource: 1
+  isGlobal: 0
 --- !u!114 &7944980681483810704
 MonoBehaviour:
   m_ObjectHideFlags: 0

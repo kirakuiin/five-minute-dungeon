@@ -81,10 +81,16 @@ namespace Data.Animation
     }
 
     [Serializable]
-    public struct AudioParam : INetworkSerializeByMemcpy
+    public struct AudioParam : INetworkSerializable
     {
         public string clipName;
         public float volume;
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref clipName);
+            serializer.SerializeValue(ref volume);
+        }
     }
 
     /// <summary>

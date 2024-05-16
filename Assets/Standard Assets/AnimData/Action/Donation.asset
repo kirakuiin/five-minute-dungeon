@@ -19,6 +19,8 @@ MonoBehaviour:
     values: []
   vfxName: BuffRegeHand
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 1
   offset: {x: 0, y: 0, z: 0}
@@ -40,6 +42,30 @@ MonoBehaviour:
     keys: []
     values: []
   offset: {x: -0.5, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0}
+  changeMode: 0
+  changeTime: 0
+--- !u!114 &-1366903013571496872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 808, y: 424}
+  ports:
+    keys: []
+    values: []
+  clipName: Effect
+  volume: 1
+  isOnSource: 0
+  isGlobal: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +84,7 @@ MonoBehaviour:
   - {fileID: 6638964952762801281}
   - {fileID: 3066420441867398157}
   - {fileID: -3932703483461802766}
+  - {fileID: -1366903013571496872}
 --- !u!114 &3066420441867398157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +104,8 @@ MonoBehaviour:
     values: []
   vfxName: BuffDiscard
   duration: 1
+  speed: 1
+  rotation: {x: 0, y: 0, z: 0}
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 0, z: 0}
@@ -93,7 +122,7 @@ MonoBehaviour:
   m_Name: Move Player Back Cmd
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 344, y: 536}
+  position: {x: 344, y: 568}
   ports:
     keys: []
     values: []

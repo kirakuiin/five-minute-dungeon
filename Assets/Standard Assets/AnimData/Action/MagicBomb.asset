@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2047026577003692885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1032, y: 248}
+  ports:
+    keys: []
+    values: []
+  clipName: SmallExplosion
+  volume: 1
+  isOnSource: 1
+  isGlobal: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,6 +37,7 @@ MonoBehaviour:
   - {fileID: 6214331899822834448}
   - {fileID: 2306221709808857950}
   - {fileID: 2033042654033416608}
+  - {fileID: -2047026577003692885}
 --- !u!114 &2033042654033416608
 MonoBehaviour:
   m_ObjectHideFlags: 0

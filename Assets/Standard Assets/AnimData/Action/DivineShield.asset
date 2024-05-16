@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: 1691554416097116151}
   - {fileID: 973953468220005792}
   - {fileID: 6440949446969365551}
+  - {fileID: 7798194317464184104}
 --- !u!114 &973953468220005792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,3 +89,24 @@ MonoBehaviour:
   needAwait: 0
   targetType: 0
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &7798194317464184104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e417252b2dc24f638a0e64b7643b20ba, type: 3}
+  m_Name: Play Audio Cmd
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 650.5036, y: 531.7763}
+  ports:
+    keys: []
+    values: []
+  clipName: Effect
+  volume: 1
+  isOnSource: 0
+  isGlobal: 1

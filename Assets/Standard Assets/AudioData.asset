@@ -17,17 +17,69 @@ MonoBehaviour:
     info:
       clip:
       - {fileID: 8300000, guid: 8fd3611b054b77745b2c3621f395cf3a, type: 3}
-  - name: CastFire
+  - name: CastProj
     info:
       clip:
       - {fileID: 8300000, guid: 1452b819efbc20d49a640325357701e2, type: 3}
   - name: SmallExplosion
     info:
       clip:
-      - {fileID: 8300000, guid: 9b988f90b186f404aa5c5aa1ced3b9f5, type: 3}
-  - name: Huntress
+      - {fileID: 8300000, guid: 98fbd7bc48dd18a45b6f1db5a2429e1f, type: 3}
+  - name: Timestop
     info:
       clip:
-      - {fileID: 8300000, guid: 6e16577d38fe684489e882e811dfa2c9, type: 3}
-      - {fileID: 8300000, guid: 075a497f73d2b3a42b72c8a2a04ff115, type: 3}
-      - {fileID: 8300000, guid: 98d8b98e8f4dddb4ca32efbf736cc76f, type: 3}
+      - {fileID: 8300000, guid: ca9b7dd690cd0c04594fcbc305ae9dc2, type: 3}
+  - name: Smite
+    info:
+      clip:
+      - {fileID: 8300000, guid: c076f995eaef68846bd1916882a2b0bd, type: 3}
+      - {fileID: 8300000, guid: 08e02edf6cea0b24387d80f32fd84ff2, type: 3}
+  - name: MiniHit
+    info:
+      clip:
+      - {fileID: 8300000, guid: 76d62012c8919db4c9ebffa9e5e52d71, type: 3}
+  - name: Swing
+    info:
+      clip:
+      - {fileID: 8300000, guid: 8d038cdc423a1304a89b1f801ad43495, type: 3}
+      - {fileID: 8300000, guid: b5755a21a5701624abcc5d19787a25cc, type: 3}
+  - name: CastCancel
+    info:
+      clip:
+      - {fileID: 8300000, guid: 8381957b99bfa274dbde565be670830c, type: 3}
+  - name: CastArrow
+    info:
+      clip:
+      - {fileID: 8300000, guid: 4166d440f02f76a4b937e984e768d7c3, type: 3}
+  - name: CastRoar
+    info:
+      clip:
+      - {fileID: 8300000, guid: 96a1c4bee9486104ab3b026b4d76c614, type: 3}
+  - name: CastCry
+    info:
+      clip:
+      - {fileID: 8300000, guid: 4b769f87bd5608c41bc2800fa6f35e81, type: 3}
+  - name: Falling
+    info:
+      clip:
+      - {fileID: 8300000, guid: 71fdf099738a7824dbf127d1a08f9e58, type: 3}
+  - name: Curse
+    info:
+      clip:
+      - {fileID: 8300000, guid: 98c18e2fed1ce4343912b4d35b44a10b, type: 3}
+  - name: Effect
+    info:
+      clip:
+      - {fileID: 8300000, guid: f15ad768c06bede41a52ddf7e127be7d, type: 3}
+  - name: Shuffle
+    info:
+      clip:
+      - {fileID: 8300000, guid: 9c441ed90c7d2c144b6774634b6f3a65, type: 3}
+  - name: Die
+    info:
+      clip:
+      - {fileID: 8300000, guid: 6ba5b1d78a9bc5a4e9ad47a4a3be15cd, type: 3}
+  - name: Teleport
+    info:
+      clip:
+      - {fileID: 8300000, guid: 7692c71ee2519ef4d869f49147e83d9a, type: 3}

@@ -18,7 +18,7 @@ MonoBehaviour:
     keys: []
     values: []
   clipName: Laser
-  volume: 1
+  volume: 0.7
   isOnSource: 1
   isGlobal: 0
 --- !u!114 &-4390464064382293470
