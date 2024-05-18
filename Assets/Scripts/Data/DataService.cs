@@ -172,10 +172,10 @@ namespace Data
         public IReadOnlyList<CardData> GetAllPlayerCard() => _playerCardData.Values.ToList();
         
         /// <summary>
-        /// 获取全部的玩家卡组数据。
+        /// 获取全部的boss数据。
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<DeckData> GetAllDeck() => _deckData.Values.ToList();
+        public IReadOnlyList<BossData> GetAllBossData() => _bossData.Values.ToList();
         
         /// <summary>
         /// 根据职业枚举获得职业数据。

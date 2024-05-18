@@ -141,3 +141,11 @@ MonoBehaviour:
     info:
       prefab: {fileID: 100002, guid: db50ab1c866680e4bb870bf5eb72dd3d, type: 3}
       isParticleSystem: 1
+  - name: Portal
+    info:
+      prefab: {fileID: 8310863492874371679, guid: d9d1b66e78110364ba2908b1ad64e773, type: 3}
+      isParticleSystem: 0
+  - name: Smog
+    info:
+      prefab: {fileID: 1280141305896002, guid: e473029e4c70ad543a6879b82a732f4f, type: 3}
+      isParticleSystem: 1

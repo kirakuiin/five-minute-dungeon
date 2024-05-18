@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Animation;
 using Data.Check;
+using DG.Tweening;
 using GameLib.Common;
 using GameLib.Common.Extension;
 using Gameplay.Core;
@@ -22,8 +24,9 @@ namespace UI.Model
         [SerializeField] private Transform bossPos;
 
         [SerializeField] private GamePlayState state;
-        
+
         private static readonly HashSet<int> AllIdx = new() {0, 1, 2};
+
         
         private readonly Dictionary<ulong, GameObject> _models = new();
 
@@ -90,16 +93,36 @@ namespace UI.Model
             if (enemyCard.IsBossCard())
             {
                 obj.transform.SetParent(bossPos, false);
+                StartCoroutine(PlayBossEnterAnim(obj));
             }
             else
             {
                 var idx = GetIdleIdx();
                 obj.transform.SetParent(posList[idx], false);
                 _occupiedIdx[enemyID] = idx;
+                PlayNormalEnterAnim(obj);
             }
-            obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
             obj.GetComponent<EnemyModel>().Init(enemyID, enemyCard);
+        }
+
+        private IEnumerator PlayBossEnterAnim(GameObject obj)
+        {
+            obj.transform.localPosition = new Vector3(0, 0, -10f);
+            var effect = Instantiate(DataService.Instance.GetVfxData("Portal").prefab, obj.transform.parent);
+            effect.transform.localPosition = new Vector3(0, 0, -3f);
+            yield return new WaitForSeconds(1.0f);
+            obj.transform.DOLocalMoveZ(0, 4).OnComplete(() => Destroy(effect));
+        }
+        
+        private void PlayNormalEnterAnim(GameObject obj)
+        {
+            obj.transform.position = new Vector3(10, 8, 0);
+            obj.transform.DOLocalMove(Vector3.zero, 0.2f).OnComplete(
+                () =>
+                {
+                    Instantiate(DataService.Instance.GetVfxData("Smog").prefab, obj.transform.parent);
+                });
         }
         
         private GameObject CreateMonsterModel(ulong enemyID, EnemyCard card)

@@ -82,8 +82,8 @@ MonoBehaviour:
   ports:
     keys: []
     values: []
-  clipName: CastFire
-  volume: 5
+  clipName: CastProj
+  volume: 3
   isOnSource: 1
   isGlobal: 0
 --- !u!114 &11400000

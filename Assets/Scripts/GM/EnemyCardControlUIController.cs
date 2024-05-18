@@ -113,6 +113,16 @@ namespace GM
                 CreateBtn($"{data.card}", new EnemyCard { type = data.enemyCardType, value = (int)data.card });
             }
         }
+        
+        public void OnSelectLevelBoss(bool isSelect)
+        {
+            if (!isSelect) return;
+            CleanScroll();
+            foreach (var data in DataService.Instance.GetAllBossData())
+            {
+                CreateBtn($"{data.boss}", new EnemyCard { type = EnemyCardType.Boss, value = (int)data.boss});
+            }
+        }
 
         public void CleanAllEnemy()
         {

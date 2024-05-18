@@ -1,16 +1,18 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace Test
 {
+    [ExecuteAlways]
     public class Test : MonoBehaviour
     {
-        [SerializeField] private TMP_Text progressText;
-    
-        [SerializeField] private TMP_Text enemyInfo;
+        [SerializeField] private MeshRenderer render;
+        private static readonly int Position = Shader.PropertyToID("_Position");
+        private static readonly int Forward = Shader.PropertyToID("_Forward");
 
-        [SerializeField] private Button btn;
+        private void Update()
+        {
+            render.sharedMaterial.SetVector(Position, transform.position);
+            render.sharedMaterial.SetVector(Forward, transform.up);
+        }
     }
 }
