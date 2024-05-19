@@ -3,6 +3,7 @@ using Data;
 using Data.Check;
 using Gameplay.Core;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ namespace UI.Gameplay
         [SerializeField] private PlayedResourcePoolUIController playedZone;
 
         [SerializeField] private CountdownUIController countdown;
+
+        [SerializeField] private GameObject continueBtn;
 
         private ILevelRuntimeInfo _levelInfo;
 
@@ -44,6 +47,15 @@ namespace UI.Gameplay
             progress.minValue = 0;
             _levelInfo.OnEnemyAdded += OnEnemyAdded;
             _levelInfo.OnEnemyDestroyed += OnEnemyDestroyed;
+            if (NetworkManager.Singleton.IsServer)
+            {
+                GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
+            }
+        }
+
+        private void OnTimeIsFlow(bool isFlow)
+        {
+            continueBtn.SetActive(!isFlow);
         }
 
         private void OnEnemyAdded(EnemyChangeEvent e)
@@ -84,6 +96,11 @@ namespace UI.Gameplay
 
             var str = content.ToString();
             enemyDesc.text = str.Length > 0 ? str.Substring(0, str.Length - 1) : "";
+        }
+        
+        public void ContinueTime()
+        {
+            GamePlayContext.Instance.GetTimeController().Continue();
         }
     }
 }

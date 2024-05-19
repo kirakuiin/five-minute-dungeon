@@ -28,8 +28,7 @@ namespace Behave
                 AnimTargetType.Player => playerModelController.GetModel(target.id),
                 _ => null,
             };
-            Assert.IsNotNull(obj, $"{target.type}不能为{AnimTargetType.Dungeon}");
-            return obj.transform.position;
+            return obj is null ? GetEnemyCenter() : obj.transform.position;
         }
 
         public Vector3 GetEnemyCenter()

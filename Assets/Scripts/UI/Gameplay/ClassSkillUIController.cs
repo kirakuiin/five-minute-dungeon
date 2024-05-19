@@ -96,7 +96,7 @@ namespace UI.Gameplay
         {
             skillIconUI.sprite = _classData.skillData.skillIcon;
             skillIconUI.color = _classData.classColor;
-            hint.hintText = $"释放<b>{_classData.skillData.skillName.ToRichText(_classData.classColor)}";
+            hint.hintText = $"{_classData.skillData.skillDesc.ToRichText(_classData.classColor)}";
         }
 
         public void CastSkill()

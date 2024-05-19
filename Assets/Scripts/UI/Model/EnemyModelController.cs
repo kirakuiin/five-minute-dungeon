@@ -46,7 +46,7 @@ namespace UI.Model
         /// <returns></returns>
         public GameObject GetModel(ulong id)
         {
-            return _models[id];
+            return _models.GetValueOrDefault(id);
         }
         
         private ILevelRuntimeInfo LevelInfo => GamePlayContext.Instance.GetLevelRuntimeInfo();
