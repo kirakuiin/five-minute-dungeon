@@ -1,8 +1,10 @@
-﻿using Common;
+﻿using System.Linq;
+using Common;
 using GameLib.Audio;
 using GameLib.Common;
 using Save;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Audio
 {
@@ -15,6 +17,9 @@ namespace Audio
         [Tooltip("混音配置器")]
         [SerializeField]
         private AudioMixerConfigurator configurator;
+
+        [SerializeField]
+        private AudioMixer mixer;
 
         private void Start()
         {
@@ -48,6 +53,15 @@ namespace Audio
         public void SetEffectVolume(float volume)
         {
             configurator.SetFloat(VolumeKey.Effect, volume);
+        }
+
+        /// <summary>
+        /// 获得音效组。
+        /// </summary>
+        /// <returns></returns>
+        public AudioMixerGroup GetEffectGroup()
+        {
+            return mixer.FindMatchingGroups("Master/Effect").First();
         }
     }
 }

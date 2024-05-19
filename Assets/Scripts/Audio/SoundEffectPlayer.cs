@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Linq;
+using Data;
 using Data.Animation;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ namespace Audio
     {
         private AudioSource _audio;
 
+        
         private void Awake()
         {
             _audio = GetComponent<AudioSource>();
+            _audio.outputAudioMixerGroup = VolumeConfigurator.Instance.GetEffectGroup();
         }
 
         /// <summary>
