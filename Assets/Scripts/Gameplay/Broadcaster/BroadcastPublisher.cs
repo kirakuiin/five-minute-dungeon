@@ -1,6 +1,8 @@
-﻿using Common;
+﻿using System;
+using Common;
 using GameLib.Network;
 using Gameplay.Data;
+using Save;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,15 +11,53 @@ namespace Gameplay.Broadcaster
     /// <summary>
     /// 广播发送者，发送主机信息。
     /// </summary>
-    public class BroadcastPublisher : NetworkBehaviour
+    public class BroadcastPublisher : MonoBehaviour
     {
         private readonly TimedBroadcaster<LobbyInfo> _timedBroadcaster = new();
 
         [SerializeField] private LobbyState currState;
 
-        public override void OnNetworkSpawn()
+        private bool isRegister;
+
+        private void Start()
         {
-            if (!NetworkManager.IsServer) return;
+            if (!NetworkManager.Singleton.IsServer) return;
+            isRegister = true;
+            if (currState == LobbyState.InGame)
+            {
+                InitInGame();
+            }
+            else
+            {
+                InitLobby();
+            }
+        }
+
+        private void InitInGame()
+        {
+            NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
+            BroadInGameInfo();
+        }
+
+        private void OnConnectionEvent(NetworkManager mgr, ConnectionEventData @event)
+        {
+            BroadInGameInfo();
+        }
+
+        private void BroadInGameInfo()
+        {
+            var lobbyName = PlayerSetting.Instance.LobbyName;
+            var playerCount = NetworkManager.Singleton.ConnectedClientsIds.Count;
+            BroadcastInfo(new LobbyInfo
+            {
+                lobbyName = lobbyName,
+                playerNum = playerCount,
+                state = currState
+            });
+        }
+
+        private void InitLobby()
+        {
             var data = LobbyInfoData.Instance;
             data.OnLobbyInfoChanged += OnLobbyInfoChanged;
             BroadcastInfo(new LobbyInfo()
@@ -39,11 +79,20 @@ namespace Gameplay.Broadcaster
             _timedBroadcaster.StartBroadcast(info);
         }
         
-        public override void OnNetworkDespawn()
+        private void OnDestroy()
         {
-            if (!NetworkManager.IsServer) return;
+            if (!isRegister) return;
             _timedBroadcaster.StopBroadcast();
-            LobbyInfoData.Instance.OnLobbyInfoChanged -= OnLobbyInfoChanged;
+            if (currState == LobbyState.InGame)
+            {
+                if (NetworkManager.Singleton is null) return;
+                NetworkManager.Singleton.OnConnectionEvent -= OnConnectionEvent;
+            }
+            else
+            {
+                if (LobbyInfoData.Instance is null) return;
+                LobbyInfoData.Instance.OnLobbyInfoChanged -= OnLobbyInfoChanged;
+            }
         }
     }
 }
