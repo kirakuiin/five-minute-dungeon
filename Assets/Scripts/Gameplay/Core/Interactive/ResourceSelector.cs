@@ -54,5 +54,11 @@ namespace Gameplay.Core.Interactive
         {
             OnResourceSelecting?.Invoke();
         }
+        
+        public override void OnNetworkDespawn()
+        {
+            _res = Resource.Arrow;
+            _isSelect = true;
+        }
     }
 }

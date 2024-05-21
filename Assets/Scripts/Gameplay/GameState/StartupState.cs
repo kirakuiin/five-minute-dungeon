@@ -36,7 +36,7 @@ namespace Gameplay.GameState
 
         private void InitPublisher()
         {
-            ServiceLocator.Instance.Register<IPublisher<ConnectStatus>>(new MessageChannel<ConnectStatus>());
+            ServiceLocator.Instance.Register<IPublisher<ConnectInfo>>(new MessageChannel<ConnectInfo>());
         }
 
         private void InitConnection()

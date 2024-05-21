@@ -59,8 +59,9 @@ namespace UI.Model
 
         private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
         {
-            if (data.EventType == ConnectionEvent.ClientDisconnected)
+            if (data.EventType == ConnectionEvent.ClientDisconnected && _models.ContainsKey(data.ClientId))
             {
+                Destroy(_models[data.ClientId]);
                 _models.Remove(data.ClientId);
             }
         }

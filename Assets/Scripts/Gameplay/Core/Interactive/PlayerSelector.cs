@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common;
 using Data.Check;
 using GameLib.Common.Extension;
 using Unity.Netcode;
@@ -58,6 +59,12 @@ namespace Gameplay.Core.Interactive
         private void GetSelectPlayerListClientRpc(int num, bool canSelectSelf)
         {
             OnPlayerSelecting?.Invoke(num, canSelectSelf);
+        }
+        
+        public override void OnNetworkDespawn()
+        {
+            _playerList = new List<ulong> { NetworkManager.ServerClientId };
+            _isSelect = true;
         }
     }
 }

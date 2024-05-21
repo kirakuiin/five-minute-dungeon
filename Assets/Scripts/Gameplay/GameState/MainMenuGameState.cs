@@ -1,4 +1,5 @@
-﻿using System;
+﻿// ReSharper disable once RedundantUsingDirective
+using UnityEngine;
 using Audio;
 using GameLib.Common;
 using GameLib.Common.Behaviour;
@@ -9,7 +10,6 @@ using GameLib.Network;
 using GameLib.Network.NGO;
 using Gameplay.Connection;
 using Popup;
-using UnityEngine;
 
 namespace Gameplay.GameState
 {
@@ -65,8 +65,8 @@ namespace Gameplay.GameState
 
         protected override void Enter()
         {
-            var subscriber = ServiceLocator.Instance.Get<ISubscriber<ConnectStatus>>();
-            _disposableGroup.Add(subscriber.Subscribe(OnConnectStatus));
+            var subscriber = ServiceLocator.Instance.Get<ISubscriber<ConnectInfo>>();
+            _disposableGroup.Add(subscriber.Subscribe(OnConnectInfo));
             ChangeBgMusic();
         }
 
@@ -80,30 +80,37 @@ namespace Gameplay.GameState
             _disposableGroup.Dispose();
         }
 
-        private void OnConnectStatus(ConnectStatus status)
+        private void OnConnectInfo(ConnectInfo info)
         {
             LockScreenManager.Instance.Unlock();
-            string info = "";
-            switch (status)
+            var msg = "";
+            switch (info.Status)
             {
                 case ConnectStatus.Success:
                     break;
+                case ConnectStatus.HostEndSession:
+                    msg = "主机已关闭。";
+                    break;
                 case ConnectStatus.StartClientFailed:
-                    info = "连接主机失败。";
+                    msg = "连接主机失败。";
                     break;
                 case ConnectStatus.ApprovalFailed:
-                    info = "密码错误。";
+                    msg = "密码错误。";
                     break;
                 case ConnectStatus.ServerFull:
-                    info = "服务器人满。";
+                    msg = "服务器人满。";
+                    break;
+                case ConnectStatus.UserDefined:
+                    msg = "仅游戏中断线玩家可以加入。";
                     break;
                 default:
-                    info = $"{status}";
+                    msg = $"{info}";
                     break;
             }
-            if (!String.IsNullOrEmpty(info))
+
+            if (!string.IsNullOrEmpty(msg))
             {
-                InformManager.Instance.CreateInform(info);
+                InformManager.Instance.CreateInform(msg);
             }
         }
     }

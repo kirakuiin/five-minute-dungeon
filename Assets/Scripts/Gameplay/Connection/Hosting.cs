@@ -1,5 +1,6 @@
 ﻿using Common;
 using GameLib.Common;
+using GameLib.Common.Behaviour;
 using GameLib.Network.NGO;
 using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Data;
@@ -34,17 +35,17 @@ namespace Gameplay.Connection
 
         protected override void SetResponse(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            var status = GetConnectStatus(request);
-            if (status == ConnectStatus.Success)
+            var info = GetConnectInfo(request);
+            if (info.Status == ConnectStatus.Success)
             {
-                response.Approved = true;
-                response.CreatePlayerObject = false;
                 RegisterPlayerSessionData(request);
+                response.CreatePlayerObject = false;
+                response.Approved = true;
             }
             else
             {
+                response.Reason = JsonUtility.ToJson(info);
                 response.Approved = false;
-                response.Reason = JsonUtility.ToJson(status);
             }
         }
 
@@ -58,23 +59,43 @@ namespace Gameplay.Connection
             Debug.Log($"保存玩家{payload.playerGuid}的会话数据。");
         }
 
-        protected override ConnectStatus GetConnectStatus(NetworkManager.ConnectionApprovalRequest request)
+        protected override ConnectInfo GetConnectInfo(NetworkManager.ConnectionApprovalRequest request)
         {
             var payload = SerializeTool.Deserialize<Protocol.ConnectionPayload>(request.Payload);
+            if (!IsInGame() && !IsInLobby())
+            {
+                return ConnectInfo.Create(ConnectStatus.HostEndSession);
+            }
             if (NetManager.ConnectedClientsIds.Count >= ConnManager.config.maxConnectedPlayerNum)
             {
-                return ConnectStatus.ServerFull;
+                return ConnectInfo.Create(ConnectStatus.ServerFull);
             }
             if (payload.password != PlayerSetting.Instance.LobbyPassword)
             {
-                return ConnectStatus.ApprovalFailed;
+                return ConnectInfo.Create(ConnectStatus.ApprovalFailed);
             }
             if (SessionManager<PlayerSessionData>.Instance.IsDuplicateConnection(payload.playerGuid))
             {
-                return ConnectStatus.LoggedInAgain;
+                return ConnectInfo.Create(ConnectStatus.LoggedInAgain);
+            }
+            if (IsInGame() && !SessionManager<PlayerSessionData>.Instance.IsReconnecting(payload.playerGuid))
+            {
+                return ConnectInfo.Create(ConnectStatus.UserDefined);
             }
             
-            return ConnectStatus.Success;
+            return ConnectInfo.Create(ConnectStatus.Success);
+        }
+
+        private bool IsInGame()
+        {
+            var state = Object.FindObjectOfType<GameStateBehaviour<GameState.GameState>>();
+            return state.State is GameState.GameState.InGame;
+        }
+        
+        private bool IsInLobby()
+        {
+            var state = Object.FindObjectOfType<GameStateBehaviour<GameState.GameState>>();
+            return state.State is GameState.GameState.Lobby;
         }
     }
 }

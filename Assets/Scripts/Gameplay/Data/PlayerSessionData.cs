@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
 using GameLib.Network.NGO;
 
 namespace Gameplay.Data
@@ -27,7 +28,13 @@ namespace Gameplay.Data
         /// <summary>
         /// 是否已经游玩过一局？
         /// </summary>
-        public bool HaveBeenPlayed { set; get; }
+        public bool HaveBeenPlayed { private set; get; }
+
+        public List<Card> HandData;
+
+        public List<Card> DrawData;
+
+        public List<Card> DiscardData;
         
         public void Reinitialize()
         {

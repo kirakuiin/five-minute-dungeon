@@ -74,5 +74,11 @@ namespace Gameplay.Core.Interactive
         {
             OnEnemySelecting?.Invoke(type);
         }
+
+        public override void OnNetworkDespawn()
+        {
+            _enemyID = Cancelable<ulong>.CreateCancel();
+            _isSelect = true;
+        }
     }
 }

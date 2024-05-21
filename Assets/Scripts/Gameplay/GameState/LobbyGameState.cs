@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Audio;
+﻿using Audio;
 using Common;
 using GameLib.Common;
 using GameLib.Common.Behaviour;
@@ -35,14 +34,14 @@ namespace Gameplay.GameState
 
         private void InitEvent()
         {
-            var sub = ServiceLocator.Instance.Get<ISubscriber<ConnectStatus>>();
-            _disposableGroup.Add(sub.Subscribe(OnConnectStatus));
+            var sub = ServiceLocator.Instance.Get<ISubscriber<ConnectInfo>>();
+            _disposableGroup.Add(sub.Subscribe(OnConnectInfo));
         }
 
-        private void OnConnectStatus(ConnectStatus status)
+        private void OnConnectInfo(ConnectInfo info)
         {
-            Debug.Log($"连接状态转为 {status}");
-            if (status == ConnectStatus.HostEndSession)
+            Debug.Log($"连接状态转为 {info}");
+            if (info.Status == ConnectStatus.HostEndSession)
             {
                 SceneLoader.Instance.LoadScene(SceneDefines.MainUI);
             }

@@ -78,5 +78,11 @@ namespace Gameplay.Core.Interactive
         {
             OnHandSelecting?.Invoke(num);
         }
+        
+        public override void OnNetworkDespawn()
+        {
+            _cardList = CancelableList<Card>.CreateCancel();
+            _isSelect = true;
+        }
     }
 }

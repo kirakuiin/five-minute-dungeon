@@ -32,6 +32,12 @@ namespace Data.Instruction.Nodes
         
         public override async Task<bool> Execute(ICmdContext context, TempContext tempContext)
         {
+            // 处理玩家掉线的特殊情况。
+            if (!context.GetAllClientIDs().Contains(tempContext.ClientID))
+            {
+                return false;
+            }
+            
             var player = context.GetPlayerController(tempContext.ClientID);
             playerList = target switch
             {
