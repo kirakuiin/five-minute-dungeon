@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using UnityEngine;
+
+namespace Common
 {
     /// <summary>
     /// 游戏设定。
@@ -6,6 +8,10 @@
     public static class GameConfig
     {
         public const int MaxPlayerNum = 5;
+
+        public const int ScreenWidth = 1920;
+        
+        public const int ScreenHeight = 1080;
     }
     
     /// <summary>

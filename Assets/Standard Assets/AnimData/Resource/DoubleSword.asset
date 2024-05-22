@@ -147,6 +147,6 @@ MonoBehaviour:
     keys: []
     values: []
   clipName: Laser
-  volume: 0.4
+  volume: 0.8
   isOnSource: 1
   isGlobal: 0

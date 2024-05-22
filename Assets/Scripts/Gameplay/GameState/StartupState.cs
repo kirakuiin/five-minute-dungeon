@@ -7,7 +7,10 @@ using GameLib.Network.NGO;
 using GameLib.Network.NGO.Channel;
 using GameLib.Network.NGO.ConnectionManagement;
 using Gameplay.Connection;
+using Save;
 using Unity.Netcode;
+using UnityEngine;
+using Screen = UnityEngine.Device.Screen;
 
 namespace Gameplay.GameState
 {
@@ -17,16 +20,17 @@ namespace Gameplay.GameState
 
         protected override void Enter()
         {
-            InitNetworkConfig();
+            InitBasicConfig();
             InitDataBase();
             InitPublisher();
             InitConnection();
             SceneLoader.Instance.LoadScene(SceneDefines.MainUI);
         }
 
-        private void InitNetworkConfig()
+        private void InitBasicConfig()
         {
             NetworkManager.Singleton.NetworkConfig.SpawnTimeout = 5.0f;
+            Screen.SetResolution(GameConfig.ScreenWidth, GameConfig.ScreenHeight, PlayerSetting.Instance.IsFullScreen);
         }
 
         private void InitDataBase()
