@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -236,7 +237,7 @@ namespace Data
         TheTriBread=19,
     }
 
-    public struct EnemyCard
+    public struct EnemyCard : INetworkSerializeByMemcpy
     {
         public EnemyCardType type;
 

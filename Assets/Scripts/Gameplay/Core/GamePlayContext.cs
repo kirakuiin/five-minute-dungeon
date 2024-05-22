@@ -55,7 +55,7 @@ namespace Gameplay.Core
 
         private void OnLoadEventCompleted(string sceneName, LoadSceneMode mode, List<ulong> clientID, List<ulong> timeouts)
         {
-            RegisterPlayerControllerEvent();
+            RegisterPlayerControllerEvent(PlayerCount);
         }
 
         private void OnNetConnectionEvent(NetworkManager mgr, ConnectionEventData data)
@@ -78,19 +78,19 @@ namespace Gameplay.Core
         {
             foreach (var clientID in GetAllClientIDs())
             {
-                if (_playerControllers.ContainsKey(clientID)) return;
+                if (_playerControllers.ContainsKey(clientID)) continue;
                 var obj = NetworkObject.InstantiateAndSpawn(playerControllerPrefab, NetworkManager, clientID);
                 obj.transform.SetParent(transform);
             }
         }
 
-        private void RegisterPlayerControllerEvent()
+        private void RegisterPlayerControllerEvent(int needCount)
         {
+            LocalSyncManager.Create();
             if (NetworkManager.IsClient)
             {
-                LocalSyncManager.Instance.AddSyncEvent(LocalSyncInitStage.InitPlayerController, PlayerCount, OnPlayerControllerInitDone);
-                LocalSyncManager.Instance.AddSyncEvent(LocalSyncInitStage.InitPile, PlayerCount, OnInitPileDone);
-                LocalSyncManager.Instance.AddSyncEvent(LocalSyncInitStage.InitHand, PlayerCount, OnInitHandDone);
+                LocalSyncManager.Instance.AddSyncEvent(LocalSyncInitStage.InitPlayerController, needCount, OnPlayerControllerInitDone);
+                LocalSyncManager.Instance.AddSyncEvent(LocalSyncInitStage.InitPile, needCount, OnInitPileDone);
             }
         }
 
@@ -114,11 +114,6 @@ namespace Gameplay.Core
         private void OnInitPileDone()
         {
             NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.InitPile);
-        }
-
-        private void OnInitHandDone()
-        {
-            NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.InitHand);
         }
         
         /// <summary>
@@ -200,32 +195,11 @@ namespace Gameplay.Core
             {
                 enumerator.MoveNext();
                 var controller = _playerControllers[NetworkManager.ConnectedClientsIds[i]];
-                controller.Init(enumerator.Current, data[i].PlayerClass, data[i].PlayerName);
+                if (enumerator.Current == null) continue;
+                var initDraw = enumerator.Current.ToList();
+                controller.Init(initDraw.Skip(InitHandNum), data[i].PlayerClass, data[i].PlayerName);
+                controller.SetFirstHand(initDraw.Take(InitHandNum));
             }
-        }
-
-        /// <summary>
-        /// 初始化手牌。
-        /// </summary>
-        public void InitHand()
-        {
-            foreach (var clientID in GetAllClientIDs())
-            {
-                var controller = GetPlayerController(clientID);
-                controller.Draw(InitHandNum);
-            }
-        }
-
-        /// <summary>
-        /// 重新初始化。
-        /// </summary>
-        public void ReInit(ulong clientID)
-        {
-            var controller = _playerControllers[clientID];
-            var data = SessionManager<PlayerSessionData>.Instance.GetPlayerData(clientID);
-            if (!data.HasValue) return;
-            controller.Init(data.Value.DrawData, data.Value.PlayerClass, data.Value.PlayerName);
-            controller.ResetHandAndDiscard(data.Value.HandData, data.Value.DiscardData);
         }
 
         public override void OnNetworkDespawn()
@@ -238,5 +212,32 @@ namespace Gameplay.Core
                 NetworkManager.Singleton.OnConnectionEvent -= OnNetConnectionEvent;
             }
         }
+
+        public void Reconnect()
+        {
+            GetTimeController().Stop();
+            RegisterReconnectEventRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void RegisterReconnectEventRpc()
+        {
+            RegisterPlayerControllerEvent(1);
+            NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.ReconnectEvent);
+        }
+        
+        /// <summary>
+        /// 重新初始化客户端。
+        /// </summary>
+        /// <param name="clientID"></param>
+        public void ReInit(ulong clientID)
+        {
+            var controller = _playerControllers[clientID];
+            var data = SessionManager<PlayerSessionData>.Instance.GetPlayerData(clientID);
+            if (!data.HasValue) return;
+            controller.Init(data.Value.DrawData, data.Value.PlayerClass, data.Value.PlayerName);
+            controller.SetHandAndDiscard(data.Value.HandData, data.Value.DiscardData);
+        }
+
     }
 }

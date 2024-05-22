@@ -117,6 +117,7 @@ namespace UI.Gameplay
 
         private IEnumerator InitUI()
         {
+            SetSectorIntervalByHandCount(RuntimeInfo.GetHands().Count);
             foreach (var card in RuntimeInfo.GetHands())
             {
                 layout.Add(CreateCardObj(card));

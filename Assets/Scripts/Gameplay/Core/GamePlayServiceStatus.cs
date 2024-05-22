@@ -11,6 +11,8 @@ namespace Gameplay.Core
     public class GamePlayServiceStatus : NetworkBehaviour
     {
         private PlayableChecker _checker;
+
+        private GameServiceStatus _status;
         
         /// <summary>
         /// 状态改变事件。
@@ -30,8 +32,15 @@ namespace Gameplay.Core
         /// <summary>
         /// 当前状态。
         /// </summary>
-        public GameServiceStatus CurrentStatus { private set; get; }
-        
+        public GameServiceStatus CurrentStatus => _status;
+
+        protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
+        {
+            serializer.SerializeValue(ref _status);
+            OnStateChanged?.Invoke(_status);
+            OnSkillStateChanged?.Invoke(NetworkManager.LocalClientId, SkillState.Done);
+        }
+
         /// <summary>
         /// 发布消息。(内部使用)
         /// </summary>
@@ -44,7 +53,7 @@ namespace Gameplay.Core
         [Rpc(SendTo.ClientsAndHost)]
         private void NotifyStatusClientRpc(GameServiceStatus status)
         {
-            CurrentStatus = status;
+            _status = status;
             OnStateChanged?.Invoke(status);
         }
         

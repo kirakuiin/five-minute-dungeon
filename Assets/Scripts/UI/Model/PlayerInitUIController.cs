@@ -50,11 +50,19 @@ namespace UI.Model
 
         private void InitListen()
         {
-            _info.GetHands().OnCardChanged += OnCardChanged;
+            _info.GetHands().OnCardChanged += OnHandCardChanged;
+            _info.GetDraws().OnCardChanged += OnDrawCardChanged;
         }
 
-        private void OnCardChanged(CardChangeEvent @event)
+        private void OnHandCardChanged(CardChangeEvent @event)
         {
+            RefreshHpBar();
+            RefreshModelAnim();
+        }
+        
+        private void OnDrawCardChanged(CardChangeEvent @event)
+        {
+            if (@event.type == CardChangeType.RemoveCard) return;
             RefreshHpBar();
             RefreshModelAnim();
         }

@@ -7,13 +7,12 @@
     {
         InitController,
         InitPile,
-        InitHand,
+        ReconnectEvent,
     }
 
     public enum LocalSyncInitStage
     {
         InitPlayerController,
         InitPile,
-        InitHand,
     }
 }

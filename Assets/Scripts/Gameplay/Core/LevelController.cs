@@ -5,6 +5,7 @@ using Data;
 using Data.Check;
 using Data.Instruction;
 using GameLib.Common.DataStructure;
+using GameLib.Common.Extension;
 using Unity.Netcode;
 
 namespace Gameplay.Core
@@ -30,7 +31,69 @@ namespace Gameplay.Core
         public int CurProgress => _curProgress.Value;
 
         public int TotalLevelNum => _totalLevelNum.Value;
+
+        protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
+        {
+            if (serializer.IsWriter)
+            {
+                var writer = serializer.GetFastBufferWriter();
+                WriteEnemyInfo(writer);
+                WriteResPool(writer);
+            }
+            else if (serializer.IsReader)
+            {
+                var reader = serializer.GetFastBufferReader();
+                ReadEnemyInfo(reader);
+                ReadResPool(reader);
+            }
+        }
         
+        private void WriteEnemyInfo(FastBufferWriter writer)
+        {
+            writer.WriteValueSafe(_enemyInfos.Count);
+            foreach (var pair in _enemyInfos)
+            {
+                writer.WriteValueSafe(pair.Key);
+                writer.WriteValueSafe(pair.Value);
+            }
+        }
+        
+        private void WriteResPool(FastBufferWriter writer)
+        {
+            writer.WriteValueSafe(_resPool.Count);
+            foreach (var pair in _resPool)
+            {
+                writer.WriteValueSafe(pair.Key);
+                writer.WriteValueSafe(pair.Value);
+            }
+        }
+
+        private void ReadEnemyInfo(FastBufferReader reader)
+        {
+            reader.ReadValueSafe(out int count);
+            Enumerable.Range(0, count).Apply(
+                _ =>
+                {
+                    reader.ReadValueSafe(out ulong key);
+                    reader.ReadValueSafe(out EnemyCard card);
+                    _enemyInfos[key] = card;
+                }
+            );
+        }
+
+        private void ReadResPool(FastBufferReader reader)
+        {
+            reader.ReadValueSafe(out int count);
+            Enumerable.Range(0, count).Apply(
+                _ =>
+                {
+                    reader.ReadValueSafe(out Resource key);
+                    reader.ReadValueSafe(out long num);
+                    _resPool[key] = num;
+                }
+            );
+        }
+
         public IEnumerable<Resource> GetCurNeedResources()
         {
             var tempList = new List<Resource>();

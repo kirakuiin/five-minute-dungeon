@@ -21,7 +21,6 @@ namespace Gameplay.Connection
         public override void Exit()
         {
             SessionManager<PlayerSessionData>.Instance.ClearAllData();
-            SceneLoader.Instance.LoadScene(SceneDefines.MainUI);
             base.Exit();
         }
 

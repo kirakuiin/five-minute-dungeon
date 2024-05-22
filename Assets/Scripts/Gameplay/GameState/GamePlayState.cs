@@ -57,8 +57,6 @@ namespace Gameplay.GameState
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitController));
             InitPile();
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitPile));
-            InitHand();
-            yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitHand));
             Sync.ResetAll();
             PublishState(GamePlayStateEnum.InitDone);
             StartPlay();
@@ -77,11 +75,6 @@ namespace Gameplay.GameState
         private void InitPile()
         {
             GamePlayContext.Instance.InitPile();
-        }
-
-        private void InitHand()
-        {
-            GamePlayContext.Instance.InitHand();
         }
         
         private void PublishState(GamePlayStateEnum state)
@@ -125,12 +118,25 @@ namespace Gameplay.GameState
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.PostGame);
         }
         
-        // 重连逻辑。
         private void OnSynchronizeComplete(ulong clientID)
         {
+            StartCoroutine(ReconnectCoroutine(clientID));
+        }
+
+        private IEnumerator ReconnectCoroutine(ulong clientID)
+        {
             PublishState(GamePlayStateEnum.NotStart);
+            
+            GamePlayContext.Instance.Reconnect();
+            yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.ReconnectEvent));
+            GamePlayContext.Instance.InitPlayerController();
+            yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitController));
+            GamePlayContext.Instance.ReInit(clientID);
+            yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitPile));
+            
             PublishState(GamePlayStateEnum.InitDone);
             PublishState(GamePlayStateEnum.Running);
+            Sync.ResetAll();
         }
     }
 }

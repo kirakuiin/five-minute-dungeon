@@ -22,10 +22,44 @@ namespace Gameplay.Core
         private readonly HandsData _hands = new();
         private readonly DrawsData _draws = new();
         private readonly DiscardsData _discards = new();
-        
-        public int PlayCardNum { private set; get; }
+
+        public int PlayCardNum { private set; get; } = 0;
+
+        public Class PlayerClass { private set; get; } = Class.Wizard;
+
+        public string PlayerName { private set; get; } = "";
 
         public bool IsHaveCards => _hands.Count + _draws.Count > 0;
+
+        protected override void OnSynchronize<T>(ref BufferSerializer<T> serializer)
+        {
+            if (serializer.IsWriter)
+            {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(_hands);
+                writer.WriteValueSafe(_draws);
+                writer.WriteValueSafe(_discards);
+                writer.WriteValueSafe(PlayerClass);
+                writer.WriteValueSafe(PlayerName);
+                writer.WriteValueSafe(PlayCardNum);
+            }
+            else
+            {
+                var reader = serializer.GetFastBufferReader();
+                reader.ReadValueSafe(out HandsData hands);
+                _hands.AddCard(hands);
+                reader.ReadValueSafe(out HandsData draws);
+                _draws.AddCard(draws);
+                reader.ReadValueSafe(out HandsData discards);
+                _discards.AddCard(discards);
+                reader.ReadValueSafe(out Class playerClass);
+                reader.ReadValueSafe(out string playerName);
+                reader.ReadValueSafe(out int playedNum);
+                PlayerClass = playerClass;
+                PlayerName = playerName;
+                PlayCardNum = playedNum;
+            }
+        }
 
         private void OnTransformParentChanged()
         {
@@ -35,22 +69,38 @@ namespace Gameplay.Core
         public ulong ClientID => OwnerClientId;
 
         public IReadOnlyList<Card> HandCards => _hands.ToList();
-
-        public Class PlayerClass { private set; get; }
         
-        public string PlayerName { private set; get; }
+        /// <summary>
+        /// 设置手牌和弃牌区。
+        /// </summary>
+        /// <param name="hands"></param>
+        /// <param name="discards"></param>
+        public void SetHandAndDiscard(IEnumerable<Card> hands, IEnumerable<Card> discards)
+        {
+            var discardList = discards.ToList();
+            SetFirstHand(hands.Concat(discardList));
+            Discard(discardList);
+        }
+        
+        /// <summary>
+        /// 设置初始手牌。
+        /// </summary>
+        public void SetFirstHand(IEnumerable<Card> cards)
+        {
+            SetFirstHandRpc(cards.ToArray());
+        }
 
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SetFirstHandRpc(Card[] cards)
+        {
+            _hands.AddCard(cards.ToList());
+            LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPile);
+        }
+        
         public void Init(IEnumerable<Card> cards, Class type, string playerName)
         {
             AddDraw(cards);
             InitClientRpc(type, playerName);
-        }
-
-        public void ResetHandAndDiscard(IEnumerable<Card> hands, IEnumerable<Card> discards)
-        {
-            var discardList = discards.ToList();
-            AddHand(hands.Concat(discardList));
-            Discard(discardList);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
@@ -58,7 +108,6 @@ namespace Gameplay.Core
         {
             PlayerClass = type;
             PlayerName = playerName;
-            LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitPile);
         }
 
         public void Play(Card card)
@@ -77,15 +126,11 @@ namespace Gameplay.Core
         {
             DrawClientRpc(num);
         }
-
+        
         [Rpc(SendTo.ClientsAndHost)]
         private void DrawClientRpc(int num)
         {
             _hands.AddCard(_draws.RemoveCard(num));
-            if (!LocalSyncManager.Instance.HasBeenSyncDone(LocalSyncInitStage.InitHand))
-            {
-                LocalSyncManager.Instance.SyncDone(LocalSyncInitStage.InitHand);
-            }
         }
 
         public void Discard(IEnumerable<Card> cards)
@@ -229,7 +274,7 @@ namespace Gameplay.Core
         {
             if (!IsServer) return;
             var manager = SessionManager<PlayerSessionData>.Instance;
-            var data = manager.GetPlayerData(NetworkManager.LocalClientId);
+            var data = manager.GetPlayerData(OwnerClientId);
             if (data.HasValue)
             {
                 var newData = data.Value;
