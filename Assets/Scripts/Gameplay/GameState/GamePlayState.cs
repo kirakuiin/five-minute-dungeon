@@ -41,6 +41,7 @@ namespace Gameplay.GameState
             if (NetworkManager.Singleton.IsServer)
             {
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted; 
+                NetworkManager.Singleton.SceneManager.OnSynchronizeComplete += OnSynchronizeComplete; 
             }
         }
 
@@ -52,14 +53,14 @@ namespace Gameplay.GameState
         private IEnumerator InitServer()
         {
             InitContext();
-            yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitContext));
             InitController();
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitController));
             InitPile();
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitPile));
             InitHand();
             yield return new WaitUntil(() => NetworkManager.Singleton.IsListening && Sync.HasBeenSyncDone(GamePlayInitStage.InitHand));
-            PublishDone();
+            Sync.ResetAll();
+            PublishState(GamePlayStateEnum.InitDone);
             StartPlay();
         }
 
@@ -82,18 +83,17 @@ namespace Gameplay.GameState
         {
             GamePlayContext.Instance.InitHand();
         }
-
-        private void PublishDone()
+        
+        private void PublishState(GamePlayStateEnum state)
         {
-            current = GamePlayStateMsg.Create(GamePlayStateEnum.InitDone);
+            current = GamePlayStateMsg.Create(state);
             GameplayState.Publish(current);
         }
 
         private void StartPlay()
         {
             service.StartService();
-            current = GamePlayStateMsg.Create(GamePlayStateEnum.Running);
-            GameplayState.Publish(current);
+            PublishState(GamePlayStateEnum.Running);
         }
 
         protected override void Enter()
@@ -112,6 +112,7 @@ namespace Gameplay.GameState
             if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsListening)
             {
                 NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnLoadEventCompleted;
+                NetworkManager.Singleton.SceneManager.OnSynchronizeComplete -= OnSynchronizeComplete;
             }
         }
         
@@ -120,9 +121,16 @@ namespace Gameplay.GameState
         /// </summary>
         public void GoToPostGame()
         {
-            current = GamePlayStateMsg.Create(GamePlayStateEnum.End);
-            GameplayState.Publish(current);
+            PublishState(GamePlayStateEnum.End);
             SceneLoader.Instance.LoadSceneByNet(SceneDefines.PostGame);
+        }
+        
+        // 重连逻辑。
+        private void OnSynchronizeComplete(ulong clientID)
+        {
+            PublishState(GamePlayStateEnum.NotStart);
+            PublishState(GamePlayStateEnum.InitDone);
+            PublishState(GamePlayStateEnum.Running);
         }
     }
 }

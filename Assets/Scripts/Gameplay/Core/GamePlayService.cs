@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
-using Data.Animation;
 using GameLib.Common;
 using GameLib.Network.NGO;
 using Gameplay.Core.State;
@@ -46,11 +45,6 @@ namespace Gameplay.Core
             status.Init();
         }
         
-        /// <summary>
-        /// 表现上下文。
-        /// </summary>
-        public IBehaveController BehaveController { private set; get; }
-
         /// <summary>
         /// 启动服务。
         /// </summary>

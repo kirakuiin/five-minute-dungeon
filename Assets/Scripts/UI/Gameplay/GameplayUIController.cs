@@ -41,6 +41,8 @@ namespace UI.Gameplay
         private IPlayerRuntimeInfo RuntimeInfo => GamePlayContext.Instance.GetPlayerRuntimeInfo();
 
         private readonly DisposableGroup _disposable = new();
+
+        private bool _alreadyInit;
         
         private void Start()
         {
@@ -66,7 +68,13 @@ namespace UI.Gameplay
             if (msg.state == GamePlayStateEnum.InitDone)
             {
                 LockScreenManager.Instance.Unlock();
+                if (_alreadyInit) return;
                 InitUI();
+                _alreadyInit = true;
+            }
+            else if (msg.state == GamePlayStateEnum.NotStart)
+            {
+                LockUI();
             }
         }
 

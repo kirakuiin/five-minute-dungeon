@@ -5,7 +5,6 @@
     /// </summary>
     public enum GamePlayInitStage
     {
-        InitContext,
         InitController,
         InitPile,
         InitHand,

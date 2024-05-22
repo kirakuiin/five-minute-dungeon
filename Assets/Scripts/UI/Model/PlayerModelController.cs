@@ -46,7 +46,7 @@ namespace UI.Model
 
         private void InitListen()
         {
-            NetworkManager.Singleton.OnConnectionEvent += OnConnectionEvent;
+            GamePlayContext.Instance.OnConnectionEvent += OnConnectionEvent;
             _disposableGroup.Add(state.GameplayState.Subscribe(OnStateChanged));
             GamePlayContext.Instance.GetTimeRuntimeInfo().OnTimeIsFlow += OnTimeIsFlow;
         }
@@ -57,12 +57,12 @@ namespace UI.Model
                 model => model.SetPlay(isFlow));
         }
 
-        private void OnConnectionEvent(NetworkManager manager, ConnectionEventData data)
+        private void OnConnectionEvent(ConnectionEvent type, ulong clientID)
         {
-            if (data.EventType == ConnectionEvent.ClientDisconnected && _models.ContainsKey(data.ClientId))
+            if (type == ConnectionEvent.ClientDisconnected && _models.ContainsKey(clientID))
             {
-                Destroy(_models[data.ClientId]);
-                _models.Remove(data.ClientId);
+                Destroy(_models[clientID]);
+                _models.Remove(clientID);
             }
         }
         
@@ -76,6 +76,7 @@ namespace UI.Model
 
         private void Init()
         {
+            Clear();
             foreach (var clientID in GamePlayContext.Instance.GetAllClientIDs())
             {
                 var obj = CreateClassModel(clientID);
@@ -84,6 +85,13 @@ namespace UI.Model
                 obj.transform.localRotation = Quaternion.identity;
                 _curPosIdx += 1;
             }
+        }
+
+        private void Clear()
+        {
+            _models.Values.Apply(Destroy);
+            _models.Clear();
+            _curPosIdx = 0;
         }
         
         private GameObject CreateClassModel(ulong clientID)

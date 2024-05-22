@@ -4,7 +4,9 @@ using Data;
 using Data.Check;
 using Data.Instruction;
 using GameLib.Common;
+using GameLib.Network.NGO;
 using Gameplay.Core.Interactive;
+using Gameplay.Data;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
@@ -42,6 +44,13 @@ namespace Gameplay.Core
         {
             AddDraw(cards);
             InitClientRpc(type, playerName);
+        }
+
+        public void ResetHandAndDiscard(IEnumerable<Card> hands, IEnumerable<Card> discards)
+        {
+            var discardList = discards.ToList();
+            AddHand(hands.Concat(discardList));
+            Discard(discardList);
         }
 
         [Rpc(SendTo.ClientsAndHost)]
@@ -214,6 +223,21 @@ namespace Gameplay.Core
         public IRuntimeInteractive GetRuntimeInteractive()
         {
             return GetComponent<IRuntimeInteractive>();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (!IsServer) return;
+            var manager = SessionManager<PlayerSessionData>.Instance;
+            var data = manager.GetPlayerData(NetworkManager.LocalClientId);
+            if (data.HasValue)
+            {
+                var newData = data.Value;
+                newData.DrawData = new List<Card>(_draws);
+                newData.DiscardData = new List<Card>(_discards);
+                newData.HandData = new List<Card>(_hands);
+                manager.UpdatePlayerData(newData.ClientID, newData);
+            }
         }
     }
 }

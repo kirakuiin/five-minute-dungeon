@@ -81,6 +81,7 @@ namespace UI.Model
         
         private void Init()
         {
+            if (_models.Keys.Count > 0) return;
             foreach (var (enemyID, enemyCard) in LevelInfo.GetAllEnemiesInfo())
             {
                 SetMonsterModel(enemyID, enemyCard);

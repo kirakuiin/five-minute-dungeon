@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Data;
 using Data.Animation;
@@ -23,6 +24,8 @@ namespace Gameplay.Core
         
         private readonly Dictionary<ulong, PlayerController> _playerControllers = new();
 
+        public event Action<ConnectionEvent, ulong> OnConnectionEvent;
+
         /// <summary>
         /// 初始化关卡。
         /// </summary>
@@ -37,6 +40,7 @@ namespace Gameplay.Core
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
             if (NetworkManager.IsServer)
             {
+                NetworkManager.Singleton.OnConnectionEvent += OnNetConnectionEvent;
                 NetworkManager.Singleton.SceneManager.OnUnload += OnUnload;
             }
         }
@@ -52,13 +56,29 @@ namespace Gameplay.Core
         private void OnLoadEventCompleted(string sceneName, LoadSceneMode mode, List<ulong> clientID, List<ulong> timeouts)
         {
             RegisterPlayerControllerEvent();
-            NetworkSyncManager.Instance.AddSyncEvent(GamePlayInitStage.InitContext);
+        }
+
+        private void OnNetConnectionEvent(NetworkManager mgr, ConnectionEventData data)
+        {
+            if (data.ClientId == NetworkManager.ServerClientId) return;
+            if (data.EventType == ConnectionEvent.ClientDisconnected&& _playerControllers.ContainsKey(data.ClientId))
+            {
+                _playerControllers.Remove(data.ClientId);
+            }
+            NetEventRpc(data.EventType, data.ClientId);
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void NetEventRpc(ConnectionEvent type, ulong clientID)
+        {
+            OnConnectionEvent?.Invoke(type, clientID);
         }
 
         public void InitPlayerController()
         {
             foreach (var clientID in GetAllClientIDs())
             {
+                if (_playerControllers.ContainsKey(clientID)) return;
                 var obj = NetworkObject.InstantiateAndSpawn(playerControllerPrefab, NetworkManager, clientID);
                 obj.transform.SetParent(transform);
             }
@@ -196,6 +216,18 @@ namespace Gameplay.Core
             }
         }
 
+        /// <summary>
+        /// 重新初始化。
+        /// </summary>
+        public void ReInit(ulong clientID)
+        {
+            var controller = _playerControllers[clientID];
+            var data = SessionManager<PlayerSessionData>.Instance.GetPlayerData(clientID);
+            if (!data.HasValue) return;
+            controller.Init(data.Value.DrawData, data.Value.PlayerClass, data.Value.PlayerName);
+            controller.ResetHandAndDiscard(data.Value.HandData, data.Value.DiscardData);
+        }
+
         public override void OnNetworkDespawn()
         {
             if (!NetworkManager) return;
@@ -203,6 +235,7 @@ namespace Gameplay.Core
             if (NetworkManager.IsServer)
             {
                 NetworkManager.Singleton.SceneManager.OnUnload -= OnUnload;
+                NetworkManager.Singleton.OnConnectionEvent -= OnNetConnectionEvent;
             }
         }
     }
